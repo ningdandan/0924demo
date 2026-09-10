@@ -1,0 +1,300 @@
+{
+  "hero": {
+    "welcomeHeading": "Welcome back, Marcus.",
+    "welcomeSubtext": "You're a Gold Medallion member with an open baggage case from your ATL–BOS connection — we're on it.",
+    "userName": "Marcus T."
+  },
+  "searchHero": {
+    "greetingPrefix": "Good morning, ",
+    "subtext": "Your Gold Medallion status is active and your baggage claim case is in progress with the Northeast Hub team.",
+    "userName": "Marcus"
+  },
+  "searchBar": {
+    "demoTypingText": "My bag didn't arrive on my connecting flight and the handle is damaged — what do I do?",
+    "fakeUploadName": "Baggage_Claim_DL1842_May2026.pdf",
+    "suggestions": [
+      "How do I check the status of my delayed baggage claim?",
+      "Am I eligible for a refund if my flight was cancelled by Delta?",
+      "When will my MQDs post to my SkyMiles account?"
+    ],
+    "allSuggestions": [
+      "How do I check the status of my delayed baggage claim?",
+      "Am I eligible for a refund if my flight was cancelled by Delta?",
+      "When will my MQDs post to my SkyMiles account?",
+      "My flight was cancelled — what are my rebooking options?",
+      "How do I use an eCredit toward a new booking?",
+      "Why am I not showing on the First Class upgrade list?",
+      "How long does Delta take to process a refund?",
+      "What is the baggage reimbursement limit for damaged luggage?",
+      "How do I reach the Gold Medallion dedicated support line?",
+      "What counts toward Medallion Qualification Dollars this year?",
+      "Can I request a seat change after check-in?"
+    ]
+  },
+  "searchBarDropdown": {
+    "demoTypingText": "What is the status of my damaged baggage claim from flight DL1842?",
+    "quickAnswers": [
+      {
+        "question": "How long does Delta take to resolve a baggage claim?",
+        "answer": "Delta targets a 21-day resolution window for delayed and damaged baggage claims."
+      },
+      {
+        "question": "When am I eligible for a refund instead of an eCredit?",
+        "answer": "You are eligible for a refund when Delta cancels your flight or delays it more than 120 minutes."
+      }
+    ],
+    "relatedObjects": [
+      {
+        "type": "Case",
+        "title": "Baggage Claim — DL1842 ATL→BOS",
+        "subtitle": "In Progress · Priority: High",
+        "details": "Damaged baggage case opened after Gold Medallion member's checked bag missed connecting flight from Atlanta to Boston. Handle reported broken on arrival. Routed to Baggage Resolution Team — Northeast Hub with a 24-hour first-response SLA."
+      },
+      {
+        "type": "Flight",
+        "title": "DL1842 — Atlanta to Boston",
+        "subtitle": "Operated today · Connection disrupted",
+        "details": "Flight DL1842 operated as scheduled but passenger's checked bag did not transfer to the rebooked connection following a weather-related cancellation. Bag was subsequently located at ATL and is pending shipment to the customer's home address."
+      },
+      {
+        "type": "SkyMiles Account",
+        "title": "Marcus T. — Gold Medallion",
+        "subtitle": "Active · Corporate ticket designator on file",
+        "details": "Gold Medallion member traveling on a corporate ticket under an active Corporate Sales Agreement. Eligible for priority customer service and Medallion Complimentary Upgrade consideration. MQD balance current for the program year."
+      },
+      {
+        "type": "eCredit",
+        "title": "eCredit — Weather Disruption May 2026",
+        "subtitle": "Issued · Valid through May 2027",
+        "details": "eCredit issued for the unflown portion of the original itinerary following the weather-related cancellation. Customer may alternatively request a full refund to the original form of payment given that the delay exceeded 120 minutes."
+      }
+    ]
+  },
+  "categories": [
+    {
+      "label": "Baggage & Delayed Bags",
+      "menuItems": [
+        "Check status of my delayed baggage claim",
+        "File a new damaged baggage report",
+        "Request bag delivery to my home address",
+        "Escalate an unresolved baggage case"
+      ]
+    },
+    {
+      "label": "Refunds & eCredits",
+      "menuItems": [
+        "Request a refund for a Delta-cancelled flight",
+        "Apply an eCredit to a new booking",
+        "Check my eCredit balance and expiration",
+        "Convert an eCredit to a cash refund"
+      ]
+    },
+    {
+      "label": "SkyMiles & Status",
+      "menuItems": [
+        "Check when my MQDs will post",
+        "Understand my upgrade eligibility",
+        "Review my Medallion status progress",
+        "Find the Gold Medallion support line"
+      ]
+    },
+    {
+      "label": "Recommended for you",
+      "menuItems": [
+        "How do I check the status of my delayed baggage claim?",
+        "Am I eligible for a refund after a Delta cancellation?",
+        "When will my MQDs post to my SkyMiles account?",
+        "How do I use an eCredit toward a new booking?"
+      ]
+    }
+  ],
+  "sidebar": {
+    "userRole": "Gold Medallion Member",
+    "searchPlaceholder": "Quick lookup…",
+    "actionsHeading": "Actions",
+    "conversationsHeading": "Recent Conversations",
+    "actions": [
+      {
+        "label": "Track baggage claim"
+      },
+      {
+        "label": "Request refund"
+      },
+      {
+        "label": "Apply eCredit"
+      },
+      {
+        "label": "Check MQD balance"
+      }
+    ],
+    "portalTitle": "Marcus's Portal",
+    "conversations": [
+      {
+        "title": "Damaged bag claim — DL1842 ATL→BOS",
+        "time": "Today, 8:47 AM"
+      },
+      {
+        "title": "Rebooking options after weather cancellation",
+        "time": "Today, 7:30 AM"
+      },
+      {
+        "title": "eCredit balance and expiration date",
+        "time": "Yesterday, 4:15 PM"
+      },
+      {
+        "title": "Gold Medallion upgrade eligibility question",
+        "time": "May 19, 11:02 AM"
+      },
+      {
+        "title": "MQDs not posted after last three flights",
+        "time": "May 17, 9:45 AM"
+      }
+    ],
+    "zeroState": [
+      {
+        "group": "Flights",
+        "items": [
+          {
+            "text": "DL1842 — ATL → BOS",
+            "sub": "Operated today · Bag did not transfer"
+          },
+          {
+            "text": "DL408 — LAX → ATL",
+            "sub": "Completed May 18 · MQDs pending"
+          },
+          {
+            "text": "DL204 — BOS → JFK",
+            "sub": "Upcoming May 23 · Seat assigned"
+          }
+        ]
+      },
+      {
+        "group": "Cases",
+        "items": [
+          {
+            "text": "Baggage Claim — DL1842",
+            "sub": "In Progress · Northeast Hub team"
+          },
+          {
+            "text": "eCredit Dispute — Apr 2026",
+            "sub": "Resolved · Reinstated"
+          }
+        ]
+      },
+      {
+        "group": "SkyMiles & Status",
+        "items": [
+          {
+            "text": "Gold Medallion Status",
+            "sub": "Active · MQD balance on track for Platinum"
+          },
+          {
+            "text": "SkyMiles Account #SKY-447821",
+            "sub": "Corporate CSA ticket designator on file"
+          }
+        ]
+      },
+      {
+        "group": "eCredits",
+        "items": [
+          {
+            "text": "eCredit — Weather Disruption May 2026",
+            "sub": "Valid through May 2027 · Available to apply"
+          }
+        ]
+      }
+    ]
+  },
+  "chat": {
+    "promptSuggestions": [
+      {
+        "label": "Baggage Claim — DL1842 ATL→BOS",
+        "sub": "Case · In Progress — Northeast Hub"
+      },
+      {
+        "label": "DL1842 — Atlanta to Boston",
+        "sub": "Flight · Operated today, bag did not transfer"
+      },
+      {
+        "label": "Gold Medallion Status",
+        "sub": "SkyMiles Account · Corporate CSA on file"
+      },
+      {
+        "label": "eCredit — Weather Disruption May 2026",
+        "sub": "eCredit · Valid through May 2027"
+      },
+      {
+        "label": "MQD Balance — Platinum Track",
+        "sub": "SkyMiles Account · MQDs pending from recent flights"
+      }
+    ]
+  },
+  "chatScript": {
+    "messages": [
+      {
+        "id": "1",
+        "role": "user",
+        "content": "My bag didn't arrive on my Atlanta to Boston flight and the handle is broken. I already got rebooked after the cancellation but no one told me about my bag.",
+        "citations": []
+      },
+      {
+        "id": "2",
+        "role": "agent",
+        "content": "I'm sorry to hear that, Marcus. I can see you're a Gold Medallion member and your flight DL1842 from Atlanta to Boston operated today. Here's what I've found and what happens next:\n\nBecause your original flight was cancelled due to weather and you were rebooked, your checked bag may not have transferred to the new connection in time. Delta's baggage team can locate and ship the bag to your home address once it is found at ATL.\n\nFor the damaged handle, you have the right to file a damaged baggage claim and request reimbursement for repair or replacement costs within Delta's published policy limits. I've pre-filled a claim using your flight details and SkyMiles account — please confirm the information below and I'll submit it to the Baggage Resolution Team right away. You'll receive a case number and a confirmation email, and the team targets a 21-day resolution window.",
+        "citations": [],
+        "card": "Baggage Claim — DL1842 ATL→BOS | Status: Ready to Submit | Priority: High (Gold Medallion) | Team: Baggage Resolution — Northeast Hub"
+      },
+      {
+        "id": "5",
+        "role": "user",
+        "content": "Yes, please submit it. Also, since the original flight was cancelled, am I able to get a refund instead of the eCredit that was issued?",
+        "citations": []
+      },
+      {
+        "id": "6",
+        "role": "agent",
+        "content": "Your baggage claim has been submitted. Your case number is CAS-2026-84471 and you'll receive a confirmation email shortly.\n\nRegarding your refund question: yes, you are eligible. When Delta cancels a flight or the delay exceeds 120 minutes, you can choose to cancel your ticket and receive a refund to your original form of payment instead of an eCredit. Because your flight was cancelled by Delta, this qualifies under that policy.\n\nI can initiate the refund request now and cancel the eCredit that was issued, or you can keep the eCredit if you prefer — it's valid for future travel. Which would you like to do?",
+        "citations": [],
+        "card": "Refund Eligibility: Confirmed | Reason: Delta-initiated cancellation | Option A: Refund to original payment | Option B: Retain eCredit (valid through May 2027)"
+      },
+      {
+        "id": "7",
+        "role": "agent",
+        "content": "To recap what we've done today: your damaged baggage claim (CAS-2026-84471) has been routed to the Northeast Hub team with high priority given your Gold Medallion status, and you'll hear back within 24 hours. Your refund eligibility has been confirmed — just let me know when you're ready to proceed. Is there anything else I can help you with before we wrap up?",
+        "citations": [],
+        "card": "Session Summary | Baggage Claim: Submitted — CAS-2026-84471 | Refund: Eligible, awaiting your confirmation | Next step: Baggage team will contact you within 24 hours"
+      }
+    ]
+  },
+  "articles": {
+    "learning": [
+      {
+        "title": "Delta Baggage Claims: How to Report, Track, and Get Reimbursed",
+        "subtitle": "A step-by-step guide to filing a delayed or damaged baggage claim with Delta Air Lines.",
+        "category": "Baggage",
+        "lastUpdated": "May 1, 2026",
+        "image": "image-1",
+        "summary": "When a checked bag is lost, delayed, or damaged on a Delta flight, customers have the right to file a claim and request reimbursement for expenses incurred. This article walks through the claim submission process, what documentation to gather, and what to expect during the 21-day resolution window. Special rules apply to mobility devices under the Air Carrier Access Act.",
+        "content": "Traveling with checked baggage carries a small but real risk of delays, damage, or loss. Delta Air Lines has a published process for handling all three scenarios, and understanding it can significantly reduce the stress of an already frustrating situation.\n\nStep 1 — Report the Issue Immediately\nIf your bag does not arrive at the baggage carousel, go directly to the Delta baggage service office in the arrivals area before leaving the airport. An agent will create a Property Irregularity Report (PIR) and assign your claim a file reference number. If you notice damage to your bag after leaving the airport, you can still file a claim, but doing so promptly strengthens your case.\n\nStep 2 — Submit Your Claim Online\nOnce you have your PIR reference number, you can submit or update your claim through the Delta self-service portal. You will need your file reference number, contact details, a description of the bag and its contents, and receipts or estimates for any out-of-pocket expenses you incurred as a result of the delay or damage. Uploading documentation at this stage speeds up the resolution process.\n\nStep 3 — What Happens Next\nDelta's baggage resolution team targets a 21-day window to resolve claims. For delayed bags, the team will attempt to locate the bag and arrange delivery to your home or hotel address. You will receive automated status update notifications as the case progresses. For damaged bags, an agent will review your documentation and determine reimbursement eligibility based on Delta's published policy limits.\n\nMobility Device Special Rules\nIf the damaged item is a mobility device — such as a wheelchair or scooter — Delta is required under the Air Carrier Access Act to return it in the condition received. If the device is damaged, Delta must provide a comparable loaner and cover repair or replacement costs up to the device's original purchase price. These cases are escalated to a dedicated accessibility queue and handled with a tighter response SLA.\n\nMedallion Member Priority\nGold, Platinum, and Diamond Medallion members have their baggage cases automatically elevated in priority, with a 24-hour first-response SLA applied via assignment rules. If you are a Medallion member, make sure your SkyMiles number is associated with your claim so the system can apply the correct priority tier.\n\nTips for a Faster Resolution\nKeep all receipts for essential items you purchased because your bag was delayed (clothing, toiletries, medication). Take photos of any damage before leaving the airport. Note your bag's tag number from your boarding pass or bag tag receipt. The more documentation you provide upfront, the faster the reimbursement workflow can be completed."
+      },
+      {
+        "title": "Flight Cancellations and Delays: Your Refund and Rebooking Rights",
+        "subtitle": "Understand when you qualify for a full refund versus an eCredit after a Delta flight disruption.",
+        "category": "Refunds & Rebooking",
+        "lastUpdated": "May 5, 2026",
+        "image": "image-2",
+        "summary": "When Delta cancels a flight or delays it by more than 120 minutes, passengers are entitled to choose between a full refund to their original form of payment or an eCredit for future travel. This article explains the eligibility thresholds, how to request each option, and what to do if your travel was disrupted by a large-scale event such as a technology outage or severe weather.",
+        "content": "Flight disruptions are among the most stressful travel experiences, and knowing your rights before you need them makes a significant difference. Delta Air Lines has clear commitments around rebooking and refunds that apply whenever a flight is significantly delayed or cancelled.\n\nThe 120-Minute Rule\nThe key threshold for refund eligibility is 120 minutes. If your Delta flight is cancelled by the airline, or if it is delayed by more than 120 minutes from its scheduled departure, you are eligible to cancel your ticket and receive a refund to your original form of payment rather than an eCredit. This applies to both refundable and non-refundable tickets when the disruption is Delta-initiated.\n\nRebooking at No Additional Cost\nWhen a flight is significantly delayed, cancelled, or you have misconnected, Delta's commitment is to rebook you on the next available Delta flight at no additional charge. This rebooking is often handled automatically, and you may receive a notification via the Fly Delta app or email before you even reach the gate. If the automatic rebooking does not work for your schedule, you can request an alternative flight through the app, the website, or by calling Delta's support line.\n\nChoosing Between a Refund and an eCredit\nIf you decide not to travel on the rebooked flight, you have two options. You can accept an eCredit for the unflown portion of your trip, which can be applied to a future Delta booking. Alternatively, you can request a full refund to your original form of payment. eCredits are convenient if you plan to rebook soon, but a refund is the better choice if your travel plans are uncertain. Once you accept an eCredit, converting it to a cash refund may require additional steps.\n\nLarge-Scale Disruption Events\nDuring major disruptions — such as the July 2024 technology outage caused by the CrowdStrike incident — Delta activates a travel waiver policy that gives affected customers additional flexibility to rebook or cancel without fees. Watch for waiver notifications in the Fly Delta app or on delta.com during these events, as they often expand your options beyond the standard policy.\n\nThe 24-Hour Cancellation Rule\nSeparately from disruption-related refunds, Delta refunds the full value of any ticket cancelled within 24 hours of purchase, regardless of fare class. This applies to tickets purchased at least seven days before the scheduled departure date and is a useful safety net if your plans change shortly after booking.\n\nHow to Request Your Refund\nRefund requests can be submitted through the My Trips section of delta.com or the Fly Delta app. If you are having difficulty, a case can be opened through the support portal and routed to the Refunds team. Medallion members receive prioritized handling. Delta commits to acknowledging written complaints within 30 days and providing a substantive response within 60 days, but refund processing for eligible tickets is typically faster."
+      },
+      {
+        "title": "Understanding SkyMiles Medallion Status: MQDs, Tiers, and Upgrade Priority",
+        "subtitle": "How Delta's Medallion program works in 2024 and beyond — earning status, MQD posting timelines, and upgrade windows.",
+        "category": "SkyMiles & Loyalty",
+        "lastUpdated": "May 10, 2026",
+        "image": "image-3",
+        "summary": "Delta's 2024 Medallion program overhaul replaced MQMs and MQSs with a single Medallion Qualification Dollar metric, making status earning simpler but also creating new questions about MQD posting timelines and credit card earning. This article explains the four Medallion tiers, how MQDs are earned and when they post, and how upgrade priority works for each tier.",
+        "content": "Delta's SkyMiles Medallion program rewards frequent flyers with four tiers of elite status — Silver, Gold, Platinum, and Diamond — plus an invite-only Delta 360 level. A major restructuring that took effect in 2024 simplified how status is earned, but also introduced new questions that generate significant support volume. Here is what every Medallion member needs to know.\n\nThe New MQD-Only Structure\nPrior to 2024, Medallion status required meeting thresholds across multiple metrics including Medallion Qualification Miles (MQMs) and Medallion Qualification Segments (MQSs). Beginning in 2024, Delta abolished both in favor of a single metric: Medallion Qualification Dollars (MQDs). MQDs represent the dollar value of eligible flying and qualifying spend, making the path to status more straightforward to track.\n\nNew Ways to Earn MQDs\nIn addition to earning MQDs from Delta-marketed flights, members can now earn MQDs through spending on co-branded SkyMiles American Express credit cards. This change means that even members who do not fly as frequently can build toward Medallion status through everyday spending, and corporate travelers whose employers cover airfare can supplement their MQD balance through personal card spend.\n\nMQD Posting Timelines\nOne of the most common support questions after the 2024 restructuring is: where are my MQDs? Miles and MQDs can take up to 6 to 8 weeks after the completion of a Delta-marketed flight to be deposited in a SkyMiles account. This delay is normal and does not indicate a problem with your account. If your MQDs have not posted after 8 weeks, contact Delta support with your flight confirmation number and ticket number so the team can investigate.\n\nThe Four Medallion Tiers\nSilver Medallion is the entry tier, offering benefits such as priority boarding and complimentary upgrades on a space-available basis. Gold Medallion adds enhanced upgrade priority and access to a dedicated support line. Platinum Medallion members receive top-priority customer service and begin clearing First Class upgrades 120 hours (5 days) before departure. Diamond Medallion, the highest published tier, offers the most comprehensive benefits including the earliest upgrade windows and the highest priority across all service channels.\n\nUpgrade Priority and Timing Windows\nFor First Class upgrades, the clearing window depends on your Medallion tier. Diamond and Platinum Medallion members begin clearing 120 hours (5 days) before departure. Gold Medallion members begin clearing 72 hours (3 days) before departure. Silver Medallion members begin clearing 24 hours (1 day) before departure. All upgrades are subject to availability, and corporate ticket designators can affect upgrade priority when similarly situated customers are competing for the same seat.\n\nCorporate Travelers and Medallion Benefits\nMembers traveling on a ticket that includes their employer's eligible Corporate Ticket Designator — under an active Corporate Sales Agreement or Midmarket Sales Agreement with Delta — receive priority over similarly situated customers not traveling on corporate designators when standing by for a Medallion Complimentary Upgrade. If you believe your corporate designator is not being applied correctly, contact Delta's corporate support channel or open a case through the support portal with your ticket details."
+      }
+    ]
+  }
+}

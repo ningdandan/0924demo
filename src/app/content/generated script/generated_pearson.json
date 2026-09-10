@@ -1,0 +1,351 @@
+{
+  "hero": {
+    "welcomeHeading": "Welcome back, Professor Carter.",
+    "welcomeSubtext": "Your Intro to Biology course shows strong engagement this week — 12 papers submitted since last login.",
+    "userName": "Jinal Shah"
+  },
+  "searchHero": {
+    "greetingPrefix": "Good afternoon, ",
+    "subtext": "Your Advanced Chemistry class has 8 new assessment submissions. 4 students are trending above expectations.",
+    "userName": "Dr. Martinez"
+  },
+  "searchBar": {
+    "demoTypingText": "How can I identify learners ready for the next module?",
+    "fakeUploadName": "Q2_Learner_Report_2026.pdf",
+    "suggestions": [
+      "Which students haven't submitted anything in the last 2 weeks but have upcoming deadlines?",
+      "Summarize what changed in my Intro to Biology course since my last login.",
+      "Find students at risk of falling below the passing threshold before end of term."
+    ],
+    "allSuggestions": [
+      "Which students haven't submitted anything in the last 2 weeks but have upcoming deadlines?",
+      "Summarize what changed in my Intro to Biology course since my last login.",
+      "Find students at risk of falling below the passing threshold before end of term.",
+      "Show me students who haven't logged in this week",
+      "Show me which assignments are overdue across all my courses",
+      "Show me Sophia's recent assessment results",
+      "Show me engagement trends for my Advanced Chemistry class",
+      "Show me learners who are ready for the next module",
+      "How can I identify learners ready to advance?",
+      "Which students are excelling and need more challenging content?",
+      "Who needs intervention before the next assessment?"
+    ]
+  },
+  "searchBarDropdown": {
+    "demoTypingText": "Which students are excelling and ready for advanced material?",
+    "quickAnswers": [
+      {
+        "question": "What's the average performance this week?",
+        "answer": "Overall class average is 87%, up 3% from last week"
+      },
+      {
+        "question": "Who needs attention?",
+        "answer": "3 students scoring below 70% may need intervention"
+      }
+    ],
+    "relatedObjects": [
+      {
+        "type": "Student",
+        "title": "Emma Rodriguez",
+        "subtitle": "Top performer - 96% average",
+        "details": "Emma has completed all assignments early with exceptional quality. Currently 2 modules ahead of schedule. Shows strong aptitude for advanced organic chemistry concepts."
+      },
+      {
+        "type": "Assignment",
+        "title": "Chapter 5 Quiz",
+        "subtitle": "Due in 2 days • 18/24 submitted",
+        "details": "Quiz covers molecular bonding and electron configuration. Average score so far: 82%. 6 students haven't started yet. Estimated completion time: 25 minutes."
+      },
+      {
+        "type": "Insight",
+        "title": "Student Engagement Trend",
+        "subtitle": "15% increase this month",
+        "details": "Forum participation up 22%, assignment submission rate improved to 94%, and average time spent on learning materials increased by 18 minutes per student per week."
+      },
+      {
+        "type": "Group",
+        "title": "Study Group Alpha",
+        "subtitle": "5 members • Active",
+        "details": "Collaborative learning group formed 3 weeks ago. Members show 12% higher quiz scores when studying together. Meeting twice weekly for peer review sessions."
+      }
+    ]
+  },
+  "sidebar": {
+    "portalTitle": "Carter's Portal",
+    "conversations": [
+      {
+        "title": "Learners ready for Module 3",
+        "time": "Today, 9:14 AM"
+      },
+      {
+        "title": "Biology assessment results",
+        "time": "Yesterday, 3:40 PM"
+      },
+      {
+        "title": "Engagement drop in cohort B",
+        "time": "May 5, 11:02 AM"
+      },
+      {
+        "title": "Module 2 completion rates",
+        "time": "May 4, 2:15 PM"
+      },
+      {
+        "title": "Recommended extension tasks",
+        "time": "May 3, 10:30 AM"
+      }
+    ],
+    "zeroState": [
+      {
+        "group": "Students",
+        "items": [
+          {
+            "text": "Sophia Patel",
+            "sub": "Advanced Biology · Last active today"
+          },
+          {
+            "text": "Noah Kim",
+            "sub": "Advanced Biology · Last active yesterday"
+          },
+          {
+            "text": "Alex Thompson",
+            "sub": "Advanced Biology · Last active May 18"
+          }
+        ]
+      },
+      {
+        "group": "Modules",
+        "items": [
+          {
+            "text": "Module 3 — Advanced Biology",
+            "sub": "Not started by 3 learners"
+          },
+          {
+            "text": "Intro to Molecular Biology",
+            "sub": "Completed by 22 learners"
+          }
+        ]
+      },
+      {
+        "group": "Assignments",
+        "items": [
+          {
+            "text": "Chapter 5 Quiz",
+            "sub": "Due in 2 days · 18/24 submitted"
+          },
+          {
+            "text": "Common misconceptions in cellular biology",
+            "sub": "Completed"
+          }
+        ]
+      },
+      {
+        "group": "Cohorts",
+        "items": [
+          {
+            "text": "Advanced Biology cohort",
+            "sub": "24 students · Active"
+          }
+        ]
+      }
+    ]
+  },
+  "chat": {
+    "promptSuggestions": [
+      {
+        "label": "Sophia Patel",
+        "sub": "Student · Advanced Biology"
+      },
+      {
+        "label": "Noah Kim",
+        "sub": "Student · Advanced Biology"
+      },
+      {
+        "label": "Module 3 — Advanced Biology",
+        "sub": "Module · Not started by 3 learners"
+      },
+      {
+        "label": "Common misconceptions in cellular biology",
+        "sub": "Assignment · Completed"
+      },
+      {
+        "label": "Advanced Biology cohort",
+        "sub": "Group · 24 students"
+      }
+    ]
+  },
+  "chatScript": {
+    "messages": [
+      {
+        "id": "1",
+        "role": "user",
+        "content": "How can I identify learners ready for the next module?",
+        "citations": []
+      },
+      {
+        "id": "2",
+        "role": "agent",
+        "content": "Sophia Patel, Noah Kim and Alex Thompson are ready for the next module.\n\nTo determine this, we looked at [how to identify students ready for the next module] by reviewing several key indicators together. Their [assignment completion] rates show consistent submission of work at or above the required threshold, demonstrating that they have engaged thoroughly with the current material. Additionally, their [engagement metrics] reflect active participation in discussions, regular logins, and meaningful interaction with course content, all of which confirm they have mastered the foundational concepts and are prepared to advance.",
+        "citations": [
+          "How to Identify Students ready for the next module"
+        ],
+        "card": {
+          "type": "student_readiness",
+          "title": "Ready for Next Module",
+          "statusLabel": "3 LEARNERS",
+          "statusColor": "gray",
+          "footerNote": "",
+          "buttons": [],
+          "students": [
+            {
+              "name": "Sophia Patel",
+              "learningStyle": "Auditory",
+              "learningStyleIcon": "headphones"
+            },
+            {
+              "name": "Noah Kim",
+              "learningStyle": "Reading & Writing",
+              "learningStyleIcon": "book"
+            },
+            {
+              "name": "Alex Thompson",
+              "learningStyle": "Visual",
+              "learningStyleIcon": "eye"
+            }
+          ],
+          "explanation": "Learners ready for the next module typically demonstrate consistent performance above benchmarks, high engagement with current materials, and strong assessment results.",
+          "tilesTitle": "Here are some ways you can help students continue to grow:",
+          "tiles": [
+            {
+              "label": "Assign Next Module",
+              "recommended": true,
+              "expandCard": {
+                "type": "assign_module",
+                "title": "Assignment for Qualified Learners",
+                "statusLabel": "REVIEW & CONFIRM",
+                "statusColor": "purple",
+                "footerNote": "Assignment will be delivered immediately to all qualified learners",
+                "buttons": [
+                  {
+                    "label": "Assign Module",
+                    "variant": "primary"
+                  },
+                  {
+                    "label": "Cancel",
+                    "variant": "secondary"
+                  }
+                ],
+                "doneStatusLabel": "Complete",
+                "doneStatusColor": "green",
+                "doneMessage": "Module successfully assigned to 3 qualified learners",
+                "doneDescription": "All qualified learners will be notified about this assignment.",
+                "doneFooterNote": "Just now"
+              }
+            },
+            {
+              "label": "Provide Targeted Support",
+              "recommended": false
+            },
+            {
+              "label": "Send Encouragement Message",
+              "recommended": false
+            }
+          ]
+        }
+      },
+      {
+        "id": "5",
+        "role": "user",
+        "content": "Show me Sophia's recent assessment",
+        "citations": []
+      },
+      {
+        "id": "6",
+        "role": "agent",
+        "content": "Here's Sophia's progress in Biology. The new module assigned to her is currently not started.",
+        "citations": [
+          "Assignment Completion",
+          "Engagement Metrics"
+        ],
+        "card": {
+          "type": "learner_progress",
+          "title": "Sophia's Recent Assessment",
+          "statusLabel": "BIOLOGY",
+          "statusColor": "gray",
+          "footerNote": "",
+          "buttons": [],
+          "modules": [
+            {
+              "name": "Advanced Biology instruction strategies for Module 3",
+              "status": "not_started"
+            },
+            {
+              "name": "Common misconceptions in cellular biology",
+              "status": "completed",
+              "score": "10/10"
+            },
+            {
+              "name": "Basics of biology mastery",
+              "status": "completed",
+              "score": "10/10"
+            },
+            {
+              "name": "Intro to molecular biology",
+              "status": "completed",
+              "score": "9/10"
+            },
+            {
+              "name": "Cell structure fundamentals",
+              "status": "completed",
+              "score": "8/10"
+            }
+          ]
+        }
+      },
+      {
+        "id": "7",
+        "role": "agent",
+        "content": "That covers everything for this session. Before you go, I'd love to hear how it went.",
+        "citations": [],
+        "card": {
+          "type": "feedback_form",
+          "title": "Session Feedback",
+          "statusLabel": "FEEDBACK",
+          "statusColor": "gray",
+          "footerNote": "",
+          "buttons": []
+        }
+      }
+    ]
+  },
+  "articles": {
+    "learning": [
+      {
+        "title": "How to Identify Students ready for the next module",
+        "subtitle": "Learn how to identify learners who are ready to advance based on performance benchmarks and engagement signals.",
+        "category": "How to Identify Students ready for the next module",
+        "lastUpdated": "April 15, 2026",
+        "image": "image-0",
+        "summary": "Readiness to advance is a composite signal — not just a test score. Look for students who consistently score above 85% across the last three assessments, submit high-quality work, space their study sessions, and actively participate in discussions. When all four dimensions align, the platform surfaces them as ready and suggests the next content block for your review.",
+        "content": "Determining when a student is genuinely ready to advance requires looking beyond a single test score. Readiness is a composite signal built from performance consistency, engagement depth, and demonstrated mastery over time.\n\nPerformance Benchmarks\nStudents who consistently score above 85% across the last three module assessments — not just the most recent one — show the kind of durable understanding that supports advancement. One-off high scores can reflect lucky guessing or surface-level memorisation, whereas a sustained trend above the benchmark indicates that core concepts have been internalised. Pay particular attention to performance on open-ended questions and application tasks, which are harder to game and reveal deeper comprehension.\n\nAssignment Completion and Quality\nCompletion rate alone is a weak signal; quality matters equally. A student who submits all work on time but never incorporates feedback, or whose answers plateau at a superficial level, may not be ready despite a clean completion record. Look for evidence of iteration — students who revisit earlier submissions after receiving comments, revise their thinking, or voluntarily engage with extension material are demonstrating metacognitive awareness that strongly predicts success in more advanced content.\n\nTime-on-Task Patterns\nThe platform tracks time spent per learning object, attempt frequency, and the interval between sessions. Learners who space their study across multiple shorter sessions (spaced retrieval) outperform those who cram. A healthy pattern looks like regular logins, moderate session lengths (30–90 minutes), and return visits to challenging topics. Conversely, very long single sessions with low quiz scores often indicate passive reading rather than active learning.\n\nPeer and Discussion Engagement\nForum contributions, peer review activity, and response quality in discussion threads are strong leading indicators. Students who ask clarifying questions, offer explanations to peers, or draw connections to real-world examples are consolidating knowledge in ways that passive consumption cannot provide. The system weights these contributions by quality signals — longer, substantive posts score higher than brief reactions.\n\nRecommended Action\nWhen a student meets the readiness threshold across all four dimensions, the AI surfaces them in the Ready for Next Module view and suggests assigning the next content block. Educators can review the supporting data before confirming the assignment, ensuring the decision remains in human hands."
+      },
+      {
+        "title": "Assignment Completion Tracking and Analysis",
+        "subtitle": "Monitor student progress through assignment completion rates and quality metrics.",
+        "category": "Assignment Completion",
+        "lastUpdated": "April 20, 2026",
+        "image": "image-1",
+        "summary": "Completion rate above 90% over four weeks strongly predicts module success. What matters most is not just whether work is submitted, but when and at what quality — students who improve across attempts signal greater long-term potential than those who score high once without engaging with feedback. The platform flags drops early and distinguishes between overextended high-performers and genuinely disengaged students.",
+        "content": "Assignment completion is one of the most reliable leading indicators of student success, but interpreting it correctly requires understanding the nuances behind the numbers.\n\nWhat Completion Rate Tells You\nA completion rate above 90% over a rolling four-week window correlates strongly with final module scores. Students who miss more than two consecutive assignments are 3.4× more likely to fall below the module pass threshold, making early detection critical. The platform flags declining completion trends — not just missed deadlines — so educators can intervene before a pattern becomes a crisis.\n\nOn-Time vs. Late Submissions\nThe timing of submissions carries diagnostic value beyond whether work was turned in at all. Students who consistently submit on or before deadlines demonstrate time-management skills and a degree of intrinsic motivation that transfers well to self-paced advanced modules. Late submitters fall into two distinct groups: those who submit late but at high quality (often high-ability students managing competing commitments) and those who submit late at declining quality (a warning sign). The platform's completion analysis separates these groups to prevent mislabelling a capable but overextended student as disengaged.\n\nRevision and Iteration Signals\nThe platform tracks how many times a student views assignment feedback, whether they request re-submissions, and how scores change across attempts. A student who scores 72% on a first attempt, reads the feedback, and improves to 89% on a second attempt is demonstrating growth orientation — arguably a more important predictor of long-term success than the student who scores 88% first time without engaging with feedback at all.\n\nComparative Benchmarking\nIndividual completion data is most meaningful when viewed in context. The platform benchmarks each student against their cohort, their own historical trend, and cross-institutional anonymised norms. A 78% completion rate in a highly demanding module may represent stronger engagement than 95% in a straightforward one.\n\nIntervention Triggers\nAutomated flags are raised when completion rate drops more than 15 percentage points week-over-week, when three or more assignments are outstanding simultaneously, or when submission quality (measured by rubric scores) falls below 60% for two consecutive tasks. These triggers feed directly into the Provide Targeted Support workflow."
+      },
+      {
+        "title": "Engagement Metrics and Learning Analytics",
+        "subtitle": "Measure student participation, interaction, and active learning behaviors.",
+        "category": "Engagement Metrics",
+        "lastUpdated": "April 22, 2026",
+        "image": "image-2",
+        "summary": "Engagement is more than logins and clicks. The platform triangulates login frequency, active vs passive content interaction, forum quality, and voluntary resource access into a single 0–100 score. Students above 75 are highly engaged; below 50 for two consecutive weeks triggers an AI-drafted outreach recommendation. Active interaction patterns correlate twice as strongly with assessment scores as passive consumption.",
+        "content": "Engagement is the most complex dimension of learner analytics because it encompasses both visible behaviours (logins, clicks, posts) and invisible cognitive states (attention, motivation, curiosity). The platform triangulates multiple signal types to build a composite engagement score that is more reliable than any single metric.\n\nLogin Frequency and Session Patterns\nRegular, distributed logins are a proxy for habitual engagement. Students who log in at least four times per week across varied times of day tend to treat the course as an ongoing commitment rather than a deadline-driven chore. The system flags students who show a sudden drop in login frequency — even before assessment scores decline — as this behavioural shift often precedes academic difficulty by one to two weeks.\n\nContent Interaction Depth\nNot all content interactions are equal. The platform distinguishes between passive consumption (scrolling through a reading, playing a video to completion without pausing) and active interaction (pausing to take notes, replying to embedded questions, rewinding to re-watch a section). Active interaction patterns correlate 0.67 with module assessment scores, compared to 0.31 for passive consumption alone.\n\nForum and Discussion Quality\nQuantitative metrics like post count and word count are easy to game; the platform supplements them with qualitative signals. Posts that introduce new ideas, reference course materials, ask genuine questions, or respond substantively to peers are weighted more heavily than simple acknowledgements. Students in the top engagement quartile for forum quality score an average of 11 points higher on open-ended assessments than their peers.\n\nResource Access Patterns\nWhich supplementary resources a student accesses — and when — reveals a lot about self-directed learning behaviour. Students who seek out extension readings, watch optional explainer videos, or explore linked external sources before they are required to demonstrate learning through assessment show high intrinsic motivation. The platform tracks these voluntary access events separately from required content to distinguish motivated exploration from compliance.\n\nEngagement Score Interpretation\nThe composite engagement score is presented on a 0–100 scale, recalibrated weekly. Scores above 75 indicate high engagement; 50–75 moderate; below 50 low. Sustained low engagement for more than two weeks, combined with declining assessment performance, triggers the AI to surface the student in the Provide Targeted Support queue with a recommended outreach message pre-drafted based on the specific engagement gaps identified."
+      }
+    ]
+  }
+}

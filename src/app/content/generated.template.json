@@ -1,0 +1,294 @@
+{
+  "__doc__": "TEMPLATE for generated.json. Fill EVERY <placeholder> with customer content grounded in report.md. Keep this EXACT structure and key names. Preserve array lengths shown. Do NOT add/remove keys. NOTE: 'articles' MUST stay wrapped as {\"learning\": [...]}; output an array of exactly 3 article objects inside 'learning'.",
+  "hero": {
+    "welcomeHeading": "<personalized greeting to the portal user, e.g. 'Welcome back, <Name>.'>",
+    "welcomeSubtext": "<one sentence surfacing this user's most relevant current status/metric, in this industry's vocabulary>",
+    "userName": "<portal user's display name>"
+  },
+  "searchHero": {
+    "greetingPrefix": "<time-based greeting prefix incl. trailing comma+space, e.g. 'Good afternoon, '>",
+    "subtext": "<one sentence on a current notable status for this user>",
+    "userName": "<portal user's name (can differ from hero)>"
+  },
+  "searchBar": {
+    "demoTypingText": "<a representative question this user would type>",
+    "fakeUploadName": "<a plausible filename this user would upload, e.g. a report PDF>",
+    "suggestions": [
+      "<short suggested question #1 (3 total, the ones shown by default)>",
+      "<short suggested question #2 (3 total, the ones shown by default)>",
+      "<short suggested question #3 (3 total, the ones shown by default)>"
+    ],
+    "allSuggestions": [
+      "<suggested question #1 (11 total pool, this industry's vocabulary)>",
+      "<suggested question #2 (11 total pool, this industry's vocabulary)>",
+      "<suggested question #3 (11 total pool, this industry's vocabulary)>",
+      "<suggested question #4 (11 total pool, this industry's vocabulary)>",
+      "<suggested question #5 (11 total pool, this industry's vocabulary)>",
+      "<suggested question #6 (11 total pool, this industry's vocabulary)>",
+      "<suggested question #7 (11 total pool, this industry's vocabulary)>",
+      "<suggested question #8 (11 total pool, this industry's vocabulary)>",
+      "<suggested question #9 (11 total pool, this industry's vocabulary)>",
+      "<suggested question #10 (11 total pool, this industry's vocabulary)>",
+      "<suggested question #11 (11 total pool, this industry's vocabulary)>"
+    ]
+  },
+  "searchBarDropdown": {
+    "demoTypingText": "<a representative typed question>",
+    "quickAnswers": [
+      {
+        "question": "<quick FAQ-style question #1>",
+        "answer": "<one-line answer #1 with a concrete metric>"
+      },
+      {
+        "question": "<quick FAQ-style question #2>",
+        "answer": "<one-line answer #2 with a concrete metric>"
+      }
+    ],
+    "relatedObjects": [
+      {
+        "type": "<core business-object type IN THIS INDUSTRY (industry-fixed set, e.g. Student|Flight|Order|Patient) — treat like a Salesforce object>",
+        "title": "<specific instance name #1>",
+        "subtitle": "<one-line status>",
+        "details": "<2-3 sentences of detail about this instance>"
+      },
+      {
+        "type": "<core business-object type IN THIS INDUSTRY (industry-fixed set, e.g. Student|Flight|Order|Patient) — treat like a Salesforce object>",
+        "title": "<specific instance name #2>",
+        "subtitle": "<one-line status>",
+        "details": "<2-3 sentences of detail about this instance>"
+      },
+      {
+        "type": "<core business-object type IN THIS INDUSTRY (industry-fixed set, e.g. Student|Flight|Order|Patient) — treat like a Salesforce object>",
+        "title": "<specific instance name #3>",
+        "subtitle": "<one-line status>",
+        "details": "<2-3 sentences of detail about this instance>"
+      },
+      {
+        "type": "<core business-object type IN THIS INDUSTRY (industry-fixed set, e.g. Student|Flight|Order|Patient) — treat like a Salesforce object>",
+        "title": "<specific instance name #4>",
+        "subtitle": "<one-line status>",
+        "details": "<2-3 sentences of detail about this instance>"
+      }
+    ]
+  },
+  "categories": [
+    {
+      "label": "<category label #1 — a top-level action theme in this industry>",
+      "menuItems": [
+        "<short subcategory label #1, 2-4 words>",
+        "<short subcategory label #2>",
+        "<short subcategory label #3>",
+        "<short subcategory label #4>"
+      ]
+    },
+    {
+      "label": "<category label #2>",
+      "menuItems": [
+        "<menu item #1>",
+        "<menu item #2>",
+        "<menu item #3>",
+        "<menu item #4>"
+      ]
+    },
+    {
+      "label": "<category label #3>",
+      "menuItems": [
+        "<menu item #1>",
+        "<menu item #2>",
+        "<menu item #3>",
+        "<menu item #4>"
+      ]
+    },
+    {
+      "label": "Recommended for you",
+      "menuItems": [
+        "<short personalized subcategory #1>",
+        "<short personalized subcategory #2>",
+        "<short personalized subcategory #3>",
+        "<short personalized subcategory #4>"
+      ]
+    }
+  ],
+
+  "sidebar": {
+    "userRole": "<portal user's role or membership tier, e.g. 'Gold Medallion Member'>",
+    "searchPlaceholder": "Quick lookup…",
+    "actionsHeading": "Actions",
+    "conversationsHeading": "Recent Conversations",
+    "actions": [
+      { "label": "<quick action #1>" },
+      { "label": "<quick action #2>" },
+      { "label": "<quick action #3>" },
+      { "label": "<quick action #4>" }
+    ],
+    "portalTitle": "<e.g. \"<Name>'s Portal\">",
+    "conversations": [
+      {
+        "title": "<recent conversation topic #1>",
+        "time": "<relative time, e.g. 'Today, 9:14 AM'>"
+      },
+      {
+        "title": "<recent conversation topic #2>",
+        "time": "<relative time, e.g. 'Today, 9:14 AM'>"
+      },
+      {
+        "title": "<recent conversation topic #3>",
+        "time": "<relative time, e.g. 'Today, 9:14 AM'>"
+      },
+      {
+        "title": "<recent conversation topic #4>",
+        "time": "<relative time, e.g. 'Today, 9:14 AM'>"
+      },
+      {
+        "title": "<recent conversation topic #5>",
+        "time": "<relative time, e.g. 'Today, 9:14 AM'>"
+      }
+    ],
+    "zeroState": [
+      {
+        "group": "<object category plural for this industry (e.g. Students|Flights)>",
+        "items": [
+          {
+            "text": "<instance name>",
+            "sub": "<one-line context>"
+          },
+          {
+            "text": "<instance name>",
+            "sub": "<one-line context>"
+          },
+          {
+            "text": "<instance name>",
+            "sub": "<one-line context>"
+          }
+        ]
+      },
+      {
+        "group": "<object category plural for this industry (e.g. Students|Flights)>",
+        "items": [
+          {
+            "text": "<instance name>",
+            "sub": "<one-line context>"
+          },
+          {
+            "text": "<instance name>",
+            "sub": "<one-line context>"
+          }
+        ]
+      },
+      {
+        "group": "<object category plural for this industry (e.g. Students|Flights)>",
+        "items": [
+          {
+            "text": "<instance name>",
+            "sub": "<one-line context>"
+          },
+          {
+            "text": "<instance name>",
+            "sub": "<one-line context>"
+          }
+        ]
+      },
+      {
+        "group": "<object category plural for this industry (e.g. Students|Flights)>",
+        "items": [
+          {
+            "text": "<instance name>",
+            "sub": "<one-line context>"
+          }
+        ]
+      }
+    ]
+  },
+  "chat": {
+    "promptSuggestions": [
+      {
+        "label": "<object instance name #1>",
+        "sub": "<'<ObjectType> · <context>' — ObjectType from the industry-fixed set>"
+      },
+      {
+        "label": "<object instance name #2>",
+        "sub": "<'<ObjectType> · <context>' — ObjectType from the industry-fixed set>"
+      },
+      {
+        "label": "<object instance name #3>",
+        "sub": "<'<ObjectType> · <context>' — ObjectType from the industry-fixed set>"
+      },
+      {
+        "label": "<object instance name #4>",
+        "sub": "<'<ObjectType> · <context>' — ObjectType from the industry-fixed set>"
+      },
+      {
+        "label": "<object instance name #5>",
+        "sub": "<'<ObjectType> · <context>' — ObjectType from the industry-fixed set>"
+      }
+    ]
+  },
+  "chatScript": {
+    "messages": [
+      {
+        "id": "1",
+        "role": "user",
+        "content": "<user turn — grounded in report facts; agent answers helpfully>",
+        "citations": []
+      },
+      {
+        "id": "2",
+        "role": "agent",
+        "content": "<agent turn — grounded in report facts; agent answers helpfully>",
+        "citations": [],
+        "card": "<KEEP MINIMAL/TEXT-ONLY this version: either omit this 'card' field entirely, or a simple card. Do NOT invent complex card payloads.>"
+      },
+      {
+        "id": "5",
+        "role": "user",
+        "content": "<user turn — grounded in report facts; agent answers helpfully>",
+        "citations": []
+      },
+      {
+        "id": "6",
+        "role": "agent",
+        "content": "<agent turn — grounded in report facts; agent answers helpfully>",
+        "citations": [],
+        "card": "<KEEP MINIMAL/TEXT-ONLY this version: either omit this 'card' field entirely, or a simple card. Do NOT invent complex card payloads.>"
+      },
+      {
+        "id": "7",
+        "role": "agent",
+        "content": "<agent turn — grounded in report facts; agent answers helpfully>",
+        "citations": [],
+        "card": "<KEEP MINIMAL/TEXT-ONLY this version: either omit this 'card' field entirely, or a simple card. Do NOT invent complex card payloads.>"
+      }
+    ]
+  },
+  "articles": {
+    "learning": [
+      {
+        "title": "<article #1 title in this domain>",
+        "subtitle": "<one-line summary>",
+        "category": "<article category for this industry>",
+        "lastUpdated": "<date, e.g. 'April 20, 2026'>",
+        "image": "image-1",
+        "summary": "<~3 sentence abstract>",
+        "content": "<full multi-paragraph article body, domain-specific and credible (several paragraphs)>"
+      },
+      {
+        "title": "<article #2 title in this domain>",
+        "subtitle": "<one-line summary>",
+        "category": "<article category for this industry>",
+        "lastUpdated": "<date, e.g. 'April 20, 2026'>",
+        "image": "image-2",
+        "summary": "<~3 sentence abstract>",
+        "content": "<full multi-paragraph article body, domain-specific and credible (several paragraphs)>"
+      },
+      {
+        "title": "<article #3 title in this domain>",
+        "subtitle": "<one-line summary>",
+        "category": "<article category for this industry>",
+        "lastUpdated": "<date, e.g. 'April 20, 2026'>",
+        "image": "image-3",
+        "summary": "<~3 sentence abstract>",
+        "content": "<full multi-paragraph article body, domain-specific and credible (several paragraphs)>"
+      }
+    ]
+  }
+}

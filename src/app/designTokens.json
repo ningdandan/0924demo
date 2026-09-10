@@ -1,0 +1,210 @@
+{
+  "colors": {
+    "brand": {
+      "navy":       "#1e1b4b",
+      "navyDeep":   "#001769",
+      "purple":     "#8200db",
+      "purpleDark": "#4c1d95",
+      "purpleMid":  "#312e81",
+      "green":      "#096",
+      "greenDark":  "#064e3b",
+      "greenMid":   "#065f46"
+    },
+    "ui": {
+      "body":        "#364153",
+      "muted":       "#9ca3af",
+      "mutedDark":   "#6b7280",
+      "iconStroke":  "#4A5565",
+      "borderLight": "#d1d5db",
+      "borderFaint": "#e5e7eb",
+      "bgPage":      "#f5f5f7",
+      "bgInput":     "#f3f4f6",
+      "bgFileChip":  "#f0f0f8",
+      "borderChip":  "#e0e0f0"
+    },
+    "accent": {
+      "indigo":      "#6366f1",
+      "sky":         "#0ea5e9",
+      "amber":       "#f59e0b",
+      "emerald":     "#10b981",
+      "slate":       "#64748b"
+    },
+    "fixed": {
+      "white":       "#ffffff",
+      "black":       "#000000",
+      "statusDot":   "#00c950"
+    },
+    "alpha": {
+      "railBg":        "rgba(220, 225, 255, 0.75)",
+      "focusRing":     "rgba(99, 102, 241, 0.25)",
+      "focusRingOpen": "rgba(99, 102, 241, 0.25)",
+      "overlayModal":  "rgba(0, 0, 0, 0.30)",
+      "overlayLight":  "rgba(0, 0, 0, 0.10)",
+      "shadowSubtle":  "rgba(0, 0, 0, 0.06)",
+      "shadowPanel":   "rgba(0, 0, 0, 0.08)",
+      "shadowDrop":    "rgba(0, 0, 0, 0.12)",
+      "shadowDeep":    "rgba(0, 0, 0, 0.15)"
+    }
+  },
+
+  "gradients": {
+    "pageBackground": "linear-gradient(135deg, #e8f5f0 0%, #ede8f7 50%, #e8f0f7 100%)",
+    "theme": {
+      "skyPeriwinkle": "linear-gradient(135deg, #D6EFFC 0%, #D8E4FF 49%, #D6F3FD 95%)"
+    },
+    "button": {
+      "primary":   "linear-gradient(142.634deg, #101C86 0%, #020642 100%)",
+      "send":      "linear-gradient(135deg, #8200db 0%, #4c1d95 100%)",
+      "indigo":    "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)"
+    },
+    "phone": {
+      "lock":      "linear-gradient(160deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%)",
+      "header":    "linear-gradient(160deg, #1e1b4b 0%, #4c1d95 100%)",
+      "success":   "linear-gradient(160deg, #064e3b 0%, #065f46 100%)",
+      "frame":     "linear-gradient(160deg, #2a2a2a 0%, #1a1a1a 100%)"
+    }
+  },
+
+  "shadows": {
+    "searchGlow":   "0 0 8px 2px rgba(200, 225, 255, 0.3), 0 0 28px 6px rgba(200, 225, 255, 0.15), 0 0 60px 12px rgba(210, 230, 255, 0.08)",
+    "phoneDrop":    "0 40px 100px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255,255,255,0.15)",
+    "sidebar":      "4px 0px 30px rgba(0,0,0,0.08)",
+    "dropdown":     "0px 8px 24px rgba(0,0,0,0.10)",
+    "modal":        "0 8px 24px rgba(0,0,0,0.12)",
+    "learnerPanel": "0 8px 30px 0px rgba(0,0,0,0.06)",
+    "floatingBtn":  "0 4px 20px rgba(0,0,0,0.15)",
+    "editorPanel":  "0 16px 60px rgba(0,0,0,0.18)",
+    "modalDrop":    "0 24px 80px rgba(0,0,0,0.18)",
+    "emojiPicker":  "0 8px 30px rgba(0,0,0,0.12)"
+  },
+
+  "fonts": {
+    "families": {
+      "body":    "'Plus Jakarta Sans', sans-serif",
+      "heading": "'Plus Jakarta Sans', sans-serif"
+    },
+    "sizes": {
+      "xs":   "9px",
+      "sm":   "10px",
+      "sm2":  "11px",
+      "sm3":  "12px",
+      "base": "13px",
+      "md":   "14px",
+      "md2":  "15px",
+      "lg":   "16px",
+      "xl":   "20px",
+      "hero": "60px",
+      "lock": "64px"
+    },
+    "weights": {
+      "light":    "300",
+      "normal":   "400",
+      "medium":   "500",
+      "semibold": "600",
+      "bold":     "700"
+    },
+    "lineHeights": {
+      "none":  "1",
+      "tight": "1.25",
+      "snug":  "1.375",
+      "body":  "22px",
+      "hero":  "60px",
+      "sub":   "28px",
+      "chat":  "19px",
+      "label": "17px",
+      "note":  "16px"
+    },
+    "tracking": {
+      "hero":    "-1.5px",
+      "sub":     "-0.4492px",
+      "search":  "-0.3125px",
+      "category":"-0.1504px",
+      "lock":    "-2px"
+    }
+  },
+
+  "radii": {
+    "none":    "0px",
+    "xs":      "2px",
+    "sm":      "5px",
+    "md":      "7px",
+    "md2":     "8px",
+    "base":    "10px",
+    "lg":      "12px",
+    "xl":      "14px",
+    "xl2":     "16px",
+    "xl3":     "18px",
+    "xl4":     "20px",
+    "phone":   "50px",
+    "phoneOuter": "52px",
+    "panel":   "33px",
+    "full":    "9999px"
+  },
+
+  "spacing": {
+    "1":  "1px",
+    "2":  "2px",
+    "3":  "3px",
+    "4":  "4px",
+    "5":  "5px",
+    "6":  "6px",
+    "8":  "8px",
+    "10": "10px",
+    "12": "12px",
+    "14": "14px",
+    "16": "16px",
+    "18": "18px",
+    "20": "20px",
+    "24": "24px",
+    "32": "32px",
+    "40": "40px",
+    "80": "80px"
+  },
+
+  "sizes": {
+    "sidebarRail":   "52px",
+    "sidebarPanel":  "300px",
+    "heroMaxWidth":  "1200px",
+    "searchMaxWidth":"896px",
+    "chatMaxWidth":  "800px",
+    "phoneW":        "375px",
+    "phoneH":        "780px"
+  },
+
+  "zIndex": {
+    "sidebarRail":   10,
+    "overlay":       20,
+    "sidebarPanel":  30,
+    "dropdown":      50,
+    "plusOverlay":   90,
+    "plusMenu":      100,
+    "promptSuggest": 200
+  },
+
+  "transitions": {
+    "easing": {
+      "standard": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "easeOut":  "cubic-bezier(0.0, 0, 0.2, 1)"
+    },
+    "duration": {
+      "fast":     "150ms",
+      "chip":     "180ms",
+      "dropdown": "200ms",
+      "card":     "250ms",
+      "screen":   "300ms",
+      "slow":     "350ms",
+      "enter":    "450ms"
+    }
+  },
+
+  "themes": {
+    "skyPeriwinkle": {
+      "id":        "sky-periwinkle",
+      "label":     "Sky Periwinkle",
+      "gradient":  "linear-gradient(135deg, #D6EFFC 0%, #D8E4FF 49%, #D6F3FD 95%)",
+      "swatchA":   "#A3D9F6",
+      "swatchB":   "#ABBFFD",
+      "textColor": "#1e1b4b"
+    }
+  }
+}

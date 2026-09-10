@@ -1,0 +1,451 @@
+{
+  "header": {
+    "logoAlt": "Company Logo",
+    "userProfileAlt": "User Profile",
+    "loginButton": "Log Out"
+  },
+
+  "searchBar": {
+    "placeholder": "Ask me anything",
+    "fakeUploadSize": "2.4 MB",
+    "uploadLabel": "Upload from computer",
+    "connectLabel": "Connect with database"
+  },
+
+  "searchBarDropdown": {
+    "placeholder": "Ask me anything",
+    "quickAnswersHeading": "Quick Answers",
+    "relatedHeading": "Related"
+  },
+
+  "chatUI": {
+    "spacebarHint": "Press",
+    "spacebarKey": "Space",
+    "spacebarSuffix": "to continue",
+    "avatarAlt": "AI Agent Avatar",
+    "recommendedBadge": "Recommended",
+    "searchPlaceholder": "Ask me anything"
+  },
+
+  "chat": {
+    "agentName": "Power Education Agent",
+    "feedbackPositive": "Thanks for the feedback!",
+    "feedbackNegative": "We'll work on improving this.",
+    "feedbackPrompt": "Is this helpful?"
+  },
+
+  "chatScriptBestPractices": {
+    "messages": [
+      {
+        "id": "1",
+        "role": "user",
+        "content": "Best practices for structuring course modules",
+        "citations": []
+      },
+      {
+        "id": "2",
+        "role": "agent",
+        "content": "Here are the key best practices for structuring effective course modules.\n\nKeep each module focused on a single learning objective. Learners retain information better when content is scoped tightly — avoid combining multiple concepts in one module unless they are tightly related.\n\nStart with a clear outcome statement. Let learners know upfront what they will be able to do by the end. This sets expectations and activates prior knowledge before new material is introduced.\n\nSequence content from concrete to abstract. Begin with examples, demonstrations, or scenarios before introducing underlying theory. Learners build stronger mental models when they have something tangible to anchor new concepts to.\n\nBuild in retrieval checkpoints. Short quizzes, reflection prompts, or application tasks spaced throughout the module significantly improve long-term retention compared to passive reading alone.\n\nEnd with a synthesis activity. A brief summary task — such as explaining the core idea in their own words or applying it to a new scenario — consolidates learning and signals module completion clearly.",
+        "citations": []
+      }
+    ]
+  },
+
+  "articlePanel": {
+    "lastUpdatedPrefix": "Last updated: ",
+    "openFullArticle": "Open Full Article",
+    "share": "Share",
+    "clickToView": "Click to view full article →"
+  },
+
+  "vignette5": {
+    "messages": [
+      {
+        "id": "v5-1",
+        "role": "user",
+        "content": "Create new course module",
+        "citations": []
+      },
+      {
+        "id": "v5-2",
+        "role": "agent",
+        "content": "I can help you set up a new module step by step. Here's a guided workflow to get it created and submitted for review.",
+        "citations": [],
+        "card": {
+          "type": "module_stepper",
+          "title": "Create New Module",
+          "statusLabel": "IN PROGRESS",
+          "statusColor": "purple",
+          "footerNote": "",
+          "buttons": []
+        }
+      }
+    ]
+  },
+
+  "vignette6": {
+    "brandName": "Pearson",
+    "moduleName": "Advanced Biology Concepts",
+    "moduleSubtitle": "Intro to Biology · Module 4",
+    "liveLabel": "Live",
+    "suggestedLabel": "Suggested",
+    "lockScreen": {
+      "date": "Thursday, April 30",
+      "notificationTitle": "Module approved",
+      "notificationBody": "'Advanced Biology Concepts' has been approved and is now live.",
+      "tapHint": "Tap notification to open"
+    },
+    "summaryScreen": {
+      "moduleDescription": "Your module is now live and available to learners. 24 students are enrolled and will see it on their dashboard.",
+      "actionsHeading": "What would you like to do?",
+      "actions": [
+        { "label": "View Module",        "desc": "See the module as learners see it",        "suggested": false },
+        { "label": "Notify Learners",    "desc": "Let learners know the module is available", "suggested": true  },
+        { "label": "Review Submissions", "desc": "Check early submissions",                   "suggested": false }
+      ]
+    },
+    "notifyScreen": {
+      "title": "Notify Learners",
+      "draftLabel": "DRAFT",
+      "recipientsLabel": "Recipients",
+      "recipientsValue": "24 learners · Students + Parents",
+      "channelLabel": "Channel",
+      "channels": ["Email", "In-App"],
+      "messageLabel": "Message",
+      "defaultMessage": "You've been assigned the next module based on your progress. 'Advanced Biology Concepts' is now available. Tap below to get started!",
+      "sendButton": "Send Notification"
+    },
+    "successScreen": {
+      "headerTitle": "Done",
+      "heading": "Notification Sent",
+      "body": "24 learners notified via Email & In-App about 'Advanced Biology Concepts'",
+      "summary": [
+        { "label": "Module",     "value": "Advanced Biology Concepts" },
+        { "label": "Recipients", "value": "24 learners"               },
+        { "label": "Channel",    "value": "Email + In-App"            },
+        { "label": "Sent",       "value": "Just now"                  }
+      ]
+    }
+  },
+
+  "vignette7": {
+    "messages": [
+      {
+        "id": "v7-1",
+        "role": "user",
+        "content": "extend deadline…",
+        "citations": []
+      },
+      {
+        "id": "v7-2",
+        "role": "agent",
+        "content": "Here are some options to help with assignment deadlines:",
+        "citations": [],
+        "card": {
+          "type": "action_tiles",
+          "title": "",
+          "statusLabel": "",
+          "statusColor": "gray",
+          "footerNote": "",
+          "buttons": [],
+          "tilesTitle": "What would you like to do?",
+          "tiles": [
+            {
+              "label": "Extend Deadline",
+              "recommended": true,
+              "expandCard": {
+                "type": "extend_deadline",
+                "title": "Extend Assignment Deadline",
+                "statusLabel": "REVIEW & CONFIRM",
+                "statusColor": "blue",
+                "footerNote": "All students will be notified automatically",
+                "buttons": [
+                  { "label": "Confirm / Update Deadline", "variant": "primary"   },
+                  { "label": "Cancel",                    "variant": "secondary" }
+                ],
+                "assignment": "Chapter 5 Quiz — Molecular Bonding",
+                "currentDeadline": "2026-05-02",
+                "suggestedDeadline": "2026-05-07"
+              }
+            },
+            {
+              "label": "Grant Individual Extension",
+              "recommended": false
+            }
+          ]
+        }
+      },
+      {
+        "id": "v7-3",
+        "role": "user",
+        "content": "What's the best way to handle extensions fairly?",
+        "citations": []
+      },
+      {
+        "id": "v7-4",
+        "role": "agent",
+        "content": "That's a great question. Here are some options for guidance:",
+        "citations": [],
+        "card": {
+          "type": "action_tiles",
+          "title": "",
+          "statusLabel": "",
+          "statusColor": "gray",
+          "footerNote": "",
+          "buttons": [],
+          "tilesTitle": "How would you like to proceed?",
+          "tiles": [
+            {
+              "label": "Chat with a Specialist",
+              "recommended": true,
+              "expandCard": {
+                "type": "specialist_chat",
+                "title": "Chat with a Specialist",
+                "statusLabel": "LIVE",
+                "statusColor": "green",
+                "footerNote": "",
+                "buttons": [],
+                "specialistName": "Dr. Rachel Kim",
+                "specialistRole": "Pearson Learning Specialist",
+                "introMessage": "Hi Professor Carter, I see you're asking about assignment extensions — happy to help. What's your current extension policy, if any?"
+              }
+            },
+            {
+              "label": "Review Knowledge Articles",
+              "recommended": false
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "moduleStepperCard": {
+    "steps": ["Define Module", "Add Content", "Review", "Submit"],
+    "underReviewLabel": "Under Review",
+    "submittedHeading": "Module submitted for review",
+    "submittedBody": "\"Advanced Biology Concepts\" is now under review. You'll be notified once approved.",
+    "submittedFooter": "Submitted just now · Est. review time: 24–48 hrs",
+    "backButton": "Back",
+    "nextButton": "Next →",
+    "submitButton": "Submit",
+    "step0": {
+      "moduleTitleLabel": "Module Title",
+      "moduleTitleDefault": "Advanced Biology Concepts",
+      "courseLabel": "Course",
+      "courseDefault": "Intro to Biology"
+    },
+    "step1": {
+      "contentItems": [
+        "Lecture slides (uploaded)",
+        "Reading: Chapter 7 (linked)",
+        "Quiz: Module check-in (draft)"
+      ]
+    },
+    "step2": {
+      "heading": "Review summary",
+      "rows": [
+        { "key": "Module",         "value": "Advanced Biology Concepts" },
+        { "key": "Course",         "value": "Intro to Biology"          },
+        { "key": "Content items",  "value": "3"                         },
+        { "key": "Estimated time", "value": "45 min"                    }
+      ]
+    },
+    "step3": {
+      "description": "Ready to submit. Once submitted, this module will go into a review queue and be published after approval."
+    }
+  },
+
+  "assignModuleCard": {
+    "moduleOptions": [
+      "Advanced Biology Concepts",
+      "Chemistry Fundamentals",
+      "Physics Advanced Topics",
+      "Mathematics Calculus II"
+    ],
+    "defaultRecipients": "Sophia Patel, Noah Kim, Alex Thompson (3 qualified learners)",
+    "defaultModule": "Advanced Biology Concepts",
+    "defaultMessage": "Great news! Module 3 — Advanced Biology has been assigned to you. Log in to get started. Reach out if you have any questions!",
+    "recipientsLabel": "Recipients",
+    "moduleLabel": "Module",
+    "dueDateLabel": "Due Date",
+    "messageLearnerLabel": "Message Learners",
+    "sendMessageButton": "Send Message",
+    "messageSentPrefix": "Message sent to "
+  },
+
+  "extendDeadlineCard": {
+    "updatedLabel": "Updated",
+    "deadlineUpdatedHeading": "Deadline updated",
+    "deadlineUpdatedBodySuffix": ". All students have been notified.",
+    "footerJustNow": "Just now",
+    "assignmentLabel": "Assignment",
+    "currentDeadlineLabel": "Current deadline",
+    "newDeadlineLabel": "New deadline",
+    "warningText": "All enrolled students will be notified of the new deadline via email and in-app notification.",
+    "cancelButton": "Cancel",
+    "confirmButton": "Confirm / Update Deadline"
+  },
+
+  "feedbackFormCard": {
+    "submittedChipLabel": "Submitted",
+    "submittedMessage": "Thanks for your feedback — it helps us improve.",
+    "submittedFooter": "Your response has been recorded.",
+    "ratingLabel": "How would you rate this session?",
+    "solvedLabel": "Did this session solve your problem?",
+    "solvedYesLabel": "Yes, fully",
+    "solvedNoLabel": "Not quite",
+    "commentLabel": "Any additional comments?",
+    "commentOptional": "(optional)",
+    "commentPlaceholder": "What worked well or could be improved...",
+    "submitButton": "Submit Feedback",
+    "skipButton": "Skip"
+  },
+
+  "specialistChatCard": {
+    "liveLabel": "Live",
+    "inputPlaceholder": "Reply to specialist...",
+    "replies": [
+      "Great question! For assignment extensions, I'd recommend a consistent policy applied equally — for example, allowing one 48-hour extension per term per student, no questions asked.",
+      "For students with documented accessibility needs, extensions should always be granted per your institution's accommodation policy. Would you like me to pull up the relevant Pearson guidelines?"
+    ]
+  },
+
+  "studentReadinessCard": {
+    "viewProfileButton": "View profile",
+    "recommendedLabel": "Recommended",
+    "tileDescriptions": {
+      "Assign Next Module":         "Assign new content to qualified learners",
+      "Provide Targeted Support":   "Send personalised help to struggling students",
+      "Send Encouragement Message": "Motivate learners with a custom message"
+    }
+  },
+
+  "actionTiles": {
+    "recommendedLabel": "Recommended",
+    "tileMeta": {
+      "Assign Next Module":         { "desc": "Assign new content to qualified learners"      },
+      "Provide Targeted Support":   { "desc": "Send personalised help to struggling students" },
+      "Send Encouragement Message": { "desc": "Motivate learners with a custom message"       },
+      "Extend Deadline":            { "desc": "Push back the due date for all students"       },
+      "Grant Individual Extension": { "desc": "Give a specific student extra time"            },
+      "Chat with a Specialist":     { "desc": "Connect with a Pearson learning specialist"    },
+      "Review Knowledge Articles":  { "desc": "Browse guidance articles on this topic"       }
+    }
+  },
+
+  "learnerProfile": {
+    "labels": {
+      "moduleCompletion": "Module\nCompletion",
+      "averageScore": "Average\nScore",
+      "scoreTrend": "Score Trend",
+      "moduleHistory": "Module History",
+      "instructorNote": "Instructor Note"
+    },
+    "statusLabels": {
+      "done": "Done",
+      "assigned": "Assigned",
+      "duePrefix": "Due "
+    }
+  },
+
+  "learnerProgressCard": {
+    "moduleCompletionLabel": "Module\nCompletion",
+    "avgScoreValue": "9.4",
+    "avgScoreLabel": "Avg. Score\nCompleted",
+    "modulesCompletedLabel": "Modules\nCompleted",
+    "scoreTrendLabel": "Score Trend",
+    "viewFullProfileButton": "View Full Profile",
+    "performanceHistory": [
+      { "label": "Module 1",   "score": 72   },
+      { "label": "Module 2",   "score": 85   },
+      { "label": "Basics",     "score": 100  },
+      { "label": "Misc.",      "score": 100  },
+      { "label": "Adv. Bio 3", "score": null }
+    ]
+  },
+
+  "learners": {
+    "Sophia Patel": {
+      "subject": "Advanced Biology · Year 2",
+      "topPercent": "Top 5% of class",
+      "stats": [
+        { "label": "Assignments", "value": "14/15", "sub": "submitted"  },
+        { "label": "Avg. Time",   "value": "3.2h",  "sub": "per module" },
+        { "label": "Forum Posts", "value": "12",    "sub": "this month" }
+      ],
+      "avgScore": "9.4",
+      "vsClass": "+18% vs class avg",
+      "performanceHistory": [
+        { "label": "M1",         "score": 72   },
+        { "label": "M2",         "score": 85   },
+        { "label": "M3",         "score": 91   },
+        { "label": "Basics",     "score": 100  },
+        { "label": "Misc.",      "score": 100  },
+        { "label": "Adv. Bio 3", "score": null }
+      ],
+      "modules": [
+        { "name": "Advanced Biology instruction strategies for Module 3", "status": "not_started", "dueDate": "May 9, 2026"                           },
+        { "name": "Common misconceptions in cellular biology",            "status": "completed",   "score": "10/10", "completedDate": "Apr 28, 2026" },
+        { "name": "Basics of biology mastery",                           "status": "completed",   "score": "10/10", "completedDate": "Apr 14, 2026" },
+        { "name": "Intro to molecular biology",                          "status": "completed",   "score": "9/10",  "completedDate": "Mar 30, 2026" },
+        { "name": "Cell structure fundamentals",                         "status": "completed",   "score": "8/10",  "completedDate": "Mar 12, 2026" }
+      ],
+      "note": "Sophia consistently exceeds expectations. Consider offering enrichment content or peer mentoring opportunities in Module 3."
+    },
+    "Noah Kim": {
+      "subject": "Advanced Biology · Year 2",
+      "topPercent": "Top 15% of class",
+      "stats": [
+        { "label": "Assignments", "value": "12/15", "sub": "submitted"  },
+        { "label": "Avg. Time",   "value": "2.8h",  "sub": "per module" },
+        { "label": "Forum Posts", "value": "8",     "sub": "this month" }
+      ],
+      "avgScore": "8.6",
+      "vsClass": "+9% vs class avg",
+      "performanceHistory": [
+        { "label": "M1",         "score": 68   },
+        { "label": "M2",         "score": 74   },
+        { "label": "M3",         "score": 82   },
+        { "label": "Basics",     "score": 88   },
+        { "label": "Misc.",      "score": 92   },
+        { "label": "Adv. Bio 3", "score": null }
+      ],
+      "modules": [
+        { "name": "Advanced Biology instruction strategies for Module 3", "status": "not_started", "dueDate": "May 9, 2026"                          },
+        { "name": "Common misconceptions in cellular biology",            "status": "completed",   "score": "9/10",  "completedDate": "Apr 29, 2026" },
+        { "name": "Basics of biology mastery",                           "status": "completed",   "score": "9/10",  "completedDate": "Apr 15, 2026" },
+        { "name": "Intro to molecular biology",                          "status": "completed",   "score": "8/10",  "completedDate": "Apr 1, 2026"  },
+        { "name": "Cell structure fundamentals",                         "status": "completed",   "score": "8/10",  "completedDate": "Mar 15, 2026" }
+      ],
+      "note": "Noah prefers reading and annotating materials before attempting exercises. Providing detailed written summaries ahead of Module 3 would help him prepare effectively."
+    },
+    "Alex Thompson": {
+      "subject": "Advanced Biology · Year 2",
+      "topPercent": "Top 10% of class",
+      "stats": [
+        { "label": "Assignments", "value": "13/15", "sub": "submitted"  },
+        { "label": "Avg. Time",   "value": "3.0h",  "sub": "per module" },
+        { "label": "Forum Posts", "value": "10",    "sub": "this month" }
+      ],
+      "avgScore": "9.0",
+      "vsClass": "+13% vs class avg",
+      "performanceHistory": [
+        { "label": "M1",         "score": 70   },
+        { "label": "M2",         "score": 80   },
+        { "label": "M3",         "score": 88   },
+        { "label": "Basics",     "score": 95   },
+        { "label": "Misc.",      "score": 98   },
+        { "label": "Adv. Bio 3", "score": null }
+      ],
+      "modules": [
+        { "name": "Advanced Biology instruction strategies for Module 3", "status": "not_started", "dueDate": "May 9, 2026"                           },
+        { "name": "Common misconceptions in cellular biology",            "status": "completed",   "score": "9/10",  "completedDate": "Apr 27, 2026" },
+        { "name": "Basics of biology mastery",                           "status": "completed",   "score": "10/10", "completedDate": "Apr 12, 2026" },
+        { "name": "Intro to molecular biology",                          "status": "completed",   "score": "9/10",  "completedDate": "Mar 28, 2026" },
+        { "name": "Cell structure fundamentals",                         "status": "completed",   "score": "9/10",  "completedDate": "Mar 10, 2026" }
+      ],
+      "note": "Alex responds strongly to diagrams and visual aids. Including concept maps or infographics in Module 3 materials would maximise their engagement."
+    }
+  }
+}

@@ -1,0 +1,307 @@
+{
+  "hero": {
+    "welcomeHeading": "Welcome back, Sarah.",
+    "welcomeSubtext": "You're an Annual Passholder with an open MagicBand+ case from your Grand Floridian stay — we're on it.",
+    "userName": "Sarah M."
+  },
+  "searchHero": {
+    "greetingPrefix": "Good morning, ",
+    "subtext": "Your Annual Pass is active and your MagicBand+ support case is in progress with the Grand Floridian resort team.",
+    "userName": "Sarah"
+  },
+  "searchBar": {
+    "demoTypingText": "My MagicBand+ won't open my hotel room door and it's not showing up in the app — what do I do?",
+    "fakeUploadName": "MagicBand_Issue_GrandFloridian_June2026.pdf",
+    "suggestions": [
+      "How do I fix my MagicBand+ not unlocking my hotel room door?",
+      "What is the cancellation fee if I cancel my resort package less than 30 days out?",
+      "Why isn't my Annual Pass discount applying at checkout in the app?"
+    ],
+    "allSuggestions": [
+      "How do I fix my MagicBand+ not unlocking my hotel room door?",
+      "What is the cancellation fee if I cancel my resort package less than 30 days out?",
+      "Why isn't my Annual Pass discount applying at checkout in the app?",
+      "What is the difference between Lightning Lane Multi Pass and Individual Lightning Lane?",
+      "How do I link my Annual Pass to My Disney Experience?",
+      "My room at the resort has a maintenance issue — who do I contact?",
+      "Can I get a refund for unused ticket days?",
+      "How do I register for Disability Access Service (DAS)?",
+      "Where is Guest Relations located inside Magic Kingdom?",
+      "How do I book a Lightning Lane return time for a specific attraction?",
+      "My Annual Pass is linked to the wrong person — how do I fix it?"
+    ]
+  },
+  "searchBarDropdown": {
+    "demoTypingText": "What is the status of my MagicBand+ door unlock case at the Grand Floridian?",
+    "quickAnswers": [
+      {
+        "question": "What should I do if my MagicBand+ won't open my hotel room door?",
+        "answer": "Check that your band is charged and linked to your reservation in My Disney Experience, then attempt a power-cycle reset; if unresolved, contact the front desk for a backup key card."
+      },
+      {
+        "question": "What is the cancellation fee for a Disney resort package cancelled less than 30 days before arrival?",
+        "answer": "Cancelling a Disney resort package fewer than 30 days before arrival incurs a $200 per-package cancellation fee."
+      }
+    ],
+    "relatedObjects": [
+      {
+        "type": "Case",
+        "title": "MagicBand+ Door Unlock Failure — Grand Floridian",
+        "subtitle": "In Progress · Priority: High",
+        "details": "Case #DW-2025-88421 opened after Annual Passholder was unable to access Room 2214 at Disney's Grand Floridian Resort via MagicBand+. Front desk was notified and issued a physical key card at 11:14 PM. MagicBand+ re-pairing follow-up is pending at Guest Relations."
+      },
+      {
+        "type": "Reservation",
+        "title": "Grand Floridian Resort — Room 2214",
+        "subtitle": "Active stay · Check-in last night",
+        "details": "On-property hotel reservation at Disney's Grand Floridian Resort & Spa. Guest checked in last night and experienced MagicBand+ room access failure upon arrival. Reservation is linked to the guest's Annual Pass and My Disney Experience account."
+      },
+      {
+        "type": "Pass",
+        "title": "Annual Pass — Sarah M.",
+        "subtitle": "Active · Annual Passholder benefits on file",
+        "details": "Active Walt Disney World Annual Pass linked to the guest's My Disney Experience account. Passholder is eligible for dedicated V.I.PASSHOLDER Support, blockout date information, and discount application on eligible purchases. Pass ID is pre-populated on all open cases."
+      },
+      {
+        "type": "Device",
+        "title": "MagicBand+ — Serial #MB2025-44821",
+        "subtitle": "Flagged for re-pairing · Linked to account",
+        "details": "MagicBand+ device linked to the guest's My Disney Experience account and active hotel reservation. Device failed to unlock Room 2214 at the Grand Floridian. Flagged for re-pairing at any Guest Relations location; process takes under 5 minutes."
+      }
+    ]
+  },
+  "categories": [
+    {
+      "label": "MagicBand+ & My Disney Experience",
+      "menuItems": [
+        "Fix MagicBand+ not unlocking hotel room door",
+        "Link MagicBand+ to My Disney Experience account",
+        "Troubleshoot MagicBand+ not showing in app",
+        "Request MagicBand+ re-pairing at Guest Relations"
+      ]
+    },
+    {
+      "label": "Tickets, Passes & Reservations",
+      "menuItems": [
+        "Understand resort package cancellation fees",
+        "Request a fee waiver for a medical emergency cancellation",
+        "Link Annual Pass to My Disney Experience",
+        "Fix Annual Pass linked to the wrong person"
+      ]
+    },
+    {
+      "label": "Lightning Lane & Park Experience",
+      "menuItems": [
+        "Understand Lightning Lane Multi Pass vs. Individual Lightning Lane",
+        "Report a missed return time due to a ride breakdown",
+        "Request a complimentary Lightning Lane credit",
+        "Find Guest Services umbrella locations in the park"
+      ]
+    },
+    {
+      "label": "Recommended for you",
+      "menuItems": [
+        "How do I get my MagicBand+ re-paired at Guest Relations?",
+        "Where can I use my Annual Pass discount in the app?",
+        "What Lightning Lane credit was added to my account?",
+        "How do I check the status of my open support case?"
+      ]
+    }
+  ],
+  "sidebar": {
+    "userRole": "Annual Passholder",
+    "searchPlaceholder": "Quick lookup…",
+    "actionsHeading": "Actions",
+    "conversationsHeading": "Recent Conversations",
+    "actions": [
+      {
+        "label": "Track my open case"
+      },
+      {
+        "label": "MagicBand+ troubleshooting"
+      },
+      {
+        "label": "View Annual Pass benefits"
+      },
+      {
+        "label": "Find Guest Relations locations"
+      }
+    ],
+    "portalTitle": "Sarah's Portal",
+    "conversations": [
+      {
+        "title": "MagicBand+ door unlock failure — Grand Floridian Room 2214",
+        "time": "Today, 7:02 AM"
+      },
+      {
+        "title": "Lightning Lane Multi Pass booking issue — Tron",
+        "time": "Today, 6:45 AM"
+      },
+      {
+        "title": "Annual Pass discount not applying at app checkout",
+        "time": "Yesterday, 3:30 PM"
+      },
+      {
+        "title": "Resort package cancellation fee question",
+        "time": "June 10, 11:15 AM"
+      },
+      {
+        "title": "DAS registration and Lightning Lane accommodations",
+        "time": "June 8, 9:00 AM"
+      }
+    ],
+    "zeroState": [
+      {
+        "group": "Cases",
+        "items": [
+          {
+            "text": "MagicBand+ Door Unlock — Grand Floridian",
+            "sub": "In Progress · Front desk notified, re-pairing pending"
+          },
+          {
+            "text": "Lightning Lane Credit — Tron Booking Issue",
+            "sub": "Resolved · Complimentary credit added to account"
+          },
+          {
+            "text": "Annual Pass Discount — App Checkout Error",
+            "sub": "In Progress · Passholder support queue"
+          }
+        ]
+      },
+      {
+        "group": "Reservations",
+        "items": [
+          {
+            "text": "Grand Floridian Resort — Room 2214",
+            "sub": "Active stay · Check-in last night"
+          },
+          {
+            "text": "Disney's Polynesian Resort — July 2026",
+            "sub": "Upcoming · Package booked"
+          }
+        ]
+      },
+      {
+        "group": "Passes & Tickets",
+        "items": [
+          {
+            "text": "Annual Pass — Sarah M.",
+            "sub": "Active · V.I.PASSHOLDER benefits on file"
+          },
+          {
+            "text": "Lightning Lane Multi Pass Credit",
+            "sub": "Added today · Valid for today's visit"
+          }
+        ]
+      },
+      {
+        "group": "Devices",
+        "items": [
+          {
+            "text": "MagicBand+ — Serial #MB2025-44821",
+            "sub": "Flagged for re-pairing at Guest Relations"
+          }
+        ]
+      }
+    ]
+  },
+  "chat": {
+    "promptSuggestions": [
+      {
+        "label": "MagicBand+ Door Unlock — Grand Floridian Room 2214",
+        "sub": "Case · In Progress — resort front desk notified"
+      },
+      {
+        "label": "Annual Pass — Sarah M.",
+        "sub": "Pass · Active — V.I.PASSHOLDER support eligible"
+      },
+      {
+        "label": "Grand Floridian Resort Reservation",
+        "sub": "Reservation · Active stay, check-in last night"
+      },
+      {
+        "label": "Lightning Lane Multi Pass Credit",
+        "sub": "Pass · Added today — valid for today's park visit"
+      },
+      {
+        "label": "MagicBand+ Serial #MB2025-44821",
+        "sub": "Device · Flagged for re-pairing at Guest Relations"
+      }
+    ]
+  },
+  "chatScript": {
+    "messages": [
+      {
+        "id": "1",
+        "role": "user",
+        "content": "My MagicBand+ won't open my hotel room door at the Grand Floridian. I've tried everything and it's late at night. I need to get into my room.",
+        "citations": []
+      },
+      {
+        "id": "2",
+        "role": "agent",
+        "content": "I'm sorry to hear that, Sarah. I can see you're an Annual Passholder checked into Room 2214 at Disney's Grand Floridian Resort tonight. Let's get this sorted out right away.\n\nFirst, let's try a quick troubleshooting step: hold the button on your MagicBand+ for 6 seconds to power-cycle it, then tap it to the door sensor again. Also confirm in the My Disney Experience app that the band is listed under your active reservation — guests need the app and a Disney account linked for full MagicBand+ functionality.\n\nIf that doesn't work, please let me know and I'll immediately notify the Grand Floridian front desk to bring a backup key card to your room.",
+        "citations": [
+          "MagicBand+ & Technology"
+        ],
+        "card": "MagicBand+ Troubleshooting — Room 2214, Grand Floridian | Step 1: Power-cycle band (hold 6 sec) | Step 2: Verify band linked in My Disney Experience app | Step 3: Contact agent if unresolved"
+      },
+      {
+        "id": "5",
+        "role": "user",
+        "content": "I tried the reset and checked the app — it's still not working. I really just need to get into my room.",
+        "citations": []
+      },
+      {
+        "id": "6",
+        "role": "agent",
+        "content": "Understood — I've opened Case #DW-2025-88421 for you right now, categorized as a MagicBand+ door unlock failure at the Grand Floridian, Priority: High.\n\nI've sent an immediate notification to the Grand Floridian front desk: a Cast Member will bring a physical backup key card to Room 2214 within 15 minutes. You don't need to go to the front desk yourself.\n\nYour MagicBand+ serial number has been flagged on the case. Tomorrow morning, a Guest Experience agent will follow up with next steps for getting the band re-paired — that process takes under 5 minutes at any Guest Relations location.",
+        "citations": [
+          "Reservations & Cancellations",
+          "Park Experience & Lightning Lane"
+        ],
+        "card": "Case #DW-2025-88421 | Type: MagicBand+ Door Unlock Failure | Location: Grand Floridian, Room 2214 | Priority: High | Action: Front desk notified — key card en route"
+      },
+      {
+        "id": "7",
+        "role": "agent",
+        "content": "Good morning, Sarah! We're sorry again for last night's inconvenience. Our records show the Grand Floridian front desk delivered a backup key card to your room at 11:14 PM.\n\nTo resolve the MagicBand+ issue, please stop by any Guest Relations location at your convenience — the re-pairing takes under 5 minutes. As a thank-you for the trouble, we've added a complimentary Lightning Lane Multi Pass credit to your My Disney Experience account for today's visit.\n\nIs there anything else we can help you with for your stay?",
+        "citations": [
+          "MagicBand+ & Technology"
+        ],
+        "card": "Case #DW-2025-88421 Update | Key card issued: 11:14 PM | Next step: MagicBand+ re-pairing at Guest Relations (under 5 min) | Goodwill gesture: Lightning Lane Multi Pass credit added to account"
+      }
+    ]
+  },
+  "articles": {
+    "learning": [
+      {
+        "title": "MagicBand+ Troubleshooting: Fixing Door Unlock and App Linking Issues",
+        "subtitle": "Step-by-step guidance for resolving the most common MagicBand+ problems at Walt Disney World Resort.",
+        "category": "MagicBand+ & Technology",
+        "lastUpdated": "June 1, 2026",
+        "image": "image-1",
+        "summary": "MagicBand+ is central to the Walt Disney World experience, used to access Lightning Lane entrances and unlock Disney Resort hotel room doors. When the band fails to function, it can disrupt a guest's entire visit. This article covers the most common causes of MagicBand+ failures, self-service troubleshooting steps, and how to escalate to Guest Relations if the issue persists.",
+        "content": "MagicBand+ is one of the most versatile tools available to Walt Disney World guests. In addition to serving as a theme park ticket, it unlocks Disney Resort hotel room doors and provides access to Lightning Lane entrances — meaning a malfunction can have an immediate and significant impact on your stay. Understanding how to troubleshoot the band quickly can save valuable time, especially when the issue occurs late at night.\n\nHow MagicBand+ Works\nGuests need the My Disney Experience mobile app and a Disney account to enjoy the full functionality of MagicBand+. The band communicates with door sensors and park entry points via a combination of Bluetooth and near-field communication. For hotel room door access specifically, the band must be linked to an active resort reservation in the My Disney Experience app. If the link is broken — due to a software update, account change, or battery issue — the door sensor will not recognize the band.\n\nStep 1 — Check the Battery\nMagicBand+ requires a sufficient charge to complete a software sync with resort systems. If the band's battery is low, it may fail to communicate with door sensors even if it appears to be powered on. Charge your band using the included USB cable before your arrival day and keep it charged throughout your stay.\n\nStep 2 — Verify the App Link\nOpen the My Disney Experience app and navigate to your Plans and Tickets section. Confirm that your MagicBand+ is listed and associated with your active hotel reservation. If the band does not appear, try removing it and re-adding it through the MagicBand+ management screen. Note that if it has been more than 48 hours since you started the linking process and your pass or reservation is still not listed, you should contact Disney directly.\n\nStep 3 — Power-Cycle the Band\nHold the button on your MagicBand+ for 6 seconds until the light pulses, then release. This performs a soft reset and can resolve temporary Bluetooth or firmware issues. After the reset, attempt to tap the band to the door sensor again.\n\nStep 4 — Request a Backup Key Card\nIf the above steps do not resolve the issue, contact the front desk of your Disney Resort hotel immediately. Cast Members can issue a physical key card for your room while the MagicBand+ issue is investigated. You do not need to wait for the technical issue to be resolved before accessing your room.\n\nStep 5 — Visit Guest Relations for Re-Pairing\nFor persistent MagicBand+ issues, a re-pairing at any Guest Relations location is the most reliable fix. The process takes under 5 minutes. Guest Relations locations are available at all four theme parks (both inside and outside the gate), two water parks, Disney Springs, and the ESPN Wide World of Sports Complex. Bring your MagicBand+ and have your My Disney Experience account credentials ready."
+      },
+      {
+        "title": "Disney Resort Cancellation Policy: Fees, Credits, and Waiver Options",
+        "subtitle": "What guests need to know about cancellation fees, refund eligibility, and how to request a fee waiver.",
+        "category": "Reservations & Cancellations",
+        "lastUpdated": "June 5, 2026",
+        "image": "image-2",
+        "summary": "Disney World's resort package cancellation policy is a frequent source of guest frustration, particularly the $200 per-package fee that applies when cancelling fewer than 30 days before arrival. This article explains the cancellation fee tiers, what options are available to guests who need to cancel close to their travel date, and how to request a fee waiver in exceptional circumstances such as a medical emergency.",
+        "content": "Planning a Walt Disney World vacation involves significant financial commitment, and understanding the cancellation policy before you book can prevent costly surprises. Disney's refund and cancellation rules are tiered based on how far in advance you cancel, and some restrictions — particularly around unused ticket days — are absolute.\n\nThe 30-Day Cancellation Fee\nIf you cancel your Disney resort package fewer than 30 days before your scheduled arrival, you will be charged a cancellation fee of $200 per package. This fee applies per booking, not per person, and is deducted from any refund issued. Guests who cancel more than 30 days before arrival are generally eligible for a full refund of their deposit, though specific terms can vary by package type and booking channel.\n\nUnused Ticket Days — A Critical Restriction\nOne of the most important policies for guests to understand is that Disney workers are not authorized to refund unused ticket days under any circumstances. If you purchase a multi-day ticket and are unable to use one or more days — due to illness, weather, or any other reason — those days cannot be refunded. This policy applies regardless of the reason for non-use and is a firm operational rule, not a discretionary decision made by individual Cast Members.\n\nOptions When Cancelling Close to Your Travel Date\nIf you need to cancel within the 30-day window, you have a few options to consider. First, you may be able to modify your reservation rather than cancel it outright — changing your arrival date or resort can sometimes be done without triggering the full cancellation fee, depending on availability. Second, if your reason for cancellation is a documented medical emergency or other extraordinary circumstance, you can request a fee waiver by opening a case with Disney's Reservations team. Waiver decisions are made on a case-by-case basis and are not guaranteed, but providing documentation (such as a physician's note) strengthens your request.\n\nTravel Insurance\nDisney strongly recommends purchasing travel insurance at the time of booking, particularly for guests making non-refundable deposits. A comprehensive travel insurance policy can cover cancellation fees and non-refundable costs in situations that qualify under the policy's terms, such as illness, injury, or certain family emergencies. Review your policy carefully to understand what is and is not covered.\n\nHow to Cancel or Modify Your Reservation\nReservations can be modified or cancelled through the My Disney Experience app, on the Disney World website, or by calling Disney's reservation line. If you booked through a travel agent or third-party booker, contact them directly — they have access to reservation management tools and can initiate changes on your behalf. When cancelling, request a written confirmation of the cancellation and any fees charged so you have a record for your files."
+      },
+      {
+        "title": "Lightning Lane Guide: Multi Pass, Individual Lightning Lane, and Resolving Booking Issues",
+        "subtitle": "How Disney's Lightning Lane system works, common sources of confusion, and what to do when something goes wrong.",
+        "category": "Park Experience & Lightning Lane",
+        "lastUpdated": "June 10, 2026",
+        "image": "image-3",
+        "summary": "Disney's Lightning Lane system replaced the legacy FastPass+ program and has been a significant source of guest confusion since its rollout, particularly around the difference between Lightning Lane Multi Pass and Individual Lightning Lane. This article explains how each product works, why booking windows and availability behave the way they do, and how guests can resolve disputes or missed return times through Guest Services.",
+        "content": "Disney World's Lightning Lane system is designed to give guests a way to minimize wait times for popular attractions, but its two-tier structure has generated considerable confusion and frustration since launch. Understanding the difference between Lightning Lane Multi Pass and Individual Lightning Lane — and knowing what to do when the system doesn't work as expected — is essential for getting the most out of your park day.\n\nLightning Lane Multi Pass\nLightning Lane Multi Pass (LLMP) is a paid add-on that allows guests to book a return time for one attraction at a time from a rotating list of eligible rides and experiences. Once you use your first Lightning Lane return time (or the return window passes), you can book another. LLMP is purchased per person, per day, and is available for most attractions across all four theme parks. Booking opens at 7 AM for guests staying at Disney Resort hotels and at park opening for day guests.\n\nIndividual Lightning Lane\nIndividual Lightning Lane (ILL) is a separate, per-attraction purchase for the most in-demand rides — such as Tron Lightcycle / Run and Guardians of the Galaxy: Cosmic Rewind. ILL is not included in the Multi Pass purchase; it must be bought separately for each attraction. This distinction was a major source of confusion when Lightning Lane Premier Pass was introduced months after Multi Pass, leading to guest frustration that Disney has acknowledged could have been avoided with clearer communication.\n\nWhy You Can't Book a Return Time for a Specific Attraction\nIf the app won't let you book a return time for a particular ride, there are several possible explanations. The attraction may be temporarily unavailable due to a technical issue or refurbishment. For ILL attractions, the day's allotment of Lightning Lane slots may be sold out — ILL inventory is limited and can sell out early in the morning. For LLMP, you may already have an active return time that must be used before booking another.\n\nWhat to Do When Something Goes Wrong\nGuests experiencing issues with their Lightning Lane reservations are directed to Guest Services umbrellas located throughout each theme park. Cast Members at these locations have the authority to investigate booking errors, confirm ride downtime records, and issue remedies such as complimentary Lightning Lane credits when a guest missed a return time due to a documented attraction closure or technical failure.\n\nAnnual Passholders and Lightning Lane\nAnnual Passholders can purchase Lightning Lane Multi Pass at a discounted rate on eligible pass tiers. Passholder discounts require presenting your Annual Pass ID in the Tickets and Passes section of the My Disney Experience app, or your physical Annual Pass card along with a valid government-issued photo ID. If your discount is not being applied at checkout, verify that your pass is correctly linked to your My Disney Experience account before contacting V.I.PASSHOLDER Support for assistance."
+      }
+    ]
+  }
+}

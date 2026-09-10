@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Bar - Variation 2</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; background-color: #E8E5F3; min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+
+  <div style="width: 100%; max-width: 672px; position: relative; padding: 20px;">
+    <div id="container" style="position: relative; overflow: hidden; background: linear-gradient(to right, #93D7F9, #A4C1FF, #A3DEFF); border-radius: 50px; padding: 14px; transition: all 200ms ease-in-out;">
+
+      <!-- Input and Button Row -->
+      <div id="inputRow" style="display: flex; align-items: center; gap: 12px; transition: all 200ms ease-in-out;">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Ask me anything"
+          style="flex: 1; padding: 16px 24px; background-color: white; color: #1a1a2e; border: none; outline: none; font-size: 14px; border-radius: 50px; transition: all 200ms ease-in-out;"
+        />
+        <button
+          id="searchButton"
+          style="width: 48px; height: 48px; background-color: white; border: none; border-radius: 50px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: all 200ms ease-in-out; opacity: 1;"
+        >
+          <!-- Search Icon SVG -->
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Dropdown Suggestions -->
+      <div id="dropdown" style="overflow: hidden; max-height: 0; opacity: 0; margin-top: 0; transition: all 200ms ease-in-out;">
+        <div style="border-top: 1px solid #f3f4f6; padding-top: 8px;">
+
+          <!-- Suggestion 1 -->
+          <button class="suggestion-item" data-text="Which of my accounts haven't been contacted in 30 days but have open high-priority cases?" style="width: 100%; padding: 12px 24px; text-align: left; background: none; border: none; cursor: pointer; color: #1a1a2e; font-size: 14px; display: flex; align-items: center; gap: 12px; transition: background-color 200ms;">
+            <!-- Search Icon -->
+            <svg style="flex-shrink: 0;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <span>"Which of my accounts haven't been contacted in 30 days but have open high-priority cases?"</span>
+          </button>
+
+          <!-- Suggestion 2 -->
+          <button class="suggestion-item" data-text="Summarize what changed on the Acme deal since my last login." style="width: 100%; padding: 12px 24px; text-align: left; background: none; border: none; cursor: pointer; color: #1a1a2e; font-size: 14px; display: flex; align-items: center; gap: 12px; transition: background-color 200ms;">
+            <!-- Search Icon -->
+            <svg style="flex-shrink: 0;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <span>"Summarize what changed on the Acme deal since my last login."</span>
+          </button>
+
+          <!-- Suggestion 3 -->
+          <button class="suggestion-item" data-text="Find renewals coming up in 60 days where the primary contact has left the company." style="width: 100%; padding: 12px 24px; text-align: left; background: none; border: none; cursor: pointer; color: #1a1a2e; font-size: 14px; display: flex; align-items: center; gap: 12px; transition: background-color 200ms;">
+            <!-- Search Icon -->
+            <svg style="flex-shrink: 0;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <span>"Find renewals coming up in 60 days where the primary contact has left the company."</span>
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const container = document.getElementById('container');
+    const inputRow = document.getElementById('inputRow');
+    const searchButton = document.getElementById('searchButton');
+    const dropdown = document.getElementById('dropdown');
+    const suggestionItems = document.querySelectorAll('.suggestion-item');
+
+    let isOpen = false;
+
+    // Focus handler - open dropdown
+    searchInput.addEventListener('focus', function() {
+      isOpen = true;
+      container.style.background = '#ffffff';
+      container.style.borderRadius = '24px';
+      container.style.padding = '20px';
+      container.style.boxShadow = '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)';
+
+      inputRow.style.gap = '0';
+
+      searchInput.style.borderRadius = '16px';
+
+      searchButton.style.width = '0';
+      searchButton.style.height = '0';
+      searchButton.style.opacity = '0';
+      searchButton.style.overflow = 'hidden';
+
+      dropdown.style.maxHeight = '600px';
+      dropdown.style.opacity = '1';
+      dropdown.style.marginTop = '16px';
+    });
+
+    // Blur handler - close dropdown
+    searchInput.addEventListener('blur', function() {
+      setTimeout(function() {
+        isOpen = false;
+        container.style.background = 'linear-gradient(to right, #93D7F9, #A4C1FF, #A3DEFF)';
+        container.style.borderRadius = '50px';
+        container.style.padding = '14px';
+        container.style.boxShadow = 'none';
+
+        inputRow.style.gap = '12px';
+
+        searchInput.style.borderRadius = '50px';
+
+        searchButton.style.width = '48px';
+        searchButton.style.height = '48px';
+        searchButton.style.opacity = '1';
+        searchButton.style.overflow = 'visible';
+
+        dropdown.style.maxHeight = '0';
+        dropdown.style.opacity = '0';
+        dropdown.style.marginTop = '0';
+      }, 200);
+    });
+
+    // Hover effects for suggestions
+    suggestionItems.forEach(function(item) {
+      item.addEventListener('mouseenter', function() {
+        this.style.backgroundColor = '#f9fafb';
+      });
+
+      item.addEventListener('mouseleave', function() {
+        this.style.backgroundColor = 'transparent';
+      });
+
+      item.addEventListener('click', function() {
+        searchInput.value = this.getAttribute('data-text');
+      });
+    });
+
+    // Hover effect for search button
+    searchButton.addEventListener('mouseenter', function() {
+      this.style.backgroundColor = '#f9fafb';
+    });
+
+    searchButton.addEventListener('mouseleave', function() {
+      this.style.backgroundColor = 'white';
+    });
+  </script>
+
+</body>
+</html>

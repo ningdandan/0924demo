@@ -1,0 +1,306 @@
+{
+  "hero": {
+    "welcomeHeading": "Welcome back, Maya.",
+    "welcomeSubtext": "You have an open dispute on charge ch_3Xyz for $127.50 — your response deadline is approaching and your case is with the Disputes & Chargebacks team.",
+    "userName": "Maya R."
+  },
+  "searchHero": {
+    "greetingPrefix": "Good morning, ",
+    "subtext": "Your dispute case on charge ch_3Xyz is in progress — the Disputes & Chargebacks team has your evidence and is tracking your response deadline.",
+    "userName": "Maya"
+  },
+  "searchBar": {
+    "demoTypingText": "I got a chargeback notification and my tracking shows delivered — how do I fight it?",
+    "fakeUploadName": "Dispute_Evidence_ch_3Xyz_DeliveryConfirmation.pdf",
+    "suggestions": [
+      "How do I respond to a chargeback in my Stripe Dashboard?",
+      "Why is my payout on hold and what do I do?",
+      "How does Stripe handle subscription proration when I upgrade mid-cycle?"
+    ],
+    "allSuggestions": [
+      "How do I respond to a chargeback in my Stripe Dashboard?",
+      "Why is my payout on hold and what do I do?",
+      "How does Stripe handle subscription proration when I upgrade mid-cycle?",
+      "What evidence do I need for a 'product not received' dispute?",
+      "How long does Stripe take to resolve a dispute?",
+      "My account says 'verification pending' — what documents does Stripe accept?",
+      "Why is my checkout showing a card_declined error after my integration update?",
+      "How do I view and download my Stripe invoices?",
+      "What triggers a payout hold on my Stripe account?",
+      "How do I onboard a connected account in Stripe Connect?",
+      "When will my payout arrive after a transaction is completed?"
+    ]
+  },
+  "searchBarDropdown": {
+    "demoTypingText": "What is the status of my dispute on charge ch_3Xyz for $127.50?",
+    "quickAnswers": [
+      {
+        "question": "How long do I have to respond to a Stripe dispute?",
+        "answer": "Merchants typically have 7 to 21 days to respond to a dispute, depending on the card network."
+      },
+      {
+        "question": "How long does it take for the card issuer to decide a dispute outcome?",
+        "answer": "After you submit evidence, the issuer usually takes 60 to 75 days to evaluate and decide the outcome."
+      }
+    ],
+    "relatedObjects": [
+      {
+        "type": "Case",
+        "title": "Dispute — ch_3Xyz ($127.50)",
+        "subtitle": "In Progress · Priority: Medium — deadline in 14 days",
+        "details": "Chargeback case opened after a 'product not received' dispute was filed against charge ch_3Xyz for $127.50. Merchant has submitted tracking confirmation and delivery photo as evidence. Routed to the Disputes & Chargebacks queue with automated escalation if deadline drops below 5 days unresolved."
+      },
+      {
+        "type": "Transaction",
+        "title": "Charge ch_3Xyz — $127.50",
+        "subtitle": "Disputed · Reason: Product Not Received",
+        "details": "Payment of $127.50 processed through Stripe and subsequently disputed by the cardholder citing non-receipt of goods. Merchant tracking data shows delivery was completed. Evidence package including tracking number and delivery confirmation screenshot has been attached to the case."
+      },
+      {
+        "type": "Account",
+        "title": "Maya R. — Stripe Merchant Account",
+        "subtitle": "Active · Payouts enabled",
+        "details": "Small e-commerce merchant account selling handmade goods, currently processing payments at the standard Stripe rate of 2.9% + 30 cents per domestic card transaction. Account is verified and payouts are enabled. This is the merchant's first chargeback case."
+      },
+      {
+        "type": "Subscription",
+        "title": "Stripe Standard Plan",
+        "subtitle": "Active · Monthly billing",
+        "details": "Merchant is on Stripe's standard pay-as-you-go plan with no monthly platform fee. Billing is transaction-based at 2.9% + 30 cents for domestic cards. No outstanding invoices or billing issues on the account."
+      }
+    ]
+  },
+  "categories": [
+    {
+      "label": "Disputes & Chargebacks",
+      "menuItems": [
+        "How to respond to a dispute in my Stripe Dashboard",
+        "Evidence checklist for 'product not received' disputes",
+        "Check the status of an open dispute",
+        "Understand dispute reason codes and timelines"
+      ]
+    },
+    {
+      "label": "Payouts & Account Holds",
+      "menuItems": [
+        "Why is my payout on hold?",
+        "What triggers an account verification review?",
+        "How to submit documents to lift a payout hold",
+        "Understand payout timing and schedules"
+      ]
+    },
+    {
+      "label": "Billing & Subscriptions",
+      "menuItems": [
+        "How Stripe Billing handles proration on plan upgrades",
+        "View and download invoices for my account",
+        "Cancel or pause a subscription",
+        "Understand usage-based and tiered billing"
+      ]
+    },
+    {
+      "label": "Recommended for you",
+      "menuItems": [
+        "How do I respond to a chargeback in my Stripe Dashboard?",
+        "What evidence do I need for a 'product not received' dispute?",
+        "Why is my payout on hold and what do I do?",
+        "How does Stripe handle subscription proration when I upgrade mid-cycle?"
+      ]
+    }
+  ],
+  "sidebar": {
+    "userRole": "Stripe Merchant — Standard Plan",
+    "searchPlaceholder": "Quick lookup…",
+    "actionsHeading": "Actions",
+    "conversationsHeading": "Recent Conversations",
+    "actions": [
+      {
+        "label": "Respond to open dispute"
+      },
+      {
+        "label": "Check payout status"
+      },
+      {
+        "label": "View recent invoices"
+      },
+      {
+        "label": "Upload verification documents"
+      }
+    ],
+    "portalTitle": "Maya's Portal",
+    "conversations": [
+      {
+        "title": "Dispute response — ch_3Xyz product not received",
+        "time": "Today, 10:22 AM"
+      },
+      {
+        "title": "Evidence checklist for chargeback submission",
+        "time": "Today, 9:45 AM"
+      },
+      {
+        "title": "Payout timing question after sales spike",
+        "time": "Yesterday, 3:30 PM"
+      },
+      {
+        "title": "Proration charge after plan upgrade mid-cycle",
+        "time": "May 20, 11:15 AM"
+      },
+      {
+        "title": "card_declined errors after integration update",
+        "time": "May 18, 2:05 PM"
+      }
+    ],
+    "zeroState": [
+      {
+        "group": "Disputes",
+        "items": [
+          {
+            "text": "Dispute — ch_3Xyz ($127.50)",
+            "sub": "In Progress · Reason: Product Not Received"
+          },
+          {
+            "text": "Dispute — ch_1Abc ($43.00)",
+            "sub": "Resolved · Won — evidence accepted"
+          },
+          {
+            "text": "Dispute — ch_2Def ($89.99)",
+            "sub": "Closed · Expired — no response submitted"
+          }
+        ]
+      },
+      {
+        "group": "Cases",
+        "items": [
+          {
+            "text": "Chargeback Case — ch_3Xyz",
+            "sub": "In Progress · Disputes & Chargebacks team"
+          },
+          {
+            "text": "Verification Hold — Apr 2026",
+            "sub": "Resolved · Payout re-enabled"
+          }
+        ]
+      },
+      {
+        "group": "Transactions",
+        "items": [
+          {
+            "text": "Charge ch_3Xyz — $127.50",
+            "sub": "Disputed · Delivery confirmed by tracking"
+          },
+          {
+            "text": "Charge ch_4Ghi — $215.00",
+            "sub": "Succeeded · Payout scheduled"
+          }
+        ]
+      },
+      {
+        "group": "Subscriptions",
+        "items": [
+          {
+            "text": "Stripe Standard Plan",
+            "sub": "Active · 2.9% + 30¢ per domestic card transaction"
+          }
+        ]
+      }
+    ]
+  },
+  "chat": {
+    "promptSuggestions": [
+      {
+        "label": "Dispute — ch_3Xyz ($127.50)",
+        "sub": "Case · In Progress — Disputes & Chargebacks team"
+      },
+      {
+        "label": "Charge ch_3Xyz — Product Not Received",
+        "sub": "Transaction · Disputed, delivery confirmed by tracking"
+      },
+      {
+        "label": "Maya R. — Stripe Merchant Account",
+        "sub": "Account · Active, payouts enabled"
+      },
+      {
+        "label": "Evidence Checklist — Product Not Received",
+        "sub": "Knowledge Article · Dispute response guidance"
+      },
+      {
+        "label": "Payout Schedule — Standard Plan",
+        "sub": "Account · 2.9% + 30¢ per domestic card transaction"
+      }
+    ]
+  },
+  "chatScript": {
+    "messages": [
+      {
+        "id": "1",
+        "role": "user",
+        "content": "I just got a dispute notification for charge ch_3Xyz — $127.50. The reason says 'product not received' but my tracking clearly shows it was delivered. I've never dealt with a chargeback before. What do I do?",
+        "citations": []
+      },
+      {
+        "id": "2",
+        "role": "agent",
+        "content": "Hi Maya — I can see the dispute on charge ch_3Xyz for $127.50 with the reason 'product not received.' Here's what you need to know and do right away.\n\nA dispute (also called a chargeback) means the cardholder has asked their card issuer to reverse the payment. You have a limited window to respond — typically 7 to 21 days depending on the card network — so acting quickly is important. If you don't respond before the deadline, you automatically lose the dispute.\n\nBecause your tracking shows the item was delivered, you have strong evidence. Here's what to gather:\n• Shipping confirmation and tracking number\n• Proof of delivery (carrier confirmation screenshot or photo)\n• Any customer communication records (emails, messages)\n• Order details showing the item description and fulfillment date\n\nOnce you have these ready, you can submit your response directly in your Stripe Dashboard under the Disputes tab. I've opened a case for you (CAS-2026-00391) and pre-filled it with your dispute reason and charge ID. Would you like step-by-step instructions for submitting in the Dashboard?",
+        "citations": [
+          "Disputes & Chargebacks"
+        ],
+        "card": "Dispute Case CAS-2026-00391 | Charge: ch_3Xyz — $127.50 | Reason: Product Not Received | Deadline: 14 days | Status: Evidence collection in progress"
+      },
+      {
+        "id": "5",
+        "role": "user",
+        "content": "Yes please. I have the tracking number and a screenshot of the delivery confirmation from the carrier. Is that enough to win?",
+        "citations": []
+      },
+      {
+        "id": "6",
+        "role": "agent",
+        "content": "Great — that's exactly the right evidence for a 'product not received' dispute. Here's how to submit it in your Stripe Dashboard:\n\n1. Log in to your Stripe Dashboard and go to Payments > Disputes.\n2. Click on the dispute for charge ch_3Xyz.\n3. Click 'Submit evidence' and upload your tracking number and delivery confirmation screenshot.\n4. Add a brief written explanation — for example: 'Tracking number [your number] confirms delivery on [date]. Delivery confirmation screenshot attached.'\n5. Click 'Submit evidence' to send it to the card network before your deadline.\n\nTracking proof and delivery confirmation are among the strongest evidence types for this dispute reason. After you submit, the card issuer will typically take 60 to 75 days to evaluate your evidence and decide the outcome. I'll set an automated reminder on your case to follow up if you haven't confirmed submission within 48 hours.",
+        "citations": [
+          "Disputes & Chargebacks"
+        ],
+        "card": "Evidence Submitted: Tracking number + delivery confirmation | Next step: Issuer review — decision expected within 60–75 days"
+      },
+      {
+        "id": "7",
+        "role": "agent",
+        "content": "To recap: your dispute case CAS-2026-00391 is open and your evidence — tracking number and delivery confirmation — is exactly what's needed for a 'product not received' chargeback. Submit it in your Stripe Dashboard under Payments > Disputes before your 14-day deadline. After submission, the issuer has up to 60 to 75 days to decide. I'll send you a reminder if your deadline is approaching and the case is still open. Is there anything else I can help you with today?",
+        "citations": [
+          "Payouts & Account Holds"
+        ],
+        "card": "Session Summary | Case: CAS-2026-00391 open | Evidence: Ready to submit | Deadline: 14 days | Issuer decision: 60–75 days after submission"
+      }
+    ]
+  },
+  "articles": {
+    "learning": [
+      {
+        "title": "How to Respond to a Dispute in Your Stripe Dashboard",
+        "subtitle": "A step-by-step guide to submitting evidence and protecting your revenue when a chargeback is filed.",
+        "category": "Disputes & Chargebacks",
+        "lastUpdated": "May 1, 2026",
+        "image": "image-1",
+        "summary": "When a cardholder files a dispute, Stripe immediately reverses the payment and notifies the merchant. Merchants have a limited window — typically 7 to 21 days depending on the card network — to submit evidence before the deadline. This article explains the dispute lifecycle, what evidence to gather for each reason code, and how to submit a response in the Stripe Dashboard.",
+        "content": "A dispute, also known as a chargeback, occurs when a cardholder questions a payment with their card issuer. When a dispute is created, the card network immediately reverses the payment — meaning the funds are removed from your Stripe balance while the dispute is under review. Acting quickly and submitting strong evidence is the most effective way to recover those funds.\n\nUnderstanding the Dispute Timeline\nAfter a dispute is opened, you have a limited time to respond to the card issuer — usually 7 to 21 days, depending on the card network. This deadline is firm: if you do not submit evidence before it expires, you automatically lose the dispute and cannot retrieve the funds. Stripe will notify you of the dispute via email and in your Dashboard, and the deadline will be displayed on the dispute detail page.\n\nStep 1 — Identify the Dispute Reason Code\nEvery dispute has a reason code that tells you why the cardholder is disputing the charge. Common reason codes include 'product not received,' 'product not as described,' and 'fraudulent charge.' The reason code determines what evidence is most relevant. Navigate to Payments > Disputes in your Stripe Dashboard to find the reason code for your dispute.\n\nStep 2 — Gather Your Evidence\nFor 'product not received' disputes, the strongest evidence includes: a tracking number showing the shipment was sent, carrier confirmation of delivery (including delivery date and address), any customer communication showing the order was acknowledged, and the order details including item description and fulfillment date. For 'product not as described' disputes, include photos of the item as shipped, your product description, and any customer communications. For 'fraudulent charge' disputes, include proof that the cardholder authorized the transaction, such as a signed receipt or IP address logs.\n\nStep 3 — Submit Your Response in the Dashboard\nIn your Stripe Dashboard, go to Payments > Disputes and click on the relevant dispute. Click 'Submit evidence,' upload your supporting files, and add a written explanation summarizing your case. Be concise and factual — card network reviewers assess many disputes and clear, well-organized evidence is more persuasive. Click 'Submit evidence' to send your response before the deadline.\n\nWhat Happens After You Submit\nOnce you submit evidence, the card issuer evaluates your submission and decides the outcome. This process typically takes 60 to 75 days, depending on the card network. Stripe will notify you of the outcome via email and in your Dashboard. If the dispute is decided in your favor, the reversed funds are returned to your Stripe balance. If the dispute is decided against you, the funds remain with the cardholder and a dispute fee is applied.\n\nPreventing Future Disputes\nThe most effective way to reduce disputes is to use clear billing descriptors so customers recognize your charge on their statement, provide tracking information proactively, and respond quickly to customer inquiries. Stripe Radar, Stripe's fraud detection tool, can also help identify and block high-risk transactions before they result in disputes."
+      },
+      {
+        "title": "Why Is My Payout on Hold? Common Causes and How to Resolve Them",
+        "subtitle": "Understand what triggers a Stripe payout hold and the steps to get your funds released.",
+        "category": "Payouts & Account Holds",
+        "lastUpdated": "May 8, 2026",
+        "image": "image-2",
+        "summary": "Payout holds are one of the most urgent issues Stripe merchants face, as they can disrupt cash flow without warning. The most common triggers are incomplete account verification, a spike in disputes, or an unusual increase in transaction volume. This article explains each trigger, what Stripe needs from you to lift the hold, and how to avoid holds in the future.",
+        "content": "A payout hold means Stripe has temporarily paused the transfer of funds from your Stripe balance to your bank account. Holds can feel alarming — especially when they coincide with a busy sales period — but most are resolved quickly once the underlying issue is addressed.\n\nThe Most Common Trigger: Verification Gaps\nStripe is required by financial regulations to verify the identity and legitimacy of every business it works with — a process known as Know Your Customer (KYC) verification. If your account is missing required information — such as business registration details, ownership information, a government-issued ID, or a verified bank account — Stripe may pause payouts until the information is provided and verified. Your Dashboard will typically indicate what information is needed under Settings > Account details.\n\nDispute Rate Spikes\nA sudden increase in the number of disputes on your account can trigger an automated risk review. Card networks set thresholds for acceptable dispute rates, and when a merchant's rate approaches those thresholds, payment processors including Stripe are required to take action. If your dispute rate has spiked, Stripe may hold payouts while the risk team reviews your account. Resolving open disputes and demonstrating that you have addressed the root cause is the fastest path to lifting a dispute-related hold.\n\nUnusual Volume Increases\nA rapid, unexpected increase in transaction volume — for example, a viral promotion or a sudden influx of large orders — can trigger an automated review even if your dispute rate is normal. This is a standard fraud-prevention measure. Stripe's risk team will typically reach out via email to request additional information about the volume increase.\n\nHow to Resolve a Payout Hold\nIf your payouts are on hold, start by checking your Dashboard for any outstanding verification requirements or action items. Complete any requested document uploads promptly — blurry images, expired IDs, and name mismatches are common reasons verification stalls. If your Dashboard does not show a clear reason for the hold, open a support case with your account ID, the date the hold began, and your recent dispute rate. Providing this context upfront helps the support team investigate faster.\n\nHow Long Do Holds Last?\nThe duration of a payout hold depends on the cause. Verification-related holds are typically resolved within a few business days once complete documents are submitted. Risk-review holds may take longer depending on the complexity of the review. Stripe will notify you via email as the status of your hold changes.\n\nPreventing Future Holds\nKeep your account information up to date, including business address, ownership details, and bank account information. Monitor your dispute rate regularly in the Dashboard and address disputes promptly. If you anticipate a large volume spike — for example, due to a planned promotion — consider notifying Stripe in advance through your account settings or support channel."
+      },
+      {
+        "title": "Understanding Stripe Billing: Proration, Subscription Upgrades, and Invoice Management",
+        "subtitle": "How Stripe Billing handles mid-cycle plan changes, proration credits, and invoice disputes for over 300,000 companies.",
+        "category": "Billing & Subscriptions",
+        "lastUpdated": "May 15, 2026",
+        "image": "image-3",
+        "summary": "Stripe Billing manages nearly 200 million active subscriptions for more than 300,000 companies, supporting flexible pricing models including usage-based, tiered, and custom billing. When merchants or their customers upgrade or downgrade a subscription mid-cycle, Stripe applies proration logic that can result in immediate charges or credits. This article explains how proration works, how to view and dispute invoices, and how to manage subscription changes without surprises.",
+        "content": "Stripe Billing is the subscription and invoicing engine used by more than 300,000 companies to manage nearly 200 million active subscriptions. Its flexibility — supporting usage-based, tiered, flat-rate, and custom pricing models — makes it powerful, but it also means that billing behavior during plan changes can be nuanced. Understanding how proration works is essential for avoiding unexpected charges and handling customer billing questions efficiently.\n\nWhat Is Proration?\nProration is the process of adjusting a subscription charge to account for a mid-cycle plan change. When a customer upgrades to a higher-priced plan partway through a billing cycle, Stripe calculates the unused portion of the current plan and the cost of the new plan for the remaining days in the cycle. The difference is charged immediately, and the next full billing cycle begins at the new plan price. This means an upgrade mid-cycle typically results in an immediate partial charge rather than waiting until the next renewal date.\n\nWhy Did I Get Charged Immediately?\nIf you upgraded your plan and were charged right away, this is expected behavior under Stripe Billing's default proration settings. The immediate charge represents the prorated cost of the new plan for the remainder of the current billing period. Your next invoice at the start of the new cycle will reflect the full new plan price. If the charge amount seems incorrect, check your invoice in the Dashboard under Billing > Invoices — the line items will show the proration calculation in detail.\n\nBilling Cycle Anchors\nStripe Billing uses a concept called a billing cycle anchor — the date on which your subscription renews each period. When you upgrade mid-cycle, the anchor date does not change; only the price and proration adjustment are applied. This means your renewal date stays the same, and the prorated charge bridges the gap between your old plan and your new plan for the current period.\n\nHow to View and Download Invoices\nAll invoices generated by Stripe Billing are available in your Dashboard under Billing > Invoices. Each invoice shows the line items, proration adjustments, tax (if applicable), and payment status. You can download invoices as PDFs for your records or share them with your finance team. If you use Stripe's Revenue Recognition or Tax products, additional reporting is available in the Dashboard.\n\nDisputing a Billing Charge\nIf you believe a charge is incorrect — for example, if you were charged the full new plan amount instead of a prorated amount — open a support case with the invoice ID and subscription ID. Describe the expected charge and the actual charge so the support team can review the proration calculation. If a credit is warranted, the team can apply a credit note to your account, which will offset your next invoice.\n\nManaging Downgrades and Cancellations\nWhen a subscription is downgraded, Stripe Billing by default applies the change at the end of the current billing period rather than immediately, to avoid issuing a credit for unused time. Cancellations can be set to take effect immediately or at the end of the period, depending on your configuration. If you need to cancel immediately and receive a prorated refund, this requires a manual credit note or refund issued by your support team."
+      }
+    ]
+  }
+}
