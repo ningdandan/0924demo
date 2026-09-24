@@ -75,7 +75,7 @@ export function buildSmartSummary(query: string, catalog: ArticleLike[]): SmartS
       highlight: "incomplete verification, a dispute spike, or unusual volume",
       leadAfter: ".",
       detail:
-        "Check Dashboard → Account details for missing documents first — verification holds usually clear within a few business days once uploads are complete.{{1}} If the hold is risk-related, resolve open disputes and reply to any Stripe review email with context.{{2}}",
+        "Start in Dashboard → Account details and clear every red-flagged field. Upload a clear government ID, business registration, and a verified bank account — verification holds usually clear within a few business days once documents are accepted.{{1}} Blurry scans, expired IDs, and name mismatches are the most common reasons uploads get rejected, so resubmit higher-resolution files if you see a retry prompt.\n\nIf Account details looks complete, the hold is often risk-related. A sudden rise in disputes can pause payouts until open cases are answered and you reply to any review email with context about recent volume or chargebacks.{{2}} Resolving Needs response disputes first is usually the fastest path to lifting a risk hold.\n\nUnusual sales spikes can also trigger an automated review even when your dispute rate is normal. If you planned a promotion, include dates and expected volume when you contact support. Keep an eye on Balances for reserved vs available funds, and open a case with your account ID if the hold lasts more than a few business days with no Dashboard guidance.",
       citations: [
         citationFrom(payoutArticle, 1, "Payout holds guide"),
         citationFrom(disputeArticle, 2, "Dispute response guide"),
@@ -97,7 +97,7 @@ export function buildSmartSummary(query: string, catalog: ArticleLike[]): SmartS
       highlight: "the prorated difference for the rest of the current period",
       leadAfter: ".",
       detail:
-        "Your renewal date stays the same; the next full invoice uses the new plan price.{{1}} Open Billing → Invoices to see the proration line items, or open a case with the invoice ID if the amount looks wrong.{{2}}",
+        "Your billing cycle anchor (renewal date) does not change when you upgrade. Stripe credits the unused portion of the old plan and charges the cost of the new plan for the remaining days, which appears as a proration line on the invoice right away.{{1}} The next full period then invoices at the new plan price with no extra mid-cycle adjustment.\n\nOpen Billing → Invoices, find the charge, and expand line items to see the credit and debit that make up the prorated amount.{{2}} Download the PDF if you need to share it with finance. If the math looks wrong, open a support case with the invoice ID and subscription ID and describe the expected vs actual charge.\n\nDowngrades usually take effect at period end by default so you are not issued an immediate credit. Immediate cancels or mid-cycle refunds may require a manual credit note. If tax is enabled, confirm whether tax was recalculated on the prorated lines before disputing the total.",
       citations: [
         citationFrom(billingArticle, 1, "Billing & proration guide"),
         citationFrom(billingArticle, 2, "Billing & proration guide"),
@@ -112,7 +112,7 @@ export function buildSmartSummary(query: string, catalog: ArticleLike[]): SmartS
     highlight: "7–21 days to submit a response",
     leadAfter: ", depending on the card network.",
     detail:
-      "Open Payments → Disputes, attach tracking or delivery evidence for the reason code, and submit before the deadline shown on the dispute.{{1}} After you submit, issuers usually take 60–75 days to decide.{{2}}",
+      "The deadline on the dispute detail page in Payments → Disputes is authoritative for that case — do not rely on the email alone. Match your evidence pack to the reason code: delivery confirmation and tracking for product-not-received, product photos and descriptions for not-as-described, and authorization proof for fraud.{{1}} Submit PDFs or images under Submit evidence before the countdown expires; late submissions are usually auto-lost.\n\nAfter you submit, the card issuer reviews your package. Most networks take about 60–75 days to decide, and you will see status updates in the Dashboard plus email when the case is won or lost.{{2}} If funds were reversed at dispute open, a win returns them to your Stripe balance; a loss keeps the reverse and may add a dispute fee.\n\nTo reduce repeat chargebacks, use a recognizable billing descriptor, send tracking as soon as you ship, and answer buyer questions quickly. If several disputes share the same reason code, fix the underlying fulfillment or descriptor issue before the next spike triggers a payout review.",
     citations: [
       citationFrom(disputeArticle, 1, "Dispute response guide"),
       citationFrom(
@@ -234,6 +234,10 @@ export function SmartSummaryBlock({
   showAskInput = true,
   showSuggestions = true,
 }: SmartSummaryBlockProps) {
+  const [expanded, setExpanded] = useState(false);
+  const detailParagraphs = model.detail.split(/\n\n+/).filter(Boolean);
+  const extraParagraphs = detailParagraphs.slice(1);
+
   return (
     <AiAssistCard
       title="Smart summary"
@@ -243,21 +247,79 @@ export function SmartSummaryBlock({
       showAskInput={showAskInput}
       showSuggestions={showSuggestions}
     >
-      <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[14px] leading-[22px] text-[#1a1a2e]">
-        {model.leadBefore}
-        <mark className="bg-[#dce8ff] text-[#001769] font-semibold px-[3px] rounded-[3px]">
-          {model.highlight}
-        </mark>
-        {model.leadAfter}
-        {model.citations[0] && (
-          <CitationMark citation={model.citations[0]} onOpen={onCitationClick} />
-        )}{" "}
-        <DetailWithCitations
-          text={model.detail}
-          citations={model.citations}
-          onOpenCitation={onCitationClick}
-        />
-      </p>
+      <div className={expanded ? undefined : "relative"}>
+        <div className={expanded ? undefined : "line-clamp-3"}>
+          <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[14px] leading-[22px] text-[#1a1a2e]">
+            {model.leadBefore}
+            <mark className="bg-[#dce8ff] text-[#001769] font-semibold px-[3px] rounded-[3px]">
+              {model.highlight}
+            </mark>
+            {model.leadAfter}
+            {model.citations[0] && (
+              <CitationMark citation={model.citations[0]} onOpen={onCitationClick} />
+            )}{" "}
+            <DetailWithCitations
+              text={detailParagraphs[0] ?? ""}
+              citations={model.citations}
+              onOpenCitation={onCitationClick}
+            />
+            {expanded && extraParagraphs.length === 0 && (
+              <>
+                {" "}
+                <button
+                  type="button"
+                  onClick={() => setExpanded(false)}
+                  className="inline font-['Plus_Jakarta_Sans',sans-serif] text-[14px] leading-[22px] font-semibold text-[#001769] hover:underline"
+                >
+                  View less
+                </button>
+              </>
+            )}
+          </p>
+          {expanded &&
+            extraParagraphs.map((paragraph, i) => {
+              const isLast = i === extraParagraphs.length - 1;
+              return (
+                <p
+                  key={i}
+                  className="mt-[12px] font-['Plus_Jakarta_Sans',sans-serif] text-[14px] leading-[22px] text-[#1a1a2e]"
+                >
+                  <DetailWithCitations
+                    text={paragraph}
+                    citations={model.citations}
+                    onOpenCitation={onCitationClick}
+                  />
+                  {isLast && (
+                    <>
+                      {" "}
+                      <button
+                        type="button"
+                        onClick={() => setExpanded(false)}
+                        className="inline font-['Plus_Jakarta_Sans',sans-serif] text-[14px] leading-[22px] font-semibold text-[#001769] hover:underline"
+                      >
+                        View less
+                      </button>
+                    </>
+                  )}
+                </p>
+              );
+            })}
+        </div>
+
+        {!expanded && (
+          <button
+            type="button"
+            onClick={() => setExpanded(true)}
+            className="absolute bottom-0 right-0 pl-[36px] font-['Plus_Jakarta_Sans',sans-serif] text-[14px] leading-[22px] font-semibold text-[#001769] hover:underline"
+            style={{
+              background:
+                "linear-gradient(to right, rgba(255,255,255,0), #ffffff 28%, #ffffff 100%)",
+            }}
+          >
+            View more
+          </button>
+        )}
+      </div>
     </AiAssistCard>
   );
 }

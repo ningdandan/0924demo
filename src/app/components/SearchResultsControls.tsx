@@ -74,8 +74,8 @@ function filterSelectionCount(filter: ResultsFilter) {
   return filter.categories.length + filter.topics.length;
 }
 
-function filterLabel(filter: ResultsFilter): string {
-  if (isFilterEmpty(filter)) return "All categories";
+function filterLabel(filter: ResultsFilter, totalCount: number): string {
+  if (isFilterEmpty(filter)) return `All categories (${totalCount})`;
   const count = filterSelectionCount(filter);
   if (count === 1) {
     if (filter.categories.length === 1) return filter.categories[0];
@@ -157,7 +157,7 @@ function ControlButton({
         {label}
       </span>
       <span className="font-['Plus_Jakarta_Sans',sans-serif] text-[12px] text-[#6b7280]/40">·</span>
-      <span className="font-['Plus_Jakarta_Sans',sans-serif] text-[12px] font-medium text-[#6b7280] max-w-[140px] truncate">
+      <span className="font-['Plus_Jakarta_Sans',sans-serif] text-[12px] font-medium text-[#6b7280] max-w-[180px] truncate">
         {value}
       </span>
       <ChevronDown
@@ -307,7 +307,7 @@ export function SearchResultsControls({
       <div className="relative">
         <ControlButton
           label="Filter"
-          value={filterLabel(filter)}
+          value={filterLabel(filter, counts.total)}
           active={filterActive}
           open={filterOpen}
           onClick={() => {
@@ -323,7 +323,7 @@ export function SearchResultsControls({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 4 }}
               transition={{ duration: 0.12 }}
-              className="absolute right-0 top-[calc(100%+6px)] w-[300px] max-h-[360px] overflow-y-auto bg-white rounded-[12px] border border-[#e8e8ed] shadow-[0_8px_24px_rgba(0,0,0,0.08)] z-50 [scrollbar-width:thin]"
+              className="absolute left-0 top-[calc(100%+6px)] w-[300px] max-h-[360px] overflow-y-auto bg-white rounded-[12px] border border-[#e8e8ed] shadow-[0_8px_24px_rgba(0,0,0,0.08)] z-50 [scrollbar-width:thin]"
             >
               <div className="px-[12px] pt-[10px] pb-[6px] border-b border-[#f0f0f4] sticky top-0 bg-white z-10 flex items-center justify-between gap-[8px]">
                 <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] text-[#9ca3af]">
@@ -407,7 +407,7 @@ export function SearchResultsControls({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 4 }}
               transition={{ duration: 0.12 }}
-              className="absolute right-0 top-[calc(100%+6px)] w-[168px] bg-white rounded-[12px] border border-[#e8e8ed] shadow-[0_8px_24px_rgba(0,0,0,0.08)] overflow-hidden z-50"
+              className="absolute left-0 top-[calc(100%+6px)] w-[168px] bg-white rounded-[12px] border border-[#e8e8ed] shadow-[0_8px_24px_rgba(0,0,0,0.08)] overflow-hidden z-50"
             >
               {(Object.keys(SORT_LABELS) as SortOption[]).map((option) => (
                 <button

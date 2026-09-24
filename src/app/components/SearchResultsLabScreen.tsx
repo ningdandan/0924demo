@@ -9,7 +9,7 @@ import {
 } from "./SearchResultsScreen";
 
 const CHECKLIST: { id: keyof SearchResultsVisibility; label: string }[] = [
-  { id: "promptBar", label: "Prompt bar" },
+  { id: "promptBar", label: "Results header" },
   { id: "smartSummary", label: "Smart summary" },
   { id: "aiNudges", label: "AI nudges" },
   { id: "resultsMeta", label: "Results count" },

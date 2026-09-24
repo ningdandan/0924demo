@@ -1,19 +1,29 @@
-import { Home, Search } from "lucide-react";
+import { Home, Search, Info, MessageSquare } from "lucide-react";
 
-export type ExperienceMode = "homepage" | "google";
+export type ExperienceMode = "about" | "conversational" | "homepage" | "google";
 
 interface ExperienceModeToggleProps {
   mode: ExperienceMode;
   onChange: (mode: ExperienceMode) => void;
 }
 
-/** Top-level demo tabs: homepage entry vs Google search entry. */
+/** Top-level demo tabs: About, then entry paths. */
 export function ExperienceModeToggle({ mode, onChange }: ExperienceModeToggleProps) {
   const options: {
     id: ExperienceMode;
     label: string;
     icon: typeof Home;
   }[] = [
+    {
+      id: "about",
+      label: "About",
+      icon: Info,
+    },
+    {
+      id: "conversational",
+      label: "Conversational",
+      icon: MessageSquare,
+    },
     {
       id: "homepage",
       label: "Enter from homepage",

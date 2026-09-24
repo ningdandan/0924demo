@@ -13,6 +13,7 @@ interface SearchFirstPromptBarProps {
   onSearch?: (query: string) => void;
   /** Prefill the input (e.g. results page). */
   initialQuery?: string;
+  showSuggestions?: boolean;
 }
 
 function highlightMatch(text: string, query: string) {
@@ -31,6 +32,7 @@ function highlightMatch(text: string, query: string) {
 export function SearchFirstPromptBar({
   onSearch,
   initialQuery = "",
+  showSuggestions = true,
 }: SearchFirstPromptBarProps) {
   const { tokens } = useTokens();
   const t = tokens.searchBar;
@@ -179,9 +181,9 @@ export function SearchFirstPromptBar({
 
           <div
             style={{
-              maxHeight: isOpen && displayedSuggestions.length > 0 ? "400px" : "0",
-              opacity: isOpen && displayedSuggestions.length > 0 ? 1 : 0,
-              marginTop: isOpen && displayedSuggestions.length > 0 ? "16px" : "0",
+              maxHeight: isOpen && showSuggestions && displayedSuggestions.length > 0 ? "400px" : "0",
+              opacity: isOpen && showSuggestions && displayedSuggestions.length > 0 ? 1 : 0,
+              marginTop: isOpen && showSuggestions && displayedSuggestions.length > 0 ? "16px" : "0",
               overflow: "hidden",
               transition: "all 200ms ease-in-out",
             }}

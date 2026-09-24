@@ -180,6 +180,8 @@ interface ChatScreenProps {
   initialArticle?: ArticleDetails | null;
   /** Skip agent typing delay (instant entry). */
   instantAgent?: boolean;
+  showSuggestions?: boolean;
+  showEscalation?: boolean;
 }
 
 export function ChatScreen({
@@ -190,6 +192,8 @@ export function ChatScreen({
   searchContext,
   initialArticle = null,
   instantAgent = false,
+  showSuggestions = true,
+  showEscalation = true,
 }: ChatScreenProps) {
   const { tokens } = useTokens();
   const { theme } = useTheme();
@@ -511,12 +515,14 @@ export function ChatScreen({
                 </button>
               </motion.div>
               {/* Phone button — outside the bar */}
-              <button className="flex items-center justify-center rounded-full size-[44px] bg-white border border-gray-200 hover:bg-gray-50 transition-colors flex-shrink-0">
-                <Phone className="size-[18px]" style={{ color: "var(--color-icon, #4A5565)" }} />
-              </button>
+              {showEscalation && (
+                <button className="flex items-center justify-center rounded-full size-[44px] bg-white border border-gray-200 hover:bg-gray-50 transition-colors flex-shrink-0">
+                  <Phone className="size-[18px]" style={{ color: "var(--color-icon, #4A5565)" }} />
+                </button>
+              )}
             </div>
 
-            {followUpNudges.length > 0 && (
+            {showSuggestions && followUpNudges.length > 0 && (
               <div className="mt-[10px]">
                 <AiNudgeChips
                   subtle
@@ -531,7 +537,7 @@ export function ChatScreen({
 
       {/* Prompt dropdown — fixed to escape overflow:hidden parents */}
       <AnimatePresence>
-        {dropdownOpen && dropdownPos && (
+        {showSuggestions && dropdownOpen && dropdownPos && (
           <motion.div
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}

@@ -120,8 +120,8 @@ export function AiAssistCard({
   const askFooter = showAskInput ? (
     <div className={`shrink-0 ${isPlain ? "" : ""}`}>
       <div className="h-px bg-[#ececf1]" />
-      <div className={isPlain ? "pt-[12px] pb-[4px]" : "px-[14px] pt-[12px] pb-[14px]"}>
-        <div className="flex items-center gap-[8px] rounded-full border border-[#e4e4ea] bg-[#fafafb] px-[14px] py-[10px] focus-within:border-[#c8c8d0] transition-colors">
+      <div className={isPlain ? "pt-[10px] pb-[2px]" : "px-[14px] pt-[10px] pb-[12px]"}>
+        <div className="flex items-center gap-[6px] rounded-full border border-[#e4e4ea] bg-[#fafafb] px-[12px] py-[6px] focus-within:border-[#c8c8d0] transition-colors">
           <input
             type="text"
             value={askValue}
@@ -133,21 +133,21 @@ export function AiAssistCard({
               }
             }}
             placeholder="Ask a follow-up question…"
-            className="flex-1 min-w-0 bg-transparent border-0 outline-none font-['Plus_Jakarta_Sans',sans-serif] text-[13px] text-[#1a1a2e] placeholder:text-[#9ca3af]"
+            className="flex-1 min-w-0 bg-transparent border-0 outline-none font-['Plus_Jakarta_Sans',sans-serif] text-[13px] leading-[18px] text-[#1a1a2e] placeholder:text-[#9ca3af]"
             aria-label="Ask a follow-up question"
           />
           <button
             type="button"
             onClick={() => submitAsk()}
-            className="size-[28px] rounded-full flex items-center justify-center shrink-0 text-[#6b7280] hover:text-[#1a1a2e] hover:bg-black/[0.04] transition-colors"
+            className="size-[24px] rounded-full flex items-center justify-center shrink-0 text-[#6b7280] hover:text-[#1a1a2e] hover:bg-black/[0.04] transition-colors"
             aria-label="Send"
           >
-            <Send className="size-[14px]" />
+            <Send className="size-[12px]" />
           </button>
         </div>
 
         {showSuggestions && suggestionNudges.length > 0 && (
-          <div className="mt-[10px]">
+          <div className="mt-[8px]">
             <AiNudgeChips
               subtle
               nudges={suggestionNudges}

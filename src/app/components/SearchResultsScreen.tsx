@@ -1,9 +1,8 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
 import { ArticlePanel } from "./ArticlePanel";
 import type { AiNudge } from "./AiNudgeChips";
-import { SearchFirstPromptBar } from "./SearchFirstPromptBar";
 import { buildSmartSummary, SmartSummaryBlock } from "./SmartSummaryBlock";
 import {
   SearchResultsControls,
@@ -31,6 +30,8 @@ interface SearchResultsScreenProps {
   onStartConversation?: (ctx: SearchBridgeContext) => void;
   /** Toggle individual UI regions (used by the Results lab tab). */
   visibility?: Partial<SearchResultsVisibility>;
+  /** Show AI assist card inside the article panel. */
+  showAiAssist?: boolean;
 }
 
 export type SearchResultsVisibility = {
@@ -67,6 +68,17 @@ const CATALOG_SIZE = 20;
 function parseDate(value: string) {
   const t = Date.parse(value);
   return Number.isNaN(t) ? 0 : t;
+}
+
+function resultSnippet(article: ArticleDetails) {
+  const raw = (article.summary || article.subtitle || article.content.split("\n\n")[0] || "").trim();
+  if (raw.length <= 165) return raw;
+  return `${raw.slice(0, 162).trim()}…`;
+}
+
+function resultPath(brandSlug: string, article: ArticleDetails) {
+  const crumb = article.category.replace(/\s+/g, " ").trim();
+  return `support.${brandSlug}.com › ${crumb}`;
 }
 
 const SAMPLE_SEED: Omit<ArticleDetails, "category">[] = [
@@ -320,6 +332,7 @@ export function SearchResultsScreen({
   onSearch,
   onStartConversation,
   visibility: visibilityProp,
+  showAiAssist = true,
 }: SearchResultsScreenProps) {
   const visibility = { ...DEFAULT_SEARCH_RESULTS_VISIBILITY, ...visibilityProp };
   const { tokens } = useTokens();
@@ -330,12 +343,24 @@ export function SearchResultsScreen({
   const [filter, setFilter] = useState<ResultsFilter>(EMPTY_FILTER);
   const [sortBy, setSortBy] = useState<SortOption>("relevance");
   const [page, setPage] = useState(1);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [draftQuery, setDraftQuery] = useState(initialQuery);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setPage(1);
     setFilter(EMPTY_FILTER);
     setSortBy("relevance");
+    setDraftQuery(initialQuery);
+    setSearchOpen(false);
   }, [initialQuery]);
+
+  useEffect(() => {
+    if (searchOpen) {
+      searchInputRef.current?.focus();
+      searchInputRef.current?.select();
+    }
+  }, [searchOpen]);
 
   // Clear side panel when article panel is toggled off in the lab
   useEffect(() => {
@@ -343,6 +368,16 @@ export function SearchResultsScreen({
   }, [visibility.articlePanel]);
 
   const query = initialQuery.trim() || tokens.searchBar.suggestions?.[0] || "Search";
+  const brandSlug = String(tokens.brandName ?? "support")
+    .toLowerCase()
+    .replace(/\s+/g, "");
+
+  const submitDraftSearch = () => {
+    const next = draftQuery.trim();
+    if (!next) return;
+    setSearchOpen(false);
+    onSearch?.(next);
+  };
 
   const catalog = useMemo(
     () => buildCatalog(baseArticles, categories),
@@ -396,9 +431,8 @@ export function SearchResultsScreen({
     if (page > totalPages) setPage(totalPages);
   }, [page, totalPages]);
 
-  const showMetaRow = visibility.resultsMeta || visibility.filterSort;
+  const showMetaRow = visibility.filterSort;
   const showResultsBlock =
-    visibility.resultsMeta ||
     visibility.filterSort ||
     visibility.resultsList ||
     visibility.pagination;
@@ -415,17 +449,74 @@ export function SearchResultsScreen({
       <div className="flex-1 flex flex-col min-h-0 min-w-0 overflow-hidden">
         <div className="flex flex-col h-full w-full min-h-0 max-w-[720px] mx-auto">
           {visibility.promptBar && (
-            <div className="pt-[8px] pb-[4px] flex-shrink-0 relative z-10">
-              <SearchFirstPromptBar
-                key={initialQuery}
-                initialQuery={initialQuery}
-                onSearch={onSearch}
-              />
+            <div className="pt-[12px] pb-[8px] px-[24px] flex-shrink-0 relative z-10">
+              <div className="flex items-start justify-between gap-[16px]">
+                <div className="min-w-0 flex-1">
+                  <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-semibold uppercase tracking-[0.08em] text-[#9ca3af] mb-[6px]">
+                    Search results
+                  </p>
+                  <h1 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-[26px] leading-[32px] tracking-[-0.03em] text-[#001769] truncate">
+                    {query}
+                  </h1>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSearchOpen((open) => !open)}
+                  className={`mt-[4px] size-[40px] rounded-full border flex items-center justify-center shrink-0 transition-colors ${
+                    searchOpen
+                      ? "bg-[#001769] border-[#001769] text-white"
+                      : "bg-white border-[#e4e4ea] text-[#4b5563] hover:bg-[#f7f7fa] hover:border-[#d8d8e0]"
+                  }`}
+                  aria-label={searchOpen ? "Close search" : "Search again"}
+                  title="Search again"
+                >
+                  {searchOpen ? <X className="size-[16px]" strokeWidth={2.2} /> : <Search className="size-[16px]" strokeWidth={2.2} />}
+                </button>
+              </div>
+
+              <AnimatePresence>
+                {searchOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6, height: 0 }}
+                    animate={{ opacity: 1, y: 0, height: "auto" }}
+                    exit={{ opacity: 0, y: -6, height: 0 }}
+                    transition={{ duration: 0.18, ease: "easeOut" }}
+                    className="overflow-hidden"
+                  >
+                    <div className="mt-[14px] flex items-center gap-[10px] h-[44px] px-[14px] rounded-full bg-white border border-[#e4e4ea] shadow-[0_4px_16px_rgba(0,0,0,0.04)] focus-within:border-[#c8c8d0]">
+                      <Search className="size-[16px] text-[#9ca3af] shrink-0" strokeWidth={2.2} />
+                      <input
+                        ref={searchInputRef}
+                        type="text"
+                        value={draftQuery}
+                        onChange={(e) => setDraftQuery(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            e.preventDefault();
+                            submitDraftSearch();
+                          }
+                          if (e.key === "Escape") setSearchOpen(false);
+                        }}
+                        placeholder="Search again…"
+                        className="flex-1 min-w-0 bg-transparent border-0 outline-none font-['Plus_Jakarta_Sans',sans-serif] text-[15px] text-[#1a1a2e] placeholder:text-[#9ca3af]"
+                        aria-label="Search again"
+                      />
+                      <button
+                        type="button"
+                        onClick={submitDraftSearch}
+                        className="shrink-0 rounded-full bg-[#001769] text-white px-[14px] py-[7px] font-['Plus_Jakarta_Sans',sans-serif] text-[12px] font-semibold hover:opacity-90 transition-opacity"
+                      >
+                        Search
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           )}
 
           <div className="relative flex-1 min-h-0">
-            <div className="h-full overflow-y-auto px-[24px] pt-[20px] pb-[40px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="h-full overflow-y-auto px-[24px] pt-[16px] pb-[40px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {visibility.smartSummary && (
                 <motion.div
                   initial={{ opacity: 0, y: 8 }}
@@ -467,52 +558,45 @@ export function SearchResultsScreen({
                   transition={{ duration: 0.28, delay: 0.08 }}
                 >
                   {showMetaRow && (
-                    <div className="flex items-center justify-between gap-[12px] mb-[8px]">
-                      {visibility.resultsMeta ? (
-                        <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[12px] font-normal text-[#6b7280] min-w-0">
-                          {filteredSorted.length} search result{filteredSorted.length === 1 ? "" : "s"}
-                        </p>
-                      ) : (
-                        <span />
-                      )}
-                      {visibility.filterSort && (
-                        <SearchResultsControls
-                          categories={categories}
-                          filter={filter}
-                          counts={filterCounts}
-                          sortBy={sortBy}
-                          onFilterChange={(next) => {
-                            setFilter(next);
-                            setPage(1);
-                          }}
-                          onSortChange={(next) => {
-                            setSortBy(next);
-                            setPage(1);
-                          }}
-                        />
-                      )}
+                    <div className="flex items-center justify-start gap-[12px] mb-[12px]">
+                      <SearchResultsControls
+                        categories={categories}
+                        filter={filter}
+                        counts={filterCounts}
+                        sortBy={sortBy}
+                        onFilterChange={(next) => {
+                          setFilter(next);
+                          setPage(1);
+                        }}
+                        onSortChange={(next) => {
+                          setSortBy(next);
+                          setPage(1);
+                        }}
+                      />
                     </div>
                   )}
 
                   {visibility.resultsList && (
-                    <div className="flex flex-col">
+                    <div className="flex flex-col gap-[4px]">
                       {pageItems.map((result) => (
                         <button
                           key={result.title}
                           type="button"
-                          className="w-full text-left py-[14px] border-b border-[#ececf1] last:border-b-0 hover:bg-black/[0.015] transition-colors"
+                          className="w-full text-left py-[16px] px-[4px] rounded-[10px] hover:bg-black/[0.02] transition-colors group"
                           onClick={() => {
                             if (visibility.articlePanel) setSelectedArticle(result);
                           }}
                         >
-                          <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[12px] font-normal text-[#6b7280] mb-[2px]">
-                            {result.category}
+                          <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[12px] font-normal leading-[16px] text-[#6b7280] mb-[4px] truncate">
+                            {resultPath(brandSlug, result)}
                           </p>
-                          <h3 className="font-['Plus_Jakarta_Sans',sans-serif] text-[13px] font-semibold leading-[20px] text-[#6b7280] mb-[2px]">
+                          <h3 className="font-['Plus_Jakarta_Sans',sans-serif] text-[18px] font-semibold leading-[24px] tracking-[-0.01em] text-[#001769] group-hover:underline mb-[4px]">
                             {result.title}
                           </h3>
-                          <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[13px] font-normal leading-[20px] text-[#6b7280] line-clamp-2">
-                            {result.subtitle}
+                          <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[14px] font-normal leading-[22px] text-[#4b5563] line-clamp-2">
+                            <span className="font-medium text-[#6b7280]">{result.lastUpdated}</span>
+                            <span className="text-[#9ca3af]"> · </span>
+                            {resultSnippet(result)}
                           </p>
                         </button>
                       ))}
@@ -577,7 +661,11 @@ export function SearchResultsScreen({
             className="flex-1 h-full min-w-0"
           >
             <div className="h-full">
-              <ArticlePanel article={selectedArticle} onClose={() => setSelectedArticle(null)} />
+              <ArticlePanel
+                article={selectedArticle}
+                onClose={() => setSelectedArticle(null)}
+                hideSummary={!showAiAssist}
+              />
             </div>
           </motion.div>
         )}

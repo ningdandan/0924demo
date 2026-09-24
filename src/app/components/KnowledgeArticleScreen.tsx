@@ -26,6 +26,7 @@ interface KnowledgeArticleScreenProps {
   article?: ArticleDetails | null;
   onEnableAi?: (ctx: ArticleBridgeContext) => void;
   layoutVariant?: ArticleLayoutVariant;
+  showAiAssist?: boolean;
 }
 
 function nudgesForArticle(article: ArticleDetails): ArticleAiNudge[] {
@@ -163,6 +164,7 @@ export function KnowledgeArticleScreen({
   article: articleProp,
   onEnableAi,
   layoutVariant = "inline",
+  showAiAssist = true,
 }: KnowledgeArticleScreenProps) {
   const { tokens } = useTokens();
   const article = articleProp ?? tokens.articles.learning[0] ?? null;
@@ -184,11 +186,11 @@ export function KnowledgeArticleScreen({
     });
   };
 
-  const isAiZone = layoutVariant === "ai-zone";
+  const isAiZone = layoutVariant === "ai-zone" && showAiAssist;
 
   return (
     <motion.div
-      key={`knowledge-article-${layoutVariant}`}
+      key={`knowledge-article-${layoutVariant}-${showAiAssist}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -239,8 +241,9 @@ export function KnowledgeArticleScreen({
             <ArticlePanel
               article={article}
               hideClose
-              aiNudges={aiNudges}
-              onAiNudge={handleInlineNudge}
+              hideSummary={!showAiAssist}
+              aiNudges={showAiAssist ? aiNudges : undefined}
+              onAiNudge={showAiAssist ? handleInlineNudge : undefined}
             />
           </motion.div>
         )}

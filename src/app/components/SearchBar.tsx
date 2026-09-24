@@ -11,6 +11,8 @@ interface SearchBarProps {
   sharedLayout?: boolean;
   /** Prefill the input (e.g. results page). */
   initialQuery?: string;
+  showSuggestions?: boolean;
+  showEscalation?: boolean;
 }
 
 interface UploadedFile {
@@ -57,7 +59,13 @@ function FileChip({ file, onRemove }: { file: UploadedFile; onRemove: () => void
   );
 }
 
-export function SearchBar({ onSearch, sharedLayout = true, initialQuery = "" }: SearchBarProps) {
+export function SearchBar({
+  onSearch,
+  sharedLayout = true,
+  initialQuery = "",
+  showSuggestions = true,
+  showEscalation = true,
+}: SearchBarProps) {
   const { tokens } = useTokens();
   const t = tokens.searchBar;
   const { theme } = useTheme();
@@ -244,8 +252,12 @@ export function SearchBar({ onSearch, sharedLayout = true, initialQuery = "" }: 
 
           <button
             onMouseDown={(e) => e.preventDefault()}
-            className="shrink-0 flex items-center justify-center rounded-full bg-white hover:bg-gray-50 transition-colors"
+            className={`shrink-0 flex items-center justify-center rounded-full bg-white hover:bg-gray-50 transition-colors ${
+              showEscalation ? "" : "invisible pointer-events-none"
+            }`}
             style={{ width: "64px", height: "64px", borderRadius: "9999px", marginRight: "6px" }}
+            aria-hidden={!showEscalation}
+            tabIndex={showEscalation ? 0 : -1}
           >
             <Phone className="size-[18px]" style={{ color: "var(--color-icon, #4A5565)" }} />
           </button>
@@ -253,9 +265,9 @@ export function SearchBar({ onSearch, sharedLayout = true, initialQuery = "" }: 
 
         <div
           style={{
-            maxHeight: isOpen && displayedSuggestions.length > 0 ? "400px" : "0",
-            opacity: isOpen && displayedSuggestions.length > 0 ? 1 : 0,
-            marginTop: isOpen && displayedSuggestions.length > 0 ? "16px" : "0",
+            maxHeight: isOpen && showSuggestions && displayedSuggestions.length > 0 ? "400px" : "0",
+            opacity: isOpen && showSuggestions && displayedSuggestions.length > 0 ? 1 : 0,
+            marginTop: isOpen && showSuggestions && displayedSuggestions.length > 0 ? "16px" : "0",
             overflow: "hidden",
             transition: "all 200ms ease-in-out",
           }}
