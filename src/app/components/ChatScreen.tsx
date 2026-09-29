@@ -250,17 +250,49 @@ export function ChatScreen({
 
   const articles: ArticleDetails[] = tokens.articles.learning;
 
-  // Build runtime messages (stamp timestamps, inject user query into first message)
-  const runtimeMessages: RuntimeMessage[] = scriptMessages.map((m, i) => ({
-    ...m,
-    role: m.role as "user" | "agent",
-    content: i === 0 && m.role === "user" ? initialQuery || m.content : m.content,
-    citations: (m.citations ?? []) as string[],
-    card: (m as any).card as ChatCard | undefined,
-    timestamp: new Date(),
-  }));
+  // Build runtime messages (stamp timestamps, inject user query into first message).
+  // From search: treat the smart-summary as a prior agent turn, then the follow-up as the next user message.
+  const runtimeMessages: RuntimeMessage[] = useMemo(() => {
+    const stamped = (m: ChatMessage, content: string): RuntimeMessage => ({
+      id: m.id,
+      role: m.role as "user" | "agent",
+      content,
+      citations: (m.citations ?? []) as string[],
+      card: (m as { card?: ChatCard }).card,
+      timestamp: new Date(),
+    });
 
-  const [visibleCount, setVisibleCount] = useState(1);
+    const scriptRuntime = scriptMessages.map((m, i) =>
+      stamped(m, i === 0 && m.role === "user" ? initialQuery || m.content : m.content),
+    );
+
+    const summary = searchContext?.summary?.trim();
+    if (!summary) return scriptRuntime;
+
+    const priorAgent: RuntimeMessage = {
+      id: "search-summary",
+      role: "agent",
+      content: summary,
+      citations: [],
+      timestamp: new Date(),
+    };
+    const followUp: RuntimeMessage = {
+      id: "search-follow-up",
+      role: "user",
+      content: initialQuery || searchContext?.query || "",
+      citations: [],
+      timestamp: new Date(),
+    };
+    // Skip the script's opening user turn — the follow-up replaces it.
+    const rest =
+      scriptMessages[0]?.role === "user" ? scriptRuntime.slice(1) : scriptRuntime;
+
+    return [priorAgent, followUp, ...rest];
+  }, [scriptMessages, initialQuery, searchContext]);
+
+  const [visibleCount, setVisibleCount] = useState(() =>
+    searchContext?.summary?.trim() ? 2 : 1,
+  );
   const [isThinking, setIsThinking] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState<ArticleDetails | null>(initialArticle ?? null);
   const [selectedLearner, setSelectedLearner] = useState<string | null>(initialLearner ?? null);
@@ -406,40 +438,6 @@ export function ChatScreen({
                   </p>
                   <div className="flex-1 h-px bg-[#E4E7ED]" />
                 </div>
-              )}
-
-              {!helpChat && searchContext && (
-                <motion.div
-                  initial={{ opacity: 0, y: -8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.35 }}
-                  className="mb-[20px] rounded-[14px] border border-white/70 bg-white/70 backdrop-blur-[8px] px-[14px] py-[12px]"
-                >
-                  <div className="flex items-center gap-[6px] mb-[8px]">
-                    <Search className="size-[12px] text-gray-400" />
-                    <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-semibold tracking-wider text-gray-400">
-                      context from search
-                    </p>
-                  </div>
-                  <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[13px] font-semibold text-[#364153] mb-[8px] line-clamp-2">
-                    “{searchContext.query}”
-                  </p>
-                  <div className="flex flex-col gap-[6px]">
-                    {searchContext.results.slice(0, 3).map((r) => (
-                      <div key={r.title} className="flex items-start gap-[8px]">
-                        <span className="mt-[6px] size-[4px] rounded-full bg-gray-300 shrink-0" />
-                        <div className="min-w-0">
-                          <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[12px] text-[#4b5563] truncate">
-                            {r.title}
-                          </p>
-                          <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] text-gray-400 truncate">
-                            {r.category}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
               )}
 
               <AnimatePresence mode="popLayout">
