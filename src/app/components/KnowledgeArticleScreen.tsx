@@ -222,11 +222,11 @@ export function KnowledgeArticleScreen({
               transition={{ duration: 0.25 }}
               className="flex-1 min-w-0 h-full min-h-0"
             >
-              <ArticlePanel
-                article={article}
-                hideClose
-                hideSummary
-              />
+            <ArticlePanel
+              article={article}
+              hideClose
+              hideSummary
+            />
             </motion.div>
           </>
         ) : (
@@ -242,6 +242,7 @@ export function KnowledgeArticleScreen({
               article={article}
               hideClose
               hideSummary={!showAiAssist}
+              showAiAssist={showAiAssist}
               aiNudges={showAiAssist ? aiNudges : undefined}
               onAiNudge={showAiAssist ? handleInlineNudge : undefined}
             />

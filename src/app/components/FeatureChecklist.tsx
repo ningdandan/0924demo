@@ -49,7 +49,7 @@ export const FEATURE_ITEMS: {
   },
   {
     id: "multiObjectSuggestions",
-    label: "Multi object bar suggestions",
+    label: "Grouped bar suggestions",
     availableIn: ["search-enhanced", "conversational"],
   },
 ];
@@ -72,7 +72,7 @@ interface FeatureChecklistProps {
 
 export function FeatureChecklist({ mode, flags, onChange }: FeatureChecklistProps) {
   return (
-    <div className="flex-1 min-h-0 overflow-y-auto rounded-[14px] bg-[#e8e8ed] border border-[#d8d8e0] px-[10px] py-[12px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div className="shrink-0 rounded-[14px] bg-[#e8e8ed] border border-[#d8d8e0] px-[10px] py-[12px]">
       <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-semibold uppercase tracking-[0.04em] text-[#6b7280] mb-[8px] px-[4px]">
         Feature checklist
       </p>

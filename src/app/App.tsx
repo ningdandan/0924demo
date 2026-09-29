@@ -28,6 +28,9 @@ import {
   type FeatureFlags,
   type FeatureId,
 } from "@/app/components/FeatureChecklist";
+import { CompanySkins } from "@/app/components/CompanySkins";
+import { HostShell } from "@/app/components/host/HostShell";
+import { SkinProvider, useSkin } from "@/app/SkinContext";
 import { TokensProvider, useTokens } from "@/app/TokensContext";
 import { ThemeProvider } from "@/app/ThemeContext";
 import { DesignTokensProvider, useDesignTokens } from "@/app/DesignTokensContext";
@@ -38,6 +41,7 @@ type GoogleView = "serp" | "article";
 function AppInner() {
   const { tokens } = useTokens();
   const { dt } = useDesignTokens();
+  const { skin } = useSkin();
 
   const [maturity, setMaturity] = useState<MaturityMode>("current");
   const [features, setFeatures] = useState<FeatureFlags>(() => defaultFlagsForMode("current"));
@@ -56,6 +60,7 @@ function AppInner() {
   const [instantAgent, setInstantAgent] = useState(false);
   const [articleLayout, setArticleLayout] = useState<ArticleLayoutVariant>("inline");
 
+  const helpCenterHost = skin.host.shell === "help-center";
   const articles = tokens.articles.learning as ArticleDetails[];
 
   const resolvedArticle = useMemo(() => {
@@ -189,28 +194,43 @@ function AppInner() {
   };
 
   const brandName = tokens.brandName;
-  const brandHost = `${brandName.toLowerCase().replace(/\s+/g, "")}.com`;
+  const brandHost = skin.host.addressBarHost || `${brandName.toLowerCase().replace(/\s+/g, "")}.com`;
   const onGoogleSerp = entrance === "google" && googleView === "serp";
   const onGoogleArticle = entrance === "google" && googleView === "article";
-  const showProductChrome = !onGoogleSerp;
-  const showSidebar = maturity === "conversational" && entrance === "homepage";
-  const showNavSearch = onGoogleArticle && maturity !== "current";
+
+  const useHostShell =
+    helpCenterHost &&
+    !onGoogleSerp &&
+    (entrance === "homepage" || onGoogleArticle);
+
+  const showProductChrome =
+    skin.host.showProductChrome &&
+    !onGoogleSerp &&
+    !useHostShell;
+
+  const showSidebar = maturity === "conversational" && entrance === "homepage" && !helpCenterHost;
+  const showNavSearch = onGoogleArticle && maturity !== "current" && showProductChrome;
   const showChatEntry =
     maturity === "search-enhanced" && entrance === "homepage" && homepageView === "home";
   const showArticleLayouts =
-    maturity === "search-enhanced" && entrance === "google" && googleView === "article";
+    !helpCenterHost &&
+    maturity === "search-enhanced" &&
+    entrance === "google" &&
+    googleView === "article";
 
   const addressBar = onGoogleSerp
     ? `www.google.com/search?q=${encodeURIComponent(
         (tokens.searchBar?.suggestions?.[0] as string | undefined) ?? brandName,
       )}`
     : onGoogleArticle
-      ? `support.${brandHost}/article`
+      ? `${brandHost}/article`
       : homepageView === "results"
         ? `${brandHost}/search`
         : homepageView === "article"
-          ? `support.${brandHost}/help`
-          : brandHost;
+          ? `${brandHost}/article`
+          : homepageView === "chat"
+            ? `${brandHost}/chat`
+            : brandHost;
 
   const resultsVisibility: Partial<SearchResultsVisibility> =
     maturity === "current"
@@ -229,33 +249,94 @@ function AppInner() {
           filterSort: features.filterSort,
         };
 
+  const helpMirrorVariant =
+    maturity === "search-enhanced"
+      ? "search-enhanced"
+      : maturity === "conversational"
+        ? "conversational"
+        : "mirror";
+
+  const chatView =
+    homepageView === "chat" || (onGoogleArticle && maturity === "conversational");
+
+  const hostShellOpts = (() => {
+    if (entrance === "google") {
+      if (googleView === "serp" || maturity === "conversational") {
+        return { showNavSearch: false, showBanner: false, showChatFab: false, searchValue: "" };
+      }
+      return {
+        showNavSearch: true,
+        showBanner: !chatView,
+        showChatFab: skin.host.showChatFab && maturity !== "conversational",
+        searchValue: "",
+      };
+    }
+    if (homepageView === "home") {
+      return {
+        showNavSearch: false,
+        showBanner: true,
+        showChatFab: skin.host.showChatFab && maturity !== "conversational",
+        searchValue: "",
+      };
+    }
+    if (homepageView === "results") {
+      return {
+        showNavSearch: false,
+        showBanner: true,
+        showChatFab: skin.host.showChatFab && maturity !== "conversational",
+        searchValue: searchQuery,
+      };
+    }
+    if (homepageView === "article") {
+      return {
+        showNavSearch: true,
+        showBanner: true,
+        showChatFab: skin.host.showChatFab && maturity !== "conversational",
+        searchValue: "",
+      };
+    }
+    return { showNavSearch: false, showBanner: false, showChatFab: false, searchValue: "" };
+  })();
+
   const renderHomepage = () => {
     if (homepageView === "home") {
-      const useSearchBar = maturity === "current" || maturity === "search-enhanced";
       return (
         <HeroSection
-          key={`home-${homeKey}-${maturity}`}
+          key={`home-${skin.id}-${homeKey}-${maturity}`}
           onSearch={handleSearch}
           sharedBarLayout={maturity === "conversational"}
-          searchFirst={useSearchBar}
-          showTopicTree={maturity === "current"}
-          showBotFab={maturity === "current"}
+          searchFirst={maturity === "current" || maturity === "search-enhanced"}
+          showTopicTree={
+            maturity === "current" &&
+            skin.layout.home !== "help-mirror" &&
+            skin.layout.home !== "help-pathway"
+          }
+          showBotFab={
+            maturity === "current" &&
+            skin.layout.home !== "help-mirror" &&
+            skin.layout.home !== "help-pathway"
+          }
           onOpenArticle={handleTreeArticle}
           personalizedHeader={features.customHeader}
           personalizedSubheader={features.customSubheader}
           showSuggestions={maturity === "current" || features.multiObjectSuggestions}
           showEscalation={maturity === "conversational" && features.multiChannelEscalation}
+          helpMirrorVariant={helpMirrorVariant}
         />
       );
     }
 
     if (homepageView === "results") {
-      // Current + search-enhanced only — conversational never lands here
       return (
         <SearchResultsScreen
-          key={`results-${maturity}-${searchQuery}`}
+          key={`results-${skin.id}-${maturity}-${searchQuery}`}
           initialQuery={searchQuery}
           onSearch={handleSearch}
+          onHome={goEntranceHome}
+          onOpenArticle={(article) => {
+            setActiveArticle(article);
+            setHomepageView("article");
+          }}
           onStartConversation={
             maturity === "search-enhanced" ? handleStartConversation : undefined
           }
@@ -268,24 +349,25 @@ function AppInner() {
     if (homepageView === "article") {
       return (
         <PlainArticleView
-          key={`cc-article-${resolvedArticle?.title ?? "none"}`}
+          key={`article-${skin.id}-${resolvedArticle?.title ?? "none"}`}
           article={resolvedArticle}
-          onClose={() => setHomepageView("home")}
+          onClose={goEntranceHome}
+          onOpenArticle={(article) => setActiveArticle(article)}
+          showAiAssist={maturity === "search-enhanced" && features.aiAssistArticles}
         />
       );
     }
 
-    // Conversational path (and chat handoff from search-enhanced)
     return (
       <ChatScreen
         key={
           instantAgent
-            ? "instant-agent"
+            ? `instant-agent-${skin.id}`
             : articleBridge
-              ? `article-bridge-${articleBridge.title}`
+              ? `article-bridge-${skin.id}-${articleBridge.title}`
               : searchBridge
-                ? `bridge-${searchBridge.query}`
-                : (chatInitialLearner ?? "chat")
+                ? `bridge-${skin.id}-${searchBridge.query}`
+                : `${chatInitialLearner ?? "chat"}-${skin.id}`
         }
         initialQuery={searchQuery}
         animateBar={chatAnimateBar}
@@ -308,7 +390,7 @@ function AppInner() {
     if (googleView === "serp") {
       return (
         <GoogleSearchScreen
-          key={`google-${maturity}`}
+          key={`google-${skin.id}-${maturity}`}
           onSelectArticle={handleGoogleArticleSelect}
         />
       );
@@ -317,9 +399,10 @@ function AppInner() {
     if (maturity === "current") {
       return (
         <PlainArticleView
-          key={`google-cc-article-${resolvedArticle?.title ?? "none"}`}
+          key={`google-cc-article-${skin.id}-${resolvedArticle?.title ?? "none"}`}
           article={resolvedArticle}
           onClose={() => setGoogleView("serp")}
+          onOpenArticle={(article) => setActiveArticle(article)}
         />
       );
     }
@@ -327,7 +410,7 @@ function AppInner() {
     if (maturity === "conversational") {
       return (
         <ChatScreen
-          key={`google-chat-${resolvedArticle?.title ?? "chat"}`}
+          key={`google-chat-${skin.id}-${resolvedArticle?.title ?? "chat"}`}
           initialQuery={`Help me with: ${resolvedArticle?.title ?? "this article"}`}
           animateBar={false}
           initialArticle={resolvedArticle}
@@ -339,7 +422,7 @@ function AppInner() {
 
     return (
       <KnowledgeArticleScreen
-        key={`google-article-${resolvedArticle?.title ?? "none"}-${articleLayout}`}
+        key={`google-article-${skin.id}-${resolvedArticle?.title ?? "none"}-${articleLayout}`}
         article={resolvedArticle}
         layoutVariant={articleLayout}
         onEnableAi={handleArticleBridge}
@@ -348,10 +431,27 @@ function AppInner() {
     );
   };
 
+  const cssVars = {
+    background: onGoogleSerp ? "#ffffff" : dt.gradients.pageBackground,
+    fontFamily: dt.fonts.families.body,
+    ["--color-navy" as string]: dt.colors.brand.navy,
+    ["--color-navy-deep" as string]: dt.colors.brand.navyDeep,
+    ["--color-body" as string]: dt.colors.ui.body,
+    ["--color-muted" as string]: dt.colors.ui.muted,
+    ["--color-icon" as string]: dt.colors.ui.iconStroke,
+    ["--color-accent" as string]: dt.colors.accent.indigo,
+    ["--color-link" as string]: dt.colors.host.link,
+    ["--color-page-bg" as string]: dt.colors.host.pageBg,
+    ["--color-border" as string]: dt.colors.ui.borderFaint,
+    ["--color-host-nav" as string]: dt.colors.host.navBg,
+    ["--color-chat-user" as string]: dt.colors.host.chatUserBubble,
+    ["--color-chat-agent" as string]: dt.colors.host.chatAgentBubble,
+    ["--font-body" as string]: dt.fonts.families.body,
+  };
+
   return (
     <div className="box-border h-dvh w-full max-w-full overflow-hidden flex items-stretch justify-start gap-[16px] pl-[clamp(12px,2vw,20px)] pr-0 py-[clamp(12px,2vh,20px)] bg-[#c8c8d0]">
-      {/* Left: maturity tabs + feature checklist */}
-      <aside className="w-[220px] shrink-0 flex flex-col gap-[10px] pt-[4px] min-h-0">
+      <aside className="w-[220px] shrink-0 flex flex-col gap-[10px] pt-[4px] min-h-0 overflow-hidden">
         <MaturityToggle
           mode={maturity}
           onChange={handleMaturityChange}
@@ -360,16 +460,17 @@ function AppInner() {
         {showArticleLayouts && (
           <ArticleLayoutSwitch value={articleLayout} onChange={setArticleLayout} />
         )}
-        <FeatureChecklist
-          mode={maturity}
-          flags={features}
-          onChange={handleFeatureChange}
-        />
+        <div className="flex-1 min-h-0 flex flex-col gap-[10px] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <FeatureChecklist
+            mode={maturity}
+            flags={features}
+            onChange={handleFeatureChange}
+          />
+          <CompanySkins />
+        </div>
       </aside>
 
-      {/* Browser — fills remaining width to the right edge */}
       <div className="min-w-0 min-h-0 flex-1 flex flex-col rounded-l-[16px] rounded-r-none overflow-hidden shadow-[0_24px_80px_rgba(0,0,0,0.28)] border border-r-0 border-[#a8a8b0] bg-[#f0f0f4]">
-        {/* Browser chrome: left tabs, centered address bar */}
         <div className="relative grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-end gap-[8px] px-[10px] pt-[8px] h-[40px] bg-[#e4e4ea] border-b border-[#d0d0d8] flex-shrink-0 min-w-0">
           <div className="flex items-end gap-[8px] min-w-0 overflow-hidden">
             <div className="flex items-center gap-[7px] pb-[10px] pl-[4px] shrink-0">
@@ -382,7 +483,7 @@ function AppInner() {
 
           <div className="pb-[8px] flex justify-center min-w-0">
             <div className="w-[min(280px,42vw)] h-[22px] rounded-full bg-white/80 border border-[#d0d0d8] flex items-center justify-center px-[10px]">
-              <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[10px] text-[#6b7280] truncate max-w-full">
+              <p className="text-[10px] text-[#6b7280] truncate max-w-full" style={{ fontFamily: dt.fonts.families.body }}>
                 {addressBar}
               </p>
             </div>
@@ -391,17 +492,7 @@ function AppInner() {
           <div className="min-w-0" aria-hidden />
         </div>
 
-        <div
-          className="flex-1 min-h-0 min-w-0 flex flex-col relative overflow-hidden"
-          style={{
-            background: onGoogleSerp ? "#ffffff" : dt.gradients.pageBackground,
-            ["--color-navy" as string]: dt.colors.brand.navy,
-            ["--color-body" as string]: dt.colors.ui.body,
-            ["--color-muted" as string]: dt.colors.ui.muted,
-            ["--color-icon" as string]: dt.colors.ui.iconStroke,
-            ["--color-accent" as string]: dt.colors.accent.indigo,
-          }}
-        >
+        <div className="flex-1 min-h-0 min-w-0 flex flex-col relative overflow-hidden" style={cssVars}>
           <div className="flex h-full min-h-0 min-w-0">
             {showSidebar && (
               <Sidebar
@@ -426,19 +517,44 @@ function AppInner() {
                   onChatWithAgent={handleChatWithAgent}
                 />
               )}
-              <div className="flex flex-1 min-h-0 min-w-0">
-                <main
-                  className={`flex-1 flex flex-col min-h-0 min-w-0 ${
-                    (entrance === "homepage" && homepageView === "home") || onGoogleSerp
-                      ? "overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-                      : "overflow-hidden"
-                  }`}
+              {useHostShell ? (
+                <HostShell
+                  onHome={goEntranceHome}
+                  onSearch={handleSearch}
+                  searchValue={hostShellOpts.searchValue}
+                  showNavSearch={hostShellOpts.showNavSearch}
+                  showBanner={hostShellOpts.showBanner}
+                  showChatFab={hostShellOpts.showChatFab}
                 >
-                  <AnimatePresence mode="wait">
-                    {entrance === "google" ? renderGoogle() : renderHomepage()}
-                  </AnimatePresence>
-                </main>
-              </div>
+                  <div className="flex flex-1 min-h-0 min-w-0 h-full">
+                    <main
+                      className={`flex-1 flex flex-col min-h-0 min-w-0 ${
+                        (entrance === "homepage" && homepageView === "home") || onGoogleSerp
+                          ? "overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                          : "overflow-hidden"
+                      }`}
+                    >
+                      <AnimatePresence mode="wait">
+                        {entrance === "google" ? renderGoogle() : renderHomepage()}
+                      </AnimatePresence>
+                    </main>
+                  </div>
+                </HostShell>
+              ) : (
+                <div className="flex flex-1 min-h-0 min-w-0">
+                  <main
+                    className={`flex-1 flex flex-col min-h-0 min-w-0 ${
+                      (entrance === "homepage" && homepageView === "home") || onGoogleSerp
+                        ? "overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                        : "overflow-hidden"
+                    }`}
+                  >
+                    <AnimatePresence mode="wait">
+                      {entrance === "google" ? renderGoogle() : renderHomepage()}
+                    </AnimatePresence>
+                  </main>
+                </div>
+              )}
             </div>
           </div>
 
@@ -462,19 +578,45 @@ function AppInner() {
 function PlainArticleView({
   article,
   onClose,
+  onOpenArticle,
+  showAiAssist = false,
 }: {
   article: ArticleDetails | null;
   onClose: () => void;
+  onOpenArticle?: (article: ArticleDetails) => void;
+  showAiAssist?: boolean;
 }) {
+  const { skin } = useSkin();
+  const helpArticle = skin.layout.article === "help-article";
+
+  if (helpArticle) {
+    return (
+      <div className="h-full w-full overflow-hidden">
+        {article ? (
+          <ArticlePanel
+            article={article}
+            onHome={onClose}
+            onOpenArticle={onOpenArticle}
+            showAiAssist={showAiAssist}
+            hideClose
+            hideSummary={!showAiAssist}
+          />
+        ) : (
+          <p className="p-[24px] text-[14px]" style={{ color: "var(--color-muted, #6B7280)" }}>
+            Article not found.
+          </p>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className="h-full w-full p-[16px] overflow-hidden">
       <div className="h-full max-w-[800px] mx-auto rounded-[12px] overflow-hidden border border-[#e4e4ea] bg-white">
         {article ? (
           <ArticlePanel article={article} onClose={onClose} hideSummary />
         ) : (
-          <p className="p-[24px] font-['Plus_Jakarta_Sans',sans-serif] text-[14px] text-[#6b7280]">
-            Article not found.
-          </p>
+          <p className="p-[24px] text-[14px] text-[#6b7280]">Article not found.</p>
         )}
       </div>
     </div>
@@ -486,7 +628,9 @@ export default function App() {
     <DesignTokensProvider>
       <ThemeProvider>
         <TokensProvider>
-          <AppInner />
+          <SkinProvider>
+            <AppInner />
+          </SkinProvider>
         </TokensProvider>
       </ThemeProvider>
     </DesignTokensProvider>

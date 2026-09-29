@@ -29,6 +29,23 @@
       "emerald":     "#10b981",
       "slate":       "#64748b"
     },
+    "host": {
+      "navBg":            "#0B1A22",
+      "navText":          "#ffffff",
+      "bannerBg":         "#FBF0E6",
+      "bannerBorder":     "#E8A070",
+      "bannerIcon":       "#E07A2F",
+      "link":             "#0040E5",
+      "pageBg":           "#F6F7F8",
+      "chatUserBubble":   "#164453",
+      "chatAgentBubble":  "#EEF0F4",
+      "chatAvatarBg":     "#0E3342",
+      "aiSummaryAccent":  "#0D7377",
+      "aiSummaryBg":      "#F4F7FA",
+      "searchCta":        "#1A1B1E",
+      "searchCtaAlt":     "#FFBF27",
+      "tileAccent":       "#FF792E"
+    },
     "fixed": {
       "white":       "#ffffff",
       "black":       "#000000",

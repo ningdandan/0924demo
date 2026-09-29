@@ -1,9 +1,14 @@
 import { useState, useRef, useCallback, useMemo, useEffect } from "react";
 import { motion } from "motion/react";
-import { Mic, Send, Search } from "lucide-react";
+import { Mic, Send } from "lucide-react";
 import { useTokens } from "../TokensContext";
 import { useTheme } from "../ThemeContext";
 import { useDesignTokens } from "../DesignTokensContext";
+import {
+  buildSuggestionGroups,
+  suggestionGroupsHaveItems,
+  SuggestionGroupList,
+} from "./SuggestionGroups";
 
 /**
  * Search-first prompt bar — duplicate of SearchBar with upload/call removed.
@@ -14,19 +19,6 @@ interface SearchFirstPromptBarProps {
   /** Prefill the input (e.g. results page). */
   initialQuery?: string;
   showSuggestions?: boolean;
-}
-
-function highlightMatch(text: string, query: string) {
-  if (!query.trim()) return <span>{text}</span>;
-  const idx = text.toLowerCase().indexOf(query.toLowerCase());
-  if (idx === -1) return <span>{text}</span>;
-  return (
-    <span>
-      {text.slice(0, idx)}
-      <strong className="font-semibold text-[#1a1a2e]">{text.slice(idx, idx + query.length)}</strong>
-      {text.slice(idx + query.length)}
-    </span>
-  );
 }
 
 export function SearchFirstPromptBar({
@@ -77,13 +69,11 @@ export function SearchFirstPromptBar({
     if (onSearch) onSearch(text);
   };
 
-  const displayedSuggestions = useMemo(() => {
-    const q = searchQuery.trim().toLowerCase();
-    if (!q) return t.suggestions;
-    return (t.allSuggestions ?? t.suggestions)
-      .filter((s) => s.toLowerCase().includes(q))
-      .slice(0, 3);
-  }, [searchQuery, t.suggestions, t.allSuggestions]);
+  const suggestionGroups = useMemo(
+    () => buildSuggestionGroups("search-enhanced", tokens, searchQuery),
+    [tokens, searchQuery],
+  );
+  const hasSuggestions = suggestionGroupsHaveItems(suggestionGroups);
 
   const GLOW = dt.shadows.searchGlow;
 
@@ -181,28 +171,19 @@ export function SearchFirstPromptBar({
 
           <div
             style={{
-              maxHeight: isOpen && showSuggestions && displayedSuggestions.length > 0 ? "400px" : "0",
-              opacity: isOpen && showSuggestions && displayedSuggestions.length > 0 ? 1 : 0,
-              marginTop: isOpen && showSuggestions && displayedSuggestions.length > 0 ? "16px" : "0",
+              maxHeight: isOpen && showSuggestions && hasSuggestions ? "420px" : "0",
+              opacity: isOpen && showSuggestions && hasSuggestions ? 1 : 0,
+              marginTop: isOpen && showSuggestions && hasSuggestions ? "12px" : "0",
               overflow: "hidden",
               transition: "all 200ms ease-in-out",
             }}
           >
-            <div style={{ borderTop: "1px solid #f3f4f6", paddingTop: "8px" }}>
-              {displayedSuggestions.map((text, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => handleSuggestionClick(text)}
-                  className="w-full px-6 py-3 text-left flex items-center gap-3 hover:bg-gray-50 transition-colors rounded-[12px]"
-                >
-                  <Search style={{ flexShrink: 0 }} width="16" height="16" stroke="#6B7280" strokeWidth="2" />
-                  <span className="font-['Plus_Jakarta_Sans',sans-serif] text-[14px] text-[#6B7280] leading-snug">
-                    {highlightMatch(text, searchQuery)}
-                  </span>
-                </button>
-              ))}
+            <div style={{ borderTop: "1px solid #f3f4f6" }}>
+              <SuggestionGroupList
+                groups={suggestionGroups}
+                query={searchQuery}
+                onSelect={(item) => handleSuggestionClick(item.value)}
+              />
             </div>
           </div>
         </motion.div>

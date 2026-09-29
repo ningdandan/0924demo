@@ -13,6 +13,8 @@ import {
   type SortOption,
 } from "./SearchResultsControls";
 import { useTokens } from "../TokensContext";
+import { useSkin } from "../SkinContext";
+import { HostSearchResults } from "./host/HostSearchResults";
 
 interface ArticleDetails {
   title: string;
@@ -28,6 +30,9 @@ interface SearchResultsScreenProps {
   initialQuery: string;
   onSearch?: (query: string) => void;
   onStartConversation?: (ctx: SearchBridgeContext) => void;
+  /** Full-page article navigation for help-center host shell. */
+  onOpenArticle?: (article: ArticleDetails) => void;
+  onHome?: () => void;
   /** Toggle individual UI regions (used by the Results lab tab). */
   visibility?: Partial<SearchResultsVisibility>;
   /** Show AI assist card inside the article panel. */
@@ -331,11 +336,14 @@ export function SearchResultsScreen({
   initialQuery,
   onSearch,
   onStartConversation,
+  onOpenArticle,
+  onHome,
   visibility: visibilityProp,
   showAiAssist = true,
 }: SearchResultsScreenProps) {
   const visibility = { ...DEFAULT_SEARCH_RESULTS_VISIBILITY, ...visibilityProp };
   const { tokens } = useTokens();
+  const { skin } = useSkin();
   const baseArticles: ArticleDetails[] = tokens.articles.learning;
   const categories = (tokens.categories ?? []) as { label: string; menuItems?: string[] }[];
 
@@ -436,6 +444,21 @@ export function SearchResultsScreen({
     visibility.filterSort ||
     visibility.resultsList ||
     visibility.pagination;
+
+  if (skin.host.shell === "help-center") {
+    return (
+      <HostSearchResults
+        initialQuery={initialQuery}
+        onSearch={(q) => onSearch?.(q)}
+        onHome={onHome}
+        onOpenArticle={onOpenArticle ?? setSelectedArticle}
+        onStartConversation={onStartConversation}
+        showSmartSummary={visibility.smartSummary}
+        showFilterSort={visibility.filterSort}
+        showAiAssist={showAiAssist}
+      />
+    );
+  }
 
   return (
     <motion.div
@@ -665,6 +688,9 @@ export function SearchResultsScreen({
                 article={selectedArticle}
                 onClose={() => setSelectedArticle(null)}
                 hideSummary={!showAiAssist}
+                showAiAssist={showAiAssist}
+                compact
+                onOpenArticle={setSelectedArticle}
               />
             </div>
           </motion.div>

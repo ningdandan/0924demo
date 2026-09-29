@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { GraduationCap, BookOpen, Users, FileText, Search, ThumbsUp, ThumbsDown, Plus, Mic, Phone } from "lucide-react";
+import { Search, ThumbsUp, ThumbsDown, Plus, Mic, Phone, CheckCheck, ChevronRight } from "lucide-react";
 import { useDesignTokens } from "../DesignTokensContext";
 import { TypingIndicator } from "./TypingIndicator";
 import { ArticlePanel } from "./ArticlePanel";
+import { useSkin } from "../SkinContext";
 import { LearnerProfilePanel } from "./LearnerProfilePanel";
 import { CitationChips } from "./CitationChips";
 import { ActionTiles } from "./ActionTiles";
@@ -16,6 +17,11 @@ import { SpecialistChatCard } from "./SpecialistChatCard";
 import { StudentReadinessCard } from "./StudentReadinessCard";
 import { FeedbackFormCard } from "./FeedbackFormCard";
 import { AiNudgeChips, type AiNudge } from "./AiNudgeChips";
+import {
+  buildSuggestionGroups,
+  suggestionGroupsHaveItems,
+  SuggestionGroupList,
+} from "./SuggestionGroups";
 import avatarImage from "../../imports/avatar-logo.png";
 import userAvatar from "figma:asset/29430ecde91fa3edf6e8c948dcd5e35351d6faf7.png";
 import { useTokens } from "../TokensContext";
@@ -23,7 +29,41 @@ import type { ChatCard, ChatMessage } from "../chatTypes";
 import { useTheme } from "../ThemeContext";
 import content from "../content";
 
-const SUGGESTION_ICONS = [GraduationCap, GraduationCap, BookOpen, FileText, Users];
+function HelpChatBotAvatar({ size = 36, bg }: { size?: number; bg: string }) {
+  return (
+    <div
+      className="shrink-0 rounded-full flex items-center justify-center text-white"
+      style={{
+        width: size,
+        height: size,
+        background: bg,
+        fontFamily: "Georgia, 'Times New Roman', serif",
+        fontSize: size * 0.52,
+        fontWeight: 700,
+        fontStyle: "italic",
+        lineHeight: 1,
+      }}
+      aria-hidden
+    >
+      D
+    </div>
+  );
+}
+
+function formatChatClock(date: Date) {
+  return date.toLocaleTimeString([], { hour: "numeric", minute: "2-digit", second: "2-digit" });
+}
+
+function formatChatStarted(date: Date) {
+  return date.toLocaleString([], {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+}
 
 /** Follow-up pills under the chat input — same tone as search-results ask suggestions. */
 function followUpNudgesForQuery(query: string, categoryHint = ""): AiNudge[] {
@@ -196,16 +236,17 @@ export function ChatScreen({
   showEscalation = true,
 }: ChatScreenProps) {
   const { tokens } = useTokens();
+  const { skin } = useSkin();
+  const { dt } = useDesignTokens();
+  const helpChat = skin.layout.chat === "help-chat";
   const { theme } = useTheme();
-  const accentStyle = { backgroundImage: theme.gradient, color: theme.textColor };
   const bubbleStyle = { background: `linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), ${theme.gradient}`, color: theme.textColor };
   const tc = tokens.chatUI;
+  const helpFont = dt.fonts.families.body;
+  const chatUserBubble = dt.colors.host.chatUserBubble;
+  const chatAgentBubble = dt.colors.host.chatAgentBubble;
+  const chatAvatarBg = dt.colors.host.chatAvatarBg;
   const scriptMessages = scriptOverride ?? tokens.chatScript.messages;
-  const PROMPT_SUGGESTIONS = ((tokens.chat ?? content.chat).promptSuggestions ?? []).map((s: any, i: number) => ({
-    icon: SUGGESTION_ICONS[i] ?? GraduationCap,
-    label: s.label,
-    sub: s.sub,
-  }));
 
   const articles: ArticleDetails[] = tokens.articles.learning;
 
@@ -225,6 +266,7 @@ export function ChatScreen({
   const [selectedLearner, setSelectedLearner] = useState<string | null>(initialLearner ?? null);
   const [feedback, setFeedback] = useState<Record<string, "up" | "down" | null>>({});
   const [promptValue, setPromptValue] = useState("");
+  const [chatStartedAt] = useState(() => new Date());
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [suggestionsLoading, setSuggestionsLoading] = useState(false);
   const [suggestionsReady, setSuggestionsReady] = useState(false);
@@ -232,6 +274,12 @@ export function ChatScreen({
   const inputBarRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [dropdownPos, setDropdownPos] = useState<{ bottom: number; left: number; width: number } | null>(null);
+
+  const suggestionGroups = useMemo(
+    () => buildSuggestionGroups("conversational", tokens, promptValue),
+    [tokens, promptValue],
+  );
+  const hasSuggestionGroups = suggestionGroupsHaveItems(suggestionGroups);
 
   const handlePromptChange = useCallback((val: string) => {
     setPromptValue(val);
@@ -327,209 +375,373 @@ export function ChatScreen({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.15 }}
-      className="flex h-full w-full gap-[20px] overflow-hidden pl-[10px] pr-[20px] py-[10px]"
+      className={`flex h-full w-full overflow-hidden ${
+        helpChat ? "gap-0 bg-white" : "gap-[20px] pl-[10px] pr-[20px] py-[10px]"
+      }`}
+      style={helpChat ? { fontFamily: helpFont } : undefined}
     >
-      <motion.div
-        className="flex-1 flex flex-col min-h-0 min-w-0 overflow-hidden"
-      >
-        <div className="flex flex-col h-full w-full min-h-0 max-w-[800px] mx-auto">
-          {/* Messages */}
+      <motion.div className="flex-1 flex flex-col min-h-0 min-w-0 overflow-hidden">
+        <div
+          className={`flex flex-col h-full w-full min-h-0 mx-auto ${
+            helpChat ? "max-w-[720px]" : "max-w-[800px]"
+          }`}
+        >
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: animateBar ? 0.55 : 0, ease: "easeOut" }}
             className="relative flex-1 min-h-0"
           >
-            <div ref={scrollRef} className="h-full overflow-y-auto px-[40px] pt-[24px] pb-[24px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {searchContext && (
-              <motion.div
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35 }}
-                className="mb-[20px] rounded-[14px] border border-white/70 bg-white/70 backdrop-blur-[8px] px-[14px] py-[12px]"
-              >
-                <div className="flex items-center gap-[6px] mb-[8px]">
-                  <Search className="size-[12px] text-gray-400" />
-                  <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-semibold tracking-wider text-gray-400">
-                    context from search
+            <div
+              ref={scrollRef}
+              className={`h-full overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
+                helpChat ? "px-[28px] pt-[20px] pb-[16px]" : "px-[40px] pt-[24px] pb-[24px]"
+              }`}
+            >
+              {helpChat && (
+                <div className="flex items-center gap-[12px] mb-[22px]">
+                  <div className="flex-1 h-px bg-[#E4E7ED]" />
+                  <p className="shrink-0 text-[12px] text-[#606266] whitespace-nowrap">
+                    Chat started at {formatChatStarted(chatStartedAt)}
                   </p>
+                  <div className="flex-1 h-px bg-[#E4E7ED]" />
                 </div>
-                <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[13px] font-semibold text-[#364153] mb-[8px] line-clamp-2">
-                  “{searchContext.query}”
-                </p>
-                <div className="flex flex-col gap-[6px]">
-                  {searchContext.results.slice(0, 3).map((r) => (
-                    <div key={r.title} className="flex items-start gap-[8px]">
-                      <span className="mt-[6px] size-[4px] rounded-full bg-gray-300 shrink-0" />
-                      <div className="min-w-0">
-                        <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[12px] text-[#4b5563] truncate">
-                          {r.title}
-                        </p>
-                        <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] text-gray-400 truncate">
-                          {r.category}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-            <AnimatePresence mode="popLayout">
-              {visibleMessages.map((message, index) => (
+              )}
+
+              {!helpChat && searchContext && (
                 <motion.div
-                  key={message.id}
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.45, delay: index * 0.06, ease: [0.25, 0.1, 0.25, 1] }}
-                  className={`flex ${message.role === "user" ? "justify-end" : "justify-start"} mb-[20px]`}
+                  transition={{ duration: 0.35 }}
+                  className="mb-[20px] rounded-[14px] border border-white/70 bg-white/70 backdrop-blur-[8px] px-[14px] py-[12px]"
                 >
-                  {message.role === "user" ? (
-                    <div className="flex gap-[12px] items-start max-w-[70%]">
-                      <div className="flex flex-col gap-[4px] items-end flex-1">
-                        <div
-                          className="rounded-[16px] px-[20px] py-[16px]"
-                          style={bubbleStyle}
-                        >
-                          <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[15px] leading-[22px]">
-                            {message.content}
+                  <div className="flex items-center gap-[6px] mb-[8px]">
+                    <Search className="size-[12px] text-gray-400" />
+                    <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-semibold tracking-wider text-gray-400">
+                      context from search
+                    </p>
+                  </div>
+                  <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[13px] font-semibold text-[#364153] mb-[8px] line-clamp-2">
+                    “{searchContext.query}”
+                  </p>
+                  <div className="flex flex-col gap-[6px]">
+                    {searchContext.results.slice(0, 3).map((r) => (
+                      <div key={r.title} className="flex items-start gap-[8px]">
+                        <span className="mt-[6px] size-[4px] rounded-full bg-gray-300 shrink-0" />
+                        <div className="min-w-0">
+                          <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[12px] text-[#4b5563] truncate">
+                            {r.title}
+                          </p>
+                          <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] text-gray-400 truncate">
+                            {r.category}
                           </p>
                         </div>
-                        <span className="text-[11px] px-[4px] text-gray-400">
-                          {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                        </span>
                       </div>
-                      <div className="shrink-0 size-[40px] rounded-full overflow-hidden">
-                        <img src={userAvatar} alt="User" className="block size-full object-cover" />
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex gap-[12px] items-start max-w-[90%] w-[90%]">
-                      <div className="relative rounded-full shrink-0 size-[40px]">
-                        <img src={avatarImage} alt={tc.avatarAlt} className="block size-full rounded-full object-cover" />
-                        <div className="absolute bg-[#00c950] border-2 border-solid border-white left-[30px] rounded-full size-[12px] top-[30px]" />
-                      </div>
-                      <div className="flex flex-col gap-[4px] items-start flex-1">
-                        {message.content && (
-                          <div className="rounded-[16px] px-[0.5px] py-[0.5px]">
-                            <InlineContent text={message.content} articles={articles} onArticleClick={setSelectedArticle} />
-                          </div>
-                        )}
-                        {message.citations && message.citations.length > 0 && (
-                          <CitationChips
-                            citations={message.citations}
-                            articles={articles}
-                            onArticleClick={setSelectedArticle}
-                          />
-                        )}
-                        {message.card && <CardRenderer card={message.card} onStudentClick={handleStudentClick} />}
-                        <div className="flex items-center gap-[6px] px-[4px] mt-[2px]">
-                          <span className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] text-gray-400">{content.chat.agentName}</span>
-                          <span className="text-gray-300">·</span>
-                          <span className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] text-gray-400">{message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span>
-                          <span className="text-gray-300">·</span>
-                          {feedback[message.id] ? (
-                            <motion.span
-                              initial={{ opacity: 0, y: 4 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.25 }}
-                              className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] text-gray-400"
-                            >
-                              {feedback[message.id] === "up" ? content.chat.feedbackPositive : content.chat.feedbackNegative}
-                            </motion.span>
-                          ) : (
-                            <>
-                              <span className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] text-gray-400">{content.chat.feedbackPrompt}</span>
-                              <motion.button
-                                whileTap={{ scale: 0.85 }}
-                                onClick={() => setFeedback((f) => ({ ...f, [message.id]: "up" }))}
-                                className="hover:text-gray-600 text-gray-400 transition-colors"
-                              >
-                                <ThumbsUp className="size-[12px]" />
-                              </motion.button>
-                              <motion.button
-                                whileTap={{ scale: 0.85 }}
-                                onClick={() => setFeedback((f) => ({ ...f, [message.id]: "down" }))}
-                                className="hover:text-gray-600 text-gray-400 transition-colors"
-                              >
-                                <ThumbsDown className="size-[12px]" />
-                              </motion.button>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </motion.div>
-              ))}
-
-              {isThinking && (
-                <motion.div
-                  key="thinking"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  className="flex gap-[12px] items-start mb-[20px]"
-                >
-                  <div className="relative rounded-full shrink-0 size-[40px]">
-                    <img src={avatarImage} alt={tc.avatarAlt} className="block size-full rounded-full object-cover" />
-                    <div className="absolute bg-[#00c950] border-2 border-solid border-white left-[30px] rounded-full size-[12px] top-[30px]" />
-                  </div>
-                  <div className="flex items-center h-[40px]">
-                    <TypingIndicator />
+                    ))}
                   </div>
                 </motion.div>
               )}
 
-            </AnimatePresence>
+              <AnimatePresence mode="popLayout">
+                {visibleMessages.map((message, index) => (
+                  <motion.div
+                    key={message.id}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.45, delay: index * 0.06, ease: [0.25, 0.1, 0.25, 1] }}
+                    className={`flex ${message.role === "user" ? "justify-end" : "justify-start"} ${
+                      helpChat ? "mb-[18px]" : "mb-[20px]"
+                    }`}
+                  >
+                    {message.role === "user" ? (
+                      helpChat ? (
+                        <div className="flex flex-col items-end max-w-[78%]">
+                          <div
+                            className="rounded-[18px] px-[16px] py-[12px] text-white"
+                            style={{ background: chatUserBubble }}
+                          >
+                            <p className="text-[15px] leading-[22px]">{message.content}</p>
+                          </div>
+                          <div
+                            className="mt-[6px] flex items-center gap-[6px] text-[11px]"
+                            style={{ color: dt.colors.ui.mutedDark }}
+                          >
+                            <span>{formatChatClock(message.timestamp)}</span>
+                            <CheckCheck className="size-[14px]" strokeWidth={2.2} />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex gap-[12px] items-start max-w-[70%]">
+                          <div className="flex flex-col gap-[4px] items-end flex-1">
+                            <div className="rounded-[16px] px-[20px] py-[16px]" style={bubbleStyle}>
+                              <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[15px] leading-[22px]">
+                                {message.content}
+                              </p>
+                            </div>
+                            <span className="text-[11px] px-[4px] text-gray-400">
+                              {message.timestamp.toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}
+                            </span>
+                          </div>
+                          <div className="shrink-0 size-[40px] rounded-full overflow-hidden">
+                            <img src={userAvatar} alt="User" className="block size-full object-cover" />
+                          </div>
+                        </div>
+                      )
+                    ) : helpChat ? (
+                      <div className="flex gap-[10px] items-end max-w-[88%]">
+                        <HelpChatBotAvatar bg={chatAvatarBg} />
+                        <div className="flex flex-col items-start min-w-0">
+                          {message.content && (
+                            <div
+                              className="rounded-[16px] px-[16px] py-[12px]"
+                              style={{
+                                background: chatAgentBubble,
+                                color: dt.colors.ui.body,
+                              }}
+                            >
+                              <InlineContent
+                                text={message.content}
+                                articles={articles}
+                                onArticleClick={setSelectedArticle}
+                              />
+                            </div>
+                          )}
+                          {message.citations && message.citations.length > 0 && (
+                            <div className="mt-[8px]">
+                              <CitationChips
+                                citations={message.citations}
+                                articles={articles}
+                                onArticleClick={setSelectedArticle}
+                              />
+                            </div>
+                          )}
+                          {message.card && (
+                            <div className="mt-[8px]">
+                              <CardRenderer card={message.card} onStudentClick={handleStudentClick} />
+                            </div>
+                          )}
+                          <span
+                            className="mt-[6px] text-[11px]"
+                            style={{ color: dt.colors.ui.mutedDark }}
+                          >
+                            {formatChatClock(message.timestamp)}
+                          </span>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex gap-[12px] items-start max-w-[90%] w-[90%]">
+                        <div className="relative rounded-full shrink-0 size-[40px]">
+                          <img
+                            src={avatarImage}
+                            alt={tc.avatarAlt}
+                            className="block size-full rounded-full object-cover"
+                          />
+                          <div className="absolute bg-[#00c950] border-2 border-solid border-white left-[30px] rounded-full size-[12px] top-[30px]" />
+                        </div>
+                        <div className="flex flex-col gap-[4px] items-start flex-1">
+                          {message.content && (
+                            <div className="rounded-[16px] px-[0.5px] py-[0.5px]">
+                              <InlineContent
+                                text={message.content}
+                                articles={articles}
+                                onArticleClick={setSelectedArticle}
+                              />
+                            </div>
+                          )}
+                          {message.citations && message.citations.length > 0 && (
+                            <CitationChips
+                              citations={message.citations}
+                              articles={articles}
+                              onArticleClick={setSelectedArticle}
+                            />
+                          )}
+                          {message.card && (
+                            <CardRenderer card={message.card} onStudentClick={handleStudentClick} />
+                          )}
+                          <div className="flex items-center gap-[6px] px-[4px] mt-[2px]">
+                            <span className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] text-gray-400">
+                              {content.chat.agentName}
+                            </span>
+                            <span className="text-gray-300">·</span>
+                            <span className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] text-gray-400">
+                              {message.timestamp.toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}
+                            </span>
+                            <span className="text-gray-300">·</span>
+                            {feedback[message.id] ? (
+                              <motion.span
+                                initial={{ opacity: 0, y: 4 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.25 }}
+                                className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] text-gray-400"
+                              >
+                                {feedback[message.id] === "up"
+                                  ? content.chat.feedbackPositive
+                                  : content.chat.feedbackNegative}
+                              </motion.span>
+                            ) : (
+                              <>
+                                <span className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] text-gray-400">
+                                  {content.chat.feedbackPrompt}
+                                </span>
+                                <motion.button
+                                  whileTap={{ scale: 0.85 }}
+                                  onClick={() => setFeedback((f) => ({ ...f, [message.id]: "up" }))}
+                                  className="hover:text-gray-600 text-gray-400 transition-colors"
+                                >
+                                  <ThumbsUp className="size-[12px]" />
+                                </motion.button>
+                                <motion.button
+                                  whileTap={{ scale: 0.85 }}
+                                  onClick={() => setFeedback((f) => ({ ...f, [message.id]: "down" }))}
+                                  className="hover:text-gray-600 text-gray-400 transition-colors"
+                                >
+                                  <ThumbsDown className="size-[12px]" />
+                                </motion.button>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+
+                {isThinking && (
+                  <motion.div
+                    key="thinking"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className={`flex items-start mb-[18px] ${
+                      helpChat ? "gap-[10px]" : "gap-[12px]"
+                    }`}
+                  >
+                    {helpChat ? (
+                      <>
+                        <HelpChatBotAvatar bg={chatAvatarBg} />
+                        <div
+                          className="rounded-[16px] px-[16px] py-[14px]"
+                          style={{ background: chatAgentBubble }}
+                        >
+                          <div className="flex gap-[5px] items-center">
+                            {[0, 1, 2].map((i) => (
+                              <motion.div
+                                key={i}
+                                className="size-[7px] rounded-full"
+                                style={{ background: chatUserBubble }}
+                                animate={{ opacity: [0.25, 1, 0.25] }}
+                                transition={{ duration: 1.1, repeat: Infinity, delay: i * 0.18 }}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="relative rounded-full shrink-0 size-[40px]">
+                          <img
+                            src={avatarImage}
+                            alt={tc.avatarAlt}
+                            className="block size-full rounded-full object-cover"
+                          />
+                          <div className="absolute bg-[#00c950] border-2 border-solid border-white left-[30px] rounded-full size-[12px] top-[30px]" />
+                        </div>
+                        <div className="flex items-center h-[40px]">
+                          <TypingIndicator />
+                        </div>
+                      </>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </motion.div>
 
-          {/* Input + suggestion pills (same pattern as search-results ask bar) */}
-          <div className="px-[40px] pb-[16px] flex-shrink-0">
-            <div className="relative w-full flex items-center gap-[8px]" ref={inputBarRef}>
-              <motion.div
-                {...(animateBar ? { layout: true, layoutId: "prompt-bar" } : {})}
-                style={{ borderRadius: "9999px" }}
-                className="relative flex-1 flex items-center gap-[6px] bg-white border border-gray-200 px-[8px] py-[8px]"
-              >
-                {/* Upload button */}
-                <button className="flex items-center justify-center rounded-full size-[36px] border border-gray-200 bg-white hover:bg-gray-50 transition-colors flex-shrink-0">
-                  <Plus className="size-[16px]" style={{ color: "var(--color-icon, #4A5565)" }} />
-                </button>
-                <div className="flex-1">
-                  <input
-                    type="text"
-                    value={promptValue}
-                    onChange={(e) => handlePromptChange(e.target.value)}
-                    onBlur={() => setTimeout(() => setDropdownOpen(false), 150)}
-                    onFocus={() => promptValue.trim() && setDropdownOpen(true)}
-                    placeholder={tc.searchPlaceholder}
-                    className="w-full bg-transparent border-0 outline-none font-['Plus_Jakarta_Sans',sans-serif] text-[15px] placeholder:text-[#99a1af]"
-                    style={{ color: "var(--color-body, #364153)" }}
-                  />
+          <div
+            className={`flex-shrink-0 ${
+              helpChat ? "px-[28px] pb-[14px]" : "px-[40px] pb-[16px]"
+            }`}
+          >
+            {helpChat ? (
+              <>
+                <div className="relative w-full" ref={inputBarRef}>
+                  <div className="flex items-center gap-[8px] h-[48px] pl-[18px] pr-[8px] rounded-full border border-[#DCDFE6] bg-white">
+                    <input
+                      type="text"
+                      value={promptValue}
+                      onChange={(e) => handlePromptChange(e.target.value)}
+                      onBlur={() => setTimeout(() => setDropdownOpen(false), 150)}
+                      onFocus={() => promptValue.trim() && setDropdownOpen(true)}
+                      placeholder="Type your message..."
+                      className="flex-1 min-w-0 bg-transparent border-0 outline-none text-[15px] text-[#1A1A1A] placeholder:text-[#909399]"
+                    />
+                    <button
+                      type="button"
+                      className="size-[34px] rounded-full bg-[#D1D5DB] text-white flex items-center justify-center shrink-0 hover:bg-[#9CA3AF] transition-colors"
+                      aria-label="Send"
+                    >
+                      <ChevronRight className="size-[18px]" strokeWidth={2.5} />
+                    </button>
+                  </div>
                 </div>
-                {/* Voice button */}
-                <button className="flex items-center justify-center rounded-full size-[36px] bg-white border border-gray-200 hover:bg-gray-50 transition-colors flex-shrink-0">
-                  <Mic className="size-[16px]" style={{ color: "var(--color-icon, #4A5565)" }} />
-                </button>
-              </motion.div>
-              {/* Phone button — outside the bar */}
-              {showEscalation && (
-                <button className="flex items-center justify-center rounded-full size-[44px] bg-white border border-gray-200 hover:bg-gray-50 transition-colors flex-shrink-0">
-                  <Phone className="size-[18px]" style={{ color: "var(--color-icon, #4A5565)" }} />
-                </button>
-              )}
-            </div>
+                {showSuggestions && followUpNudges.length > 0 && (
+                  <div className="mt-[10px]">
+                    <AiNudgeChips subtle nudges={followUpNudges} onNudge={handleFollowUpNudge} />
+                  </div>
+                )}
+                <p className="mt-[12px] text-center text-[11px] leading-[15px] text-[#606266]">
+                  Responses generated with the assistance of AI technology.
+                  <br />
+                  Avoid sharing personal information unless requested.
+                </p>
+              </>
+            ) : (
+              <>
+                <div className="relative w-full flex items-center gap-[8px]" ref={inputBarRef}>
+                  <motion.div
+                    {...(animateBar ? { layout: true, layoutId: "prompt-bar" } : {})}
+                    style={{ borderRadius: "9999px" }}
+                    className="relative flex-1 flex items-center gap-[6px] bg-white border border-gray-200 px-[8px] py-[8px]"
+                  >
+                    <button className="flex items-center justify-center rounded-full size-[36px] border border-gray-200 bg-white hover:bg-gray-50 transition-colors flex-shrink-0">
+                      <Plus className="size-[16px]" style={{ color: "var(--color-icon, #4A5565)" }} />
+                    </button>
+                    <div className="flex-1">
+                      <input
+                        type="text"
+                        value={promptValue}
+                        onChange={(e) => handlePromptChange(e.target.value)}
+                        onBlur={() => setTimeout(() => setDropdownOpen(false), 150)}
+                        onFocus={() => promptValue.trim() && setDropdownOpen(true)}
+                        placeholder={tc.searchPlaceholder}
+                        className="w-full bg-transparent border-0 outline-none font-['Plus_Jakarta_Sans',sans-serif] text-[15px] placeholder:text-[#99a1af]"
+                        style={{ color: "var(--color-body, #364153)" }}
+                      />
+                    </div>
+                    <button className="flex items-center justify-center rounded-full size-[36px] bg-white border border-gray-200 hover:bg-gray-50 transition-colors flex-shrink-0">
+                      <Mic className="size-[16px]" style={{ color: "var(--color-icon, #4A5565)" }} />
+                    </button>
+                  </motion.div>
+                  {showEscalation && (
+                    <button className="flex items-center justify-center rounded-full size-[44px] bg-white border border-gray-200 hover:bg-gray-50 transition-colors flex-shrink-0">
+                      <Phone className="size-[18px]" style={{ color: "var(--color-icon, #4A5565)" }} />
+                    </button>
+                  )}
+                </div>
 
-            {showSuggestions && followUpNudges.length > 0 && (
-              <div className="mt-[10px]">
-                <AiNudgeChips
-                  subtle
-                  nudges={followUpNudges}
-                  onNudge={handleFollowUpNudge}
-                />
-              </div>
+                {showSuggestions && followUpNudges.length > 0 && (
+                  <div className="mt-[10px]">
+                    <AiNudgeChips subtle nudges={followUpNudges} onNudge={handleFollowUpNudge} />
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
@@ -543,46 +755,47 @@ export function ChatScreen({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 6 }}
             transition={{ duration: 0.18 }}
-            className="fixed bg-white rounded-[20px] shadow-[0px_12px_40px_rgba(0,0,0,0.12)] overflow-hidden z-[200]"
+            className="fixed bg-white rounded-[20px] shadow-[0px_12px_40px_rgba(0,0,0,0.12)] overflow-hidden z-[200] max-h-[min(420px,50vh)] overflow-y-auto"
             style={{ bottom: dropdownPos.bottom, left: dropdownPos.left, width: dropdownPos.width }}
           >
-            {/* First row: search query */}
             <div className="flex items-center gap-[12px] px-[16px] py-[12px] border-b border-gray-100">
               <div className="size-[32px] rounded-[8px] bg-gray-100 flex items-center justify-center flex-shrink-0">
                 <Search className="size-[14px] text-gray-500" />
               </div>
-              <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[14px] truncate" style={{ color: "var(--color-body, #364153)" }}>{promptValue}</p>
+              <p
+                className="font-['Plus_Jakarta_Sans',sans-serif] text-[14px] truncate"
+                style={{ color: "var(--color-body, #364153)" }}
+              >
+                {promptValue}
+              </p>
             </div>
-            {/* Suggestions */}
             <div className="py-[6px]">
               {suggestionsLoading ? (
-                PROMPT_SUGGESTIONS.map((_, i) => (
+                [0, 1, 2, 3].map((i) => (
                   <div key={i} className="flex items-center gap-[12px] px-[16px] py-[10px]">
-                    <div className="size-[32px] rounded-[8px] bg-gray-100 animate-pulse flex-shrink-0" />
+                    <div className="size-[28px] rounded-[8px] bg-gray-100 animate-pulse flex-shrink-0" />
                     <div className="flex flex-col gap-[6px] flex-1">
                       <div className="h-[12px] bg-gray-100 rounded animate-pulse w-[55%]" />
                       <div className="h-[10px] bg-gray-100 rounded animate-pulse w-[35%]" />
                     </div>
                   </div>
                 ))
+              ) : suggestionsReady && hasSuggestionGroups ? (
+                <SuggestionGroupList
+                  compact
+                  groups={suggestionGroups}
+                  query={promptValue}
+                  onSelect={(item) => {
+                    setPromptValue(item.value);
+                    setDropdownOpen(false);
+                    setSuggestionsReady(false);
+                    setSuggestionsLoading(false);
+                  }}
+                />
               ) : suggestionsReady ? (
-                PROMPT_SUGGESTIONS.map((s, i) => (
-                  <motion.button
-                    key={i}
-                    initial={{ opacity: 0, x: -6 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.15, delay: i * 0.04 }}
-                    className="flex items-center gap-[12px] px-[16px] py-[10px] w-full text-left hover:bg-gray-50 transition-colors"
-                  >
-                    <div className="size-[32px] rounded-[8px] flex items-center justify-center flex-shrink-0" style={accentStyle}>
-                      <s.icon className="size-[14px]" style={{ color: "var(--color-navy, #1e1b4b)" }} />
-                    </div>
-                    <div className="flex flex-col min-w-0">
-                      <p className="font-['Plus_Jakarta_Sans',sans-serif] font-semibold text-[13px] truncate" style={{ color: "var(--color-body, #364153)" }}>{s.label}</p>
-                      <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] text-gray-400 truncate">{s.sub}</p>
-                    </div>
-                  </motion.button>
-                ))
+                <p className="px-[16px] py-[14px] font-['Plus_Jakarta_Sans',sans-serif] text-[13px] text-[#9CA3AF]">
+                  No matching suggestions
+                </p>
               ) : null}
             </div>
           </motion.div>
@@ -601,9 +814,18 @@ export function ChatScreen({
           >
             <div className="h-full">
               {selectedLearner ? (
-                <LearnerProfilePanel studentName={selectedLearner} onClose={() => setSelectedLearner(null)} />
+                <LearnerProfilePanel
+                  studentName={selectedLearner}
+                  onClose={() => setSelectedLearner(null)}
+                />
               ) : (
-                <ArticlePanel article={selectedArticle} onClose={() => setSelectedArticle(null)} />
+                <ArticlePanel
+                  article={selectedArticle}
+                  onClose={() => setSelectedArticle(null)}
+                  compact
+                  onOpenArticle={setSelectedArticle}
+                  showAiAssist
+                />
               )}
             </div>
           </motion.div>

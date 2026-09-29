@@ -1,0 +1,275 @@
+{
+  "hero": {
+    "welcomeHeading": "Welcome back, Jordan.",
+    "welcomeSubtext": "Your Dallas–Denver trip is coming up — check in opens 24 hours before departure.",
+    "userName": "Jordan"
+  },
+  "searchHero": {
+    "greetingPrefix": "",
+    "subtext": "Search help options and FAQs about Southwest Airlines.",
+    "userName": ""
+  },
+  "searchBar": {
+    "demoTypingText": "How do I check in for my flight?",
+    "fakeUploadName": "Southwest_Boarding_Pass.pdf",
+    "fakeUploadSize": "1.2 MB",
+    "placeholder": "Search our help options and FAQs",
+    "uploadLabel": "Upload from computer",
+    "connectLabel": "Connect with Rapid Rewards",
+    "suggestions": [
+      "How do I check in for my flight?",
+      "Assigned seats on Southwest",
+      "Baggage allowance and fees",
+      "Change or cancel my reservation"
+    ],
+    "allSuggestions": [
+      "How do I check in for my flight?",
+      "Assigned seats on Southwest",
+      "Baggage allowance and fees",
+      "Change or cancel my reservation",
+      "What is a Wanna Get Away fare?",
+      "How do I use travel funds?",
+      "Rapid Rewards points and A-List",
+      "What if my flight is delayed or canceled?",
+      "How do I request a refund?",
+      "Disability-related accommodations",
+      "Same-day standby and confirmed changes"
+    ]
+  },
+  "searchBarDropdown": {
+    "demoTypingText": "How do I check in for my flight?",
+    "quickAnswers": [
+      {
+        "question": "When can I check in for my Southwest flight?",
+        "answer": "Online and app check-in opens 24 hours before scheduled departure. Arrive early on day of travel for bag drop and security."
+      },
+      {
+        "question": "Do Southwest flights have assigned seats?",
+        "answer": "Yes — all Southwest flights now feature assigned seating. Choose seats when you book or manage your trip later."
+      },
+      {
+        "question": "How many bags can I check for free?",
+        "answer": "Southwest's baggage policy allows two free checked bags (size/weight limits apply) plus carryons that fit under the seat or in the overhead bin."
+      }
+    ],
+    "relatedObjects": [
+      {
+        "type": "Trip",
+        "title": "DAL → DEN · Confirmed",
+        "subtitle": "Departs tomorrow · Check-in opens soon",
+        "details": "Roundtrip reservation with assigned seats selected. Manage seats, bags, and Rapid Rewards credit from My Trips."
+      },
+      {
+        "type": "Rapid Rewards",
+        "title": "Jordan M. · Rapid Rewards",
+        "subtitle": "A-List Preferred · Companion Pass tracking",
+        "details": "Loyalty account with points available for award travel. Update profile, request missing points, or view tier progress in Rapid Rewards."
+      },
+      {
+        "type": "Travel funds",
+        "title": "Flight credit · $218.40",
+        "subtitle": "Valid for future Southwest travel",
+        "details": "Unused travel funds from a canceled Wanna Get Away Plus fare. Apply at checkout before the expiration date shown in My Account."
+      }
+    ]
+  },
+  "categories": [
+    {
+      "label": "Planning & Booking",
+      "menuItems": ["Book a trip", "Fares and products", "Seats", "Modify trip"]
+    },
+    {
+      "label": "Getting Ready",
+      "menuItems": ["Check-in", "Changes", "Cancellations", "Travel documents"]
+    },
+    {
+      "label": "Day of Travel",
+      "menuItems": ["Airport tips", "Boarding", "Same-day changes", "Connections"]
+    },
+    {
+      "label": "Delays, Cancellations, or Schedule Revisions",
+      "menuItems": ["Irregular ops", "Rebooking", "Vouchers", "Compensation"]
+    },
+    {
+      "label": "Baggage",
+      "menuItems": ["Carryon", "Checked bags", "Sporting equipment", "Delayed bags"]
+    },
+    {
+      "label": "Travel Funds, Refunds, Reimbursements, & Receipts",
+      "menuItems": ["Travel funds", "Refunds", "Receipts", "Reimbursements"]
+    },
+    {
+      "label": "Rapid Rewards®",
+      "menuItems": ["Enroll", "Points", "A-List", "Companion Pass"]
+    },
+    {
+      "label": "Disability-Related Accommodations",
+      "menuItems": ["Wheelchair", "Service animals", "Seating needs", "Assistance"]
+    },
+    {
+      "label": "Assigned Seats",
+      "menuItems": ["Choose a seat", "Fare products", "Manage reservation"]
+    },
+    {
+      "label": "Contact Us",
+      "menuItems": ["Account change", "Refund request", "Receipt", "Complaints"]
+    }
+  ],
+  "homePathways": {
+    "heading": "What do you need help with?",
+    "subheading": "Choose one of the topics below to get started",
+    "searchHeading": "Search our help options and FAQs",
+    "primary": [
+      {
+        "title": "Planning & Booking",
+        "summary": "Get all the information you need to book your next trip"
+      },
+      {
+        "title": "Getting Ready",
+        "summary": "Flight check-in, changes, and cancellations - we are here to help"
+      },
+      {
+        "title": "Day of Travel",
+        "summary": "Fly through your travel day with ease"
+      },
+      {
+        "title": "Delays, Cancellations, or Schedule Revisions",
+        "summary": "Options if your flight has been changed or canceled"
+      }
+    ],
+    "additionalHeading": "Additional topics",
+    "additional": [
+      {
+        "title": "Baggage",
+        "summary": "Learn more about our checked and carryon baggage policies"
+      },
+      {
+        "title": "Travel Funds, Refunds, Reimbursements, & Receipts",
+        "summary": "Learn about our travel funds policies, request a refund or reimbursement, or obtain a receipt"
+      },
+      {
+        "title": "Rapid Rewards®",
+        "summary": "Learn how to take advantage of all the benefits of our program and manage your account"
+      },
+      {
+        "title": "Disability-Related Accommodations",
+        "summary": "Learn how we can support your accessible assistance needs"
+      },
+      {
+        "title": "Assigned Seats",
+        "summary": "All Southwest flights feature assigned seating!"
+      },
+      {
+        "title": "Contact Us",
+        "summary": "Submit an account change, refund, or receipt request. Recognize an Employee or share a complaint."
+      }
+    ]
+  },
+  "sidebar": {
+    "learners": []
+  },
+  "chat": {
+    "agentName": "Southwest Help",
+    "promptSuggestions": [
+      { "label": "Check in for my flight", "sub": "Getting Ready" },
+      { "label": "Baggage policy", "sub": "Baggage" },
+      { "label": "Rapid Rewards points", "sub": "Rapid Rewards®" }
+    ]
+  },
+  "articles": {
+    "learning": [
+      {
+        "title": "How do I check in for my flight?",
+        "subtitle": "Online and app check-in opens 24 hours before departure.",
+        "category": "Getting Ready",
+        "lastUpdated": "Sep 2026",
+        "summary": "Check in on Southwest.com or the app starting 24 hours before your flight, then get your boarding pass and head to the airport.",
+        "content": "How do I check in for my flight?\n\nOnline check-in opens 24 hours before your scheduled departure.\n\nWhat to do first\nOpen My Trips on Southwest.com or the Southwest app, select your flight, and follow check-in prompts for each passenger.\n\nBoarding pass options\nSave a mobile pass, print at home, or use an airport kiosk or ticket counter.\n\nWhen to escalate\nIf check-in is blocked or your name does not match travel documents, contact Southwest support before you leave for the airport."
+      },
+      {
+        "title": "Assigned seats on Southwest",
+        "subtitle": "All Southwest flights now feature assigned seating.",
+        "category": "Planning & Booking",
+        "lastUpdated": "Sep 2026",
+        "summary": "Choose your seat when booking or later in Manage Reservation. Seat options and fees depend on fare product.",
+        "content": "Assigned seats on Southwest\n\nSouthwest now assigns seats on every flight.\n\nWhat to do first\nDuring booking, pick seats for each passenger or continue with available seats and change them later in Manage Reservation.\n\nFare tip\nWanna Get Away®, Wanna Get Away Plus®, Anytime, and Business Select® include different seat selection windows and benefits.\n\nWhen to escalate\nIf you need accessible seating, start with Disability-Related Accommodations before your travel day."
+      },
+      {
+        "title": "Baggage allowance and fees",
+        "subtitle": "Carryon and checked bag rules for Southwest Customers.",
+        "category": "Baggage",
+        "lastUpdated": "Sep 2026",
+        "summary": "Southwest allows two free checked bags within size and weight limits, plus personal item and carryon guidelines.",
+        "content": "Baggage allowance and fees\n\nKnow what you can bring before you pack.\n\nWhat to do first\nReview carryon size limits and the two free checked bags policy on your trip confirmation.\n\nSpecial items\nSporting equipment and oversized items may have extra rules or fees.\n\nWhen to escalate\nReport delayed or damaged bags at the airport baggage office, then track the claim online."
+      },
+      {
+        "title": "Change or cancel my reservation",
+        "subtitle": "Same-day changes, cancellations, and travel funds.",
+        "category": "Getting Ready",
+        "lastUpdated": "Sep 2026",
+        "summary": "Most fares can be changed or canceled online. Value remaining is often held as travel funds based on your fare type.",
+        "content": "Change or cancel my reservation\n\nUse Manage Reservation to update your trip.\n\nWhat to do first\nFind your confirmation, then choose Change or Cancel and follow fare rules shown for each passenger.\n\nSame-day options\nSame-day confirmed changes and standby may be available depending on fare and seat inventory.\n\nWhen to escalate\nIf your flight was canceled by Southwest, review rebooking and refund options under Delays & Cancellations."
+      },
+      {
+        "title": "Rapid Rewards points and A-List",
+        "subtitle": "Earn points, track tiers, and use Companion Pass.",
+        "category": "Rapid Rewards®",
+        "lastUpdated": "Sep 2026",
+        "summary": "Rapid Rewards members earn points on flights and partners. A-List and Companion Pass have annual qualifying thresholds.",
+        "content": "Rapid Rewards points and A-List\n\nManage loyalty benefits in your Rapid Rewards account.\n\nWhat to do first\nSign in to view points balance, tier progress, and Companion Pass status.\n\nMissing points\nRequest credit for a past flight from Rapid Rewards account activity if points did not post.\n\nWhen to escalate\nFor locked accounts or profile name changes, use the Rapid Rewards account update forms in Help Center."
+      },
+      {
+        "title": "What if my flight is delayed or canceled?",
+        "subtitle": "Rebooking, notifications, and irregular operations help.",
+        "category": "Delays, Cancellations, or Schedule Revisions",
+        "lastUpdated": "Sep 2026",
+        "summary": "Southwest will notify you of schedule changes. Rebook in the app or with an agent, and review voucher or refund options when eligible.",
+        "content": "What if my flight is delayed or canceled?\n\nStay flexible when irregular operations happen.\n\nWhat to do first\nCheck your trip status in the app and accept a rebooked itinerary if offered.\n\nCustomer options\nDepending on the disruption, you may rebook, cancel for funds, or request additional help at the ticket counter.\n\nWhen to escalate\nFor overnight disruptions or expense reimbursement, follow the Help Center request forms for vouchers or compensation."
+      },
+      {
+        "title": "How do I use travel funds?",
+        "subtitle": "Apply unused funds to a future Southwest reservation.",
+        "category": "Travel Funds, Refunds, Reimbursements, & Receipts",
+        "lastUpdated": "Sep 2026",
+        "summary": "Travel funds from eligible canceled trips can be applied at booking. Check expiration dates in your account.",
+        "content": "How do I use travel funds?\n\nTravel funds stay attached to the passenger named on the original ticket unless rules say otherwise.\n\nWhat to do first\nSign in, open travel funds, and note the amount and expiration before you book.\n\nAt checkout\nApply funds on Southwest.com or in the app when paying for a new reservation.\n\nWhen to escalate\nIf funds are missing or expired early, contact support with your original confirmation number."
+      },
+      {
+        "title": "Disability-related accommodations",
+        "subtitle": "Wheelchair assistance, service animals, and seating needs.",
+        "category": "Disability-Related Accommodations",
+        "lastUpdated": "Sep 2026",
+        "summary": "Request airport assistance and accessible seating ahead of travel so Southwest can prepare for your trip.",
+        "content": "Disability-related accommodations\n\nSouthwest can support a range of accessible travel needs.\n\nWhat to do first\nAdd assistance requests when you book or through Manage Reservation before departure day.\n\nAirport arrival\nAllow extra time for assistance at check-in, security, and boarding.\n\nWhen to escalate\nIf you need to discuss medical seating or service animal documentation, contact the accessibility support team before you fly."
+      }
+    ]
+  },
+  "chatScript": {
+    "messages": [
+      {
+        "id": "1",
+        "role": "user",
+        "content": "How do I check in for my flight?",
+        "citations": []
+      },
+      {
+        "id": "2",
+        "role": "agent",
+        "content": "Online and app check-in opens 24 hours before your scheduled departure.\n\n1. Open My Trips on Southwest.com or in the Southwest app.\n2. Select your flight and follow the check-in prompts for each passenger.\n3. Save a mobile boarding pass, print at home, or use an airport kiosk.\n\nArrive early on day of travel for bag drop and security. If check-in is blocked or your name doesn’t match your travel documents, contact Southwest support before you leave for the airport.",
+        "citations": ["How do I check in for my flight?"]
+      },
+      {
+        "id": "3",
+        "role": "user",
+        "content": "Can I change my assigned seat?",
+        "citations": []
+      },
+      {
+        "id": "4",
+        "role": "agent",
+        "content": "Yes — all Southwest flights now feature assigned seating, and you can usually change seats after booking.\n\n1. Go to Manage Reservation on Southwest.com or in the app.\n2. Select your trip and choose Seats.\n3. Pick available seats for each passenger and save.\n\nSeat options and any fees depend on your fare (Wanna Get Away®, Wanna Get Away Plus®, Anytime, or Business Select®). If you need accessible seating, start with Disability-Related Accommodations before travel day.",
+        "citations": ["Assigned seats on Southwest"]
+      }
+    ]
+  }
+}

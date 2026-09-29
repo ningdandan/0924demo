@@ -48,6 +48,15 @@ export const defaultTokens = {
   searchBar:          content.searchBar,
   searchBarDropdown:  content.searchBarDropdown,
   categories:         content.categories,
+  /** Optional Southwest-style pathway home (empty = unused). */
+  homePathways: {
+    heading: "",
+    subheading: "",
+    searchHeading: "",
+    primary: [] as { title: string; summary: string }[],
+    additionalHeading: "",
+    additional: [] as { title: string; summary: string }[],
+  },
   sidebar:            content.sidebar,
   chat:               content.chat,
   chatUI:             content.chatUI,

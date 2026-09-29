@@ -1,0 +1,192 @@
+{
+  "hero": {
+    "welcomeHeading": "Welcome back, Alex.",
+    "welcomeSubtext": "Your Disney Bundle is active — finish Hulu activation to unlock live sports tonight.",
+    "userName": "Alex"
+  },
+  "searchHero": {
+    "greetingPrefix": "",
+    "subtext": "Enter a question or topic to find answers about Disney+.",
+    "userName": ""
+  },
+  "searchBar": {
+    "demoTypingText": "How do I update my Disney+ payment method?",
+    "fakeUploadName": "DisneyPlus_Account_Screenshot.png",
+    "placeholder": "Enter a question or topic",
+    "suggestions": [
+      "Disney+ plans and prices",
+      "Watch Disney+ on your TV",
+      "Login issues",
+      "How do I update my Disney+ payment method?"
+    ],
+    "allSuggestions": [
+      "Disney+ plans and prices",
+      "Watch Disney+ on your TV",
+      "Login issues",
+      "Device list",
+      "How do I update my Disney+ payment method?",
+      "Disney+ subscriptions through a third party",
+      "How do I cancel my Disney+ subscription?",
+      "Why is Disney+ buffering or won't play?",
+      "How do I change my Disney+ password?",
+      "What devices work with Disney+?",
+      "How do I activate a Disney Bundle with Hulu?"
+    ]
+  },
+  "searchBarDropdown": {
+    "demoTypingText": "How do I update my Disney+ payment method?",
+    "quickAnswers": [
+      {
+        "question": "How do I update my Disney+ payment method?",
+        "answer": "Sign in on disneyplus.com, open Account, then Payment method to add or replace your card."
+      },
+      {
+        "question": "What are the Disney+ plans and prices?",
+        "answer": "Disney+ offers monthly and annual plans with Standard and Premium options that vary by country."
+      }
+    ],
+    "relatedObjects": [
+      {
+        "type": "Account",
+        "title": "Disney+ subscriber account",
+        "subtitle": "Active · Standard with Ads",
+        "details": "Streaming account linked to the email on file. Manage plan, payment, and devices from Account settings."
+      },
+      {
+        "type": "Device",
+        "title": "Living room TV",
+        "subtitle": "Last streamed 2 hours ago",
+        "details": "Compatible smart TV profile used for Disney+ playback. Remove unused devices from Account → Devices if needed."
+      }
+    ]
+  },
+  "categories": [
+    {
+      "label": "Getting Started",
+      "menuItems": ["Create account", "Choose a plan", "Download the app", "First-time sign in"]
+    },
+    {
+      "label": "Account & Billing",
+      "menuItems": ["Payment method", "Change plan", "Cancel subscription", "Billing history"]
+    },
+    {
+      "label": "Supported Devices",
+      "menuItems": ["TVs", "Mobile", "Game consoles", "Streaming sticks"]
+    },
+    {
+      "label": "Watching Disney+",
+      "menuItems": ["Profiles", "Downloads", "Subtitles", "Parental controls"]
+    },
+    {
+      "label": "Fix A Problem",
+      "menuItems": ["Login issues", "Playback errors", "Buffering", "App crashes"]
+    },
+    {
+      "label": "Error Codes",
+      "menuItems": ["83", "73", "41", "Other codes"]
+    },
+    {
+      "label": "Bundle plans",
+      "menuItems": ["Disney Bundle", "Hulu activation", "ESPN+", "Third-party billing"]
+    },
+    {
+      "label": "Live Sports & Events",
+      "menuItems": ["Live schedule", "Supported regions", "Troubleshooting live"]
+    }
+  ],
+  "sidebar": {
+    "learners": []
+  },
+  "chat": {
+    "agentName": "Disney+ Help",
+    "promptSuggestions": [
+      { "label": "Update payment method", "sub": "Account & Billing" },
+      { "label": "Fix login issues", "sub": "Fix A Problem" },
+      { "label": "Compatible devices", "sub": "Supported Devices" }
+    ]
+  },
+  "articles": {
+    "learning": [
+      {
+        "title": "Disney+ plans and prices",
+        "subtitle": "Compare Standard, Premium, and annual options in your region.",
+        "category": "Account & Billing",
+        "lastUpdated": "Sep 2026",
+        "summary": "Disney+ plan availability and pricing depend on your country. Review current options under Account before you change plans.",
+        "content": "Disney+ plans and prices\n\nDisney+ offers multiple plans so you can pick the right mix of price, ads, and video quality.\n\nWhat to do first\nOpen disneyplus.com, sign in, and review Plans under Account.\n\nWhen to escalate\nIf a third party bills you (carrier, Amazon, Apple), manage the plan with that provider."
+      },
+      {
+        "title": "Watch Disney+ on your TV",
+        "subtitle": "Set up Disney+ on smart TVs, streaming sticks, and game consoles.",
+        "category": "Supported Devices",
+        "lastUpdated": "Sep 2026",
+        "summary": "Install Disney+ from your device store, sign in, and choose a profile to start watching.",
+        "content": "Watch Disney+ on your TV\n\nMost modern smart TVs and streaming devices support Disney+.\n\nWhat to do first\nOpen your device’s app store, search Disney+, install, then sign in.\n\nWhen to escalate\nIf the app is missing from the store, check the Disney+ device list for alternatives."
+      },
+      {
+        "title": "Login issues",
+        "subtitle": "Reset passwords, clear app data, and recover locked accounts.",
+        "category": "Fix A Problem",
+        "lastUpdated": "Sep 2026",
+        "summary": "Most login problems are fixed by resetting your password or signing out of other devices.",
+        "content": "Login issues\n\nIf you can’t sign in, confirm the email on the account and try a password reset.\n\nWhat to do first\nUse Forgot password on the sign-in screen, then retry on disneyplus.com.\n\nWhen to escalate\nContact support if reset emails never arrive or the account shows as locked."
+      },
+      {
+        "title": "Device list",
+        "subtitle": "See which TVs, phones, and consoles work with Disney+.",
+        "category": "Supported Devices",
+        "lastUpdated": "Aug 2026",
+        "summary": "Disney+ supports a wide range of TVs, mobiles, consoles, and streaming sticks. Check the official device list for your model.",
+        "content": "Device list\n\nCompatibility varies by manufacturer and OS version.\n\nWhat to do first\nSearch your device model on the Disney+ Help Center device list.\n\nWhen to escalate\nIf your device is listed but the app fails to install, note the error code for support."
+      },
+      {
+        "title": "How do I update my Disney+ payment method?",
+        "subtitle": "Add or replace the card on your Disney+ account.",
+        "category": "Account & Billing",
+        "lastUpdated": "Sep 2026",
+        "summary": "Update payment details from Account → Payment method while signed in on the web.",
+        "content": "How do I update my Disney+ payment method?\n\nYou can change the card Disney+ bills when your subscription renews.\n\nWhat to do first\nSign in at disneyplus.com → Account → Payment method → Update.\n\nWhen to escalate\nIf Disney+ is billed by Apple, Google, Amazon, or a carrier, update payment with that store instead."
+      },
+      {
+        "title": "Disney+ subscriptions through a third party",
+        "subtitle": "Manage plans sold by Apple, Amazon, carriers, and more.",
+        "category": "Bundle plans",
+        "lastUpdated": "Sep 2026",
+        "summary": "Third-party subscriptions are managed with the seller, not always inside Disney+ Account settings.",
+        "content": "Disney+ subscriptions through a third party\n\nIf you subscribed via a store or carrier, billing changes happen there.\n\nWhat to do first\nCheck your original purchase receipt to see who bills you.\n\nWhen to escalate\nOpen Get in touch if you can’t tell whether Disney+ or a partner owns the subscription."
+      },
+      {
+        "title": "Getting started with Disney+",
+        "subtitle": "Create an account, pick a plan, and start streaming.",
+        "category": "Getting Started",
+        "lastUpdated": "Jul 2026",
+        "summary": "New subscribers create an account, choose a plan, then set up profiles for each viewer.",
+        "content": "Getting started with Disney+\n\nSign up on disneyplus.com or in the app, choose a plan, and create profiles.\n\nWhat to do first\nFinish payment setup, then add a profile with the right maturity rating.\n\nWhen to escalate\nUse live chat if checkout fails after multiple payment attempts."
+      },
+      {
+        "title": "Bundle plans and Hulu activation",
+        "subtitle": "Activate Hulu when you buy a Disney Bundle.",
+        "category": "Bundle plans",
+        "lastUpdated": "Sep 2026",
+        "summary": "New bundle subscribers should activate Hulu before signing into the Hulu app.",
+        "content": "Bundle plans and Hulu activation\n\nDisney Bundle plans can include Hulu and ESPN+.\n\nWhat to do first\nAfter purchase, follow the email link to activate each service.\n\nWhen to escalate\nIf Hulu asks you to start a new trial, contact support with your Disney+ email."
+      }
+    ]
+  },
+  "chatScript": {
+    "messages": [
+      {
+        "id": "1",
+        "role": "user",
+        "content": "How do I update my Disney+ payment method?",
+        "citations": []
+      },
+      {
+        "id": "2",
+        "role": "agent",
+        "content": "You can update your payment method while signed in on the web.\n\n1. Go to disneyplus.com and sign in.\n2. Open Account.\n3. Choose Payment method, then Update.\n\nIf you subscribed through Apple, Google, Amazon, or a mobile carrier, you’ll need to change the payment method with that provider instead.",
+        "citations": ["How do I update my Disney+ payment method?"]
+      }
+    ]
+  }
+}
