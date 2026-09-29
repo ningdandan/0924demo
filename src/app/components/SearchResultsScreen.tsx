@@ -53,7 +53,7 @@ export type SearchResultsVisibility = {
 export const DEFAULT_SEARCH_RESULTS_VISIBILITY: SearchResultsVisibility = {
   promptBar: true,
   smartSummary: true,
-  aiNudges: true,
+  aiNudges: false,
   resultsMeta: true,
   filterSort: true,
   resultsList: true,

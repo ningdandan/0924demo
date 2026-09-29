@@ -43,8 +43,10 @@ function AppInner() {
   const { dt } = useDesignTokens();
   const { skin } = useSkin();
 
-  const [maturity, setMaturity] = useState<MaturityMode>("current");
-  const [features, setFeatures] = useState<FeatureFlags>(() => defaultFlagsForMode("current"));
+  const [maturity, setMaturity] = useState<MaturityMode>("search-enhanced");
+  const [features, setFeatures] = useState<FeatureFlags>(() =>
+    defaultFlagsForMode("search-enhanced"),
+  );
   const [entrance, setEntrance] = useState<EntranceTab>("homepage");
   const [homepageView, setHomepageView] = useState<HomepageView>("home");
   const [googleView, setGoogleView] = useState<GoogleView>("serp");
@@ -244,10 +246,17 @@ function AppInner() {
           pagination: true,
           articlePanel: true,
         }
-      : {
-          smartSummary: features.searchSummary,
-          filterSort: features.filterSort,
-        };
+      : maturity === "search-enhanced"
+        ? {
+            smartSummary: features.searchSummary,
+            filterSort: features.filterSort,
+            aiNudges: features.aiNudges,
+          }
+        : {
+            smartSummary: false,
+            filterSort: false,
+            aiNudges: false,
+          };
 
   const helpMirrorVariant =
     maturity === "search-enhanced"

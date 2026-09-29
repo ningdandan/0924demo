@@ -7,6 +7,7 @@ export type FeatureId =
   | "searchSummary"
   | "multiChannelEscalation"
   | "filterSort"
+  | "aiNudges"
   | "aiAssistArticles"
   | "multiObjectSuggestions";
 
@@ -16,6 +17,8 @@ export const FEATURE_ITEMS: {
   id: FeatureId;
   label: string;
   availableIn: MaturityMode[];
+  /** When available in a mode, whether it starts on. Defaults to true. */
+  defaultOn?: boolean;
 }[] = [
   {
     id: "customHeader",
@@ -43,6 +46,12 @@ export const FEATURE_ITEMS: {
     availableIn: ["search-enhanced"],
   },
   {
+    id: "aiNudges",
+    label: "AI suggestion chips",
+    availableIn: ["search-enhanced"],
+    defaultOn: false,
+  },
+  {
     id: "aiAssistArticles",
     label: "AI assist on articles",
     availableIn: ["search-enhanced"],
@@ -56,7 +65,10 @@ export const FEATURE_ITEMS: {
 
 export function defaultFlagsForMode(mode: MaturityMode): FeatureFlags {
   return Object.fromEntries(
-    FEATURE_ITEMS.map((item) => [item.id, item.availableIn.includes(mode)]),
+    FEATURE_ITEMS.map((item) => [
+      item.id,
+      item.availableIn.includes(mode) && item.defaultOn !== false,
+    ]),
   ) as FeatureFlags;
 }
 
