@@ -16,11 +16,12 @@ import {
   CreditCard,
   MonitorSmartphone,
   Clapperboard,
-  Wrench,
   TriangleAlert,
   Layers,
   Trophy,
   Wallet,
+  Search,
+  Smartphone,
   type LucideIcon,
 } from "lucide-react";
 import { SearchBar } from "./SearchBar";
@@ -60,10 +61,21 @@ const TOPIC_ICONS = [
   CreditCard,
   MonitorSmartphone,
   Clapperboard,
-  Wrench,
   TriangleAlert,
+  Smartphone,
   Layers,
   Trophy,
+];
+
+const FOOTER_LINKS = [
+  "Subscriber Agreement",
+  "Privacy Policy",
+  "Your US State Privacy Rights",
+  "Children's Online Privacy Policy",
+  "Do Not Sell or Share My Personal Information",
+  "Interest-Based Ads",
+  "Manage Privacy Preferences",
+  "Closed Captioning Inquiries & Complaints",
 ];
 
 const PATHWAY_ICONS: Record<string, LucideIcon> = {
@@ -100,6 +112,7 @@ export function HeroSection({
   const helpPathway = skin.layout.home === "help-pathway";
   const essence = helpMirrorVariant !== "mirror";
   const [showAllAdditional, setShowAllAdditional] = useState(false);
+  const [heroDraft, setHeroDraft] = useState("");
 
   const heading = personalizedHeader ? t.welcomeHeading : GENERAL_HEADING;
   const subtext = personalizedSubheader ? t.welcomeSubtext : GENERAL_SUBTEXT;
@@ -316,11 +329,16 @@ export function HeroSection({
   }
 
   if (helpMirror) {
-    const eyebrow =
-      essence && personalizedSubheader ? tokens.hero?.welcomeSubtext || SITE_EYEBROW : SITE_EYEBROW;
-    const mirrorHeading =
-      essence && personalizedHeader ? tokens.hero?.welcomeHeading || SITE_HEADING : SITE_HEADING;
     const host = dt.colors.host;
+    const popularArticles =
+      popular.length >= 6
+        ? popular.slice(0, 6)
+        : (tokens.searchBar?.allSuggestions ?? popular).slice(0, 6);
+
+    const submitHeroSearch = (raw?: string) => {
+      const q = (raw ?? heroDraft).trim();
+      if (q) onSearch?.(q);
+    };
 
     return (
       <motion.div
@@ -329,36 +347,30 @@ export function HeroSection({
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
         className="h-full min-h-0 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        style={{ fontFamily: dt.fonts.families.body, background: host.pageBg }}
+        style={{ fontFamily: dt.fonts.families.body, background: "#ffffff" }}
       >
         <div
           className="relative text-white"
           style={{ background: dt.gradients.theme.skyPeriwinkle }}
         >
-          <div
-            className={`px-[28px] pt-[36px] pb-[56px] mx-auto text-center ${
-              essence ? "max-w-[896px]" : "max-w-[720px]"
-            }`}
-          >
-            <p
-              className={`mb-[8px] font-medium ${
-                essence && personalizedSubheader
-                  ? "text-[16px] text-white/70 leading-[24px]"
-                  : "text-[18px] text-white/80"
-              }`}
-            >
-              {eyebrow}
+          <div className="px-[24px] sm:px-[40px] pt-[48px] pb-[64px] mx-auto text-center max-w-[920px]">
+            <p className="mb-[10px] text-[18px] font-medium leading-[24px] text-[#8ec8d6]">
+              {essence && personalizedSubheader
+                ? tokens.hero?.welcomeSubtext || SITE_EYEBROW
+                : SITE_EYEBROW}
             </p>
-            <h1 className="text-[42px] sm:text-[48px] font-bold tracking-[-0.03em] leading-[1.1] mb-[28px]">
-              {mirrorHeading}
+            <h1 className="text-[40px] sm:text-[52px] font-bold tracking-[-0.03em] leading-[1.08] mb-[28px]">
+              {essence && personalizedHeader
+                ? tokens.hero?.welcomeHeading || SITE_HEADING
+                : SITE_HEADING}
             </h1>
 
             {helpMirrorVariant === "search-enhanced" ? (
-              <div className="text-left -mx-[12px]">
+              <div className="text-left w-full">
                 <SearchFirstPromptBar onSearch={onSearch} showSuggestions={showSuggestions} />
               </div>
             ) : helpMirrorVariant === "conversational" ? (
-              <div className="text-left -mx-[12px]">
+              <div className="text-left w-full">
                 <SearchBar
                   onSearch={onSearch}
                   sharedLayout
@@ -367,42 +379,51 @@ export function HeroSection({
                 />
               </div>
             ) : (
-              <button
-                type="button"
-                onClick={() => onSearch?.(tokens.searchBar?.suggestions?.[0] ?? "Help")}
-                className="w-full flex items-center gap-[10px] h-[52px] px-[16px] rounded-[8px] bg-white text-left shadow-[0_8px_28px_rgba(0,0,0,0.25)]"
-                style={{ color: dt.colors.brand.navy }}
+              <form
+                className="w-full flex items-center gap-[12px] h-[56px] px-[18px] rounded-[12px] bg-white text-left shadow-[0_10px_32px_rgba(0,0,0,0.28)]"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  submitHeroSearch();
+                }}
               >
-                <span className="text-[16px] opacity-50">
-                  {tokens.searchBar?.placeholder ?? "Enter a question or topic"}
-                </span>
-              </button>
+                <button
+                  type="submit"
+                  className="shrink-0 text-[#9ca3af] hover:text-[#4b5563] transition-colors"
+                  aria-label="Search"
+                >
+                  <Search className="size-[20px]" strokeWidth={2.2} />
+                </button>
+                <input
+                  type="search"
+                  value={heroDraft}
+                  onChange={(e) => setHeroDraft(e.target.value)}
+                  placeholder={tokens.searchBar?.placeholder ?? "Enter a question or topic"}
+                  className="flex-1 min-w-0 bg-transparent border-0 outline-none text-[16px] placeholder:text-[#9ca3af]"
+                  style={{ color: dt.colors.brand.navy }}
+                  aria-label="Search help articles"
+                />
+              </form>
             )}
           </div>
         </div>
 
-        <section className="max-w-[1120px] mx-auto px-[28px] py-[36px]">
-          <h2
-            className="text-[22px] font-bold mb-[18px]"
-            style={{ color: dt.colors.brand.navy }}
-          >
+        <section className="max-w-[1080px] mx-auto px-[24px] sm:px-[40px] pt-[48px] pb-[40px]">
+          <h2 className="text-[28px] font-bold mb-[22px]" style={{ color: "#0b0c0f" }}>
             Popular help articles
           </h2>
-          <ul className="grid sm:grid-cols-2 gap-x-[32px]">
-            {popular.map((title) => (
-              <li key={title} className="border-b" style={{ borderColor: dt.colors.ui.borderFaint }}>
+          <ul className="grid sm:grid-cols-2 gap-[14px]">
+            {popularArticles.map((title) => (
+              <li key={title}>
                 <button
                   type="button"
-                  onClick={() => onOpenArticle?.(title)}
-                  className="w-full flex items-center justify-between gap-[12px] py-[14px] text-left hover:opacity-80"
+                  onClick={() => onSearch?.(title)}
+                  className="w-full flex items-center justify-between gap-[12px] min-h-[56px] px-[18px] py-[14px] rounded-[4px] border bg-white text-left transition-colors hover:bg-[#f8fafc]"
+                  style={{ borderColor: "#d7dbe2" }}
                 >
-                  <span
-                    className="text-[15px] font-medium"
-                    style={{ color: host.link }}
-                  >
+                  <span className="text-[15px] font-medium leading-[20px]" style={{ color: host.link }}>
                     {title}
                   </span>
-                  <ChevronRight className="size-[16px] shrink-0 opacity-40" />
+                  <ChevronRight className="size-[16px] shrink-0" style={{ color: host.link }} />
                 </button>
               </li>
             ))}
@@ -410,14 +431,11 @@ export function HeroSection({
         </section>
 
         {topics.length > 0 && (
-          <section className="max-w-[1120px] mx-auto px-[28px] pb-[36px]">
-            <h2
-              className="text-[22px] font-bold mb-[18px]"
-              style={{ color: dt.colors.brand.navy }}
-            >
-              Browse all topics
+          <section className="max-w-[1080px] mx-auto px-[24px] sm:px-[40px] pb-[48px]">
+            <h2 className="text-[28px] font-bold mb-[22px]" style={{ color: "#0b0c0f" }}>
+              All topics
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-[12px]">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-[14px]">
               {topics.map((label, i) => {
                 const Icon = TOPIC_ICONS[i % TOPIC_ICONS.length];
                 return (
@@ -425,14 +443,11 @@ export function HeroSection({
                     key={label}
                     type="button"
                     onClick={() => onSearch?.(label)}
-                    className="flex items-center gap-[10px] rounded-[8px] border bg-white px-[14px] py-[14px] text-left hover:shadow-sm transition-shadow"
-                    style={{ borderColor: dt.colors.ui.borderFaint }}
+                    className="flex flex-col items-start gap-[14px] min-h-[112px] rounded-[4px] border bg-white px-[18px] py-[18px] text-left transition-shadow hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]"
+                    style={{ borderColor: "#d7dbe2" }}
                   >
-                    <Icon className="size-[18px] shrink-0" style={{ color: host.link }} />
-                    <span
-                      className="text-[13px] font-semibold leading-[16px]"
-                      style={{ color: dt.colors.ui.body }}
-                    >
+                    <Icon className="size-[28px] shrink-0" style={{ color: host.link }} strokeWidth={1.75} />
+                    <span className="text-[15px] font-bold leading-[20px]" style={{ color: "#0b0c0f" }}>
                       {label}
                     </span>
                   </button>
@@ -442,54 +457,76 @@ export function HeroSection({
           </section>
         )}
 
-        <section className="max-w-[1120px] mx-auto px-[28px] pb-[48px]">
-          <h2
-            className="text-[22px] font-bold mb-[18px]"
-            style={{ color: dt.colors.brand.navy }}
-          >
-            Need more help?
-          </h2>
-          <div className="grid sm:grid-cols-2 gap-[12px]">
-            <button
-              type="button"
-              onClick={() => onSearch?.(`Get in touch with ${tokens.brandName} support`)}
-              className="flex items-start gap-[12px] rounded-[8px] border bg-white p-[16px] text-left"
-              style={{ borderColor: dt.colors.ui.borderFaint }}
-            >
-              <Headphones className="size-[20px] mt-[2px]" style={{ color: host.link }} />
-              <span>
-                <span
-                  className="block text-[15px] font-semibold mb-[4px]"
-                  style={{ color: dt.colors.brand.navy }}
-                >
-                  Get in touch
+        <section className="bg-[#f3f4f6] px-[24px] sm:px-[40px] py-[56px]">
+          <div className="max-w-[1080px] mx-auto">
+            <div className="text-center mb-[28px]">
+              <h2 className="text-[28px] font-bold mb-[8px]" style={{ color: "#0b0c0f" }}>
+                Need more help?
+              </h2>
+              <p className="text-[15px] leading-[22px]" style={{ color: "#4b5563" }}>
+                We are available for live support 24 hours a day 7 days a week
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-[16px]">
+              <button
+                type="button"
+                onClick={() => onSearch?.(`Get in touch with ${tokens.brandName} support`)}
+                className="flex items-start gap-[14px] rounded-[8px] border bg-white p-[22px] text-left shadow-[0_2px_10px_rgba(15,23,42,0.04)]"
+                style={{ borderColor: "#e5e7eb" }}
+              >
+                <Headphones className="size-[24px] mt-[2px] shrink-0" style={{ color: host.link }} />
+                <span>
+                  <span className="block text-[16px] font-bold mb-[6px]" style={{ color: host.link }}>
+                    Get in touch
+                  </span>
+                  <span className="text-[14px] leading-[20px]" style={{ color: "#4b5563" }}>
+                    Need to chat with us? We&apos;re happy to assist you.
+                  </span>
                 </span>
-                <span className="text-[13px]" style={{ color: dt.colors.ui.mutedDark }}>
-                  We are available for live support 24 hours a day 7 days a week
+              </button>
+              <button
+                type="button"
+                onClick={() => onSearch?.(`Give feedback about ${tokens.brandName}`)}
+                className="flex items-start gap-[14px] rounded-[8px] border bg-white p-[22px] text-left shadow-[0_2px_10px_rgba(15,23,42,0.04)]"
+                style={{ borderColor: "#e5e7eb" }}
+              >
+                <NotebookPen className="size-[24px] mt-[2px] shrink-0" style={{ color: host.link }} />
+                <span>
+                  <span className="block text-[16px] font-bold mb-[6px]" style={{ color: host.link }}>
+                    Give feedback
+                  </span>
+                  <span className="text-[14px] leading-[20px]" style={{ color: "#4b5563" }}>
+                    How can we improve {tokens.brandName}? Let us know through our feedback form!
+                  </span>
                 </span>
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={() => onSearch?.(`Give feedback about ${tokens.brandName}`)}
-              className="flex items-start gap-[12px] rounded-[8px] border bg-white p-[16px] text-left"
-              style={{ borderColor: dt.colors.ui.borderFaint }}
-            >
-              <NotebookPen className="size-[20px] mt-[2px]" style={{ color: host.link }} />
-              <span>
-                <span
-                  className="block text-[15px] font-semibold mb-[4px]"
-                  style={{ color: dt.colors.brand.navy }}
-                >
-                  Give feedback
-                </span>
-                <span className="text-[13px]" style={{ color: dt.colors.ui.mutedDark }}>
-                  How can we improve? Let us know through our feedback form.
-                </span>
-              </span>
-            </button>
+              </button>
+            </div>
           </div>
         </section>
+
+        <footer className="bg-[#1a1b1e] text-white px-[24px] sm:px-[40px] pt-[48px] pb-[36px]">
+          <div className="max-w-[1080px] mx-auto flex flex-col items-center gap-[28px]">
+            <p className="text-[28px] font-bold tracking-tight">{tokens.brandName}</p>
+            <nav className="flex flex-wrap items-center justify-center gap-x-[18px] gap-y-[10px]">
+              {FOOTER_LINKS.map((label) => (
+                <button
+                  key={label}
+                  type="button"
+                  className="text-[12px] text-white/85 hover:text-white hover:underline"
+                >
+                  {label}
+                </button>
+              ))}
+            </nav>
+            <div className="text-center text-[11px] leading-[18px] text-white/55 max-w-[720px]">
+              <p>©Disney. All Rights Reserved.</p>
+              <p className="mt-[6px]">
+                This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service
+                apply.
+              </p>
+            </div>
+          </div>
+        </footer>
       </motion.div>
     );
   }

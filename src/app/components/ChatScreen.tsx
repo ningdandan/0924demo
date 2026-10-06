@@ -16,7 +16,17 @@ import { ExtendDeadlineCard } from "./ExtendDeadlineCard";
 import { SpecialistChatCard } from "./SpecialistChatCard";
 import { StudentReadinessCard } from "./StudentReadinessCard";
 import { FeedbackFormCard } from "./FeedbackFormCard";
-import { AiNudgeChips, type AiNudge } from "./AiNudgeChips";
+import {
+  RecommendationChips,
+  buildInChatRecommendationChips,
+  buildFollowUpRecommendationChips,
+  type RecommendationChip,
+} from "./RecommendationChips";
+import {
+  ChatDynamicCard,
+  buildChatDynamicScenario,
+  type DynamicCardPhase,
+} from "./ChatDynamicCard";
 import {
   buildSuggestionGroups,
   suggestionGroupsHaveItems,
@@ -63,47 +73,6 @@ function formatChatStarted(date: Date) {
     minute: "2-digit",
     second: "2-digit",
   });
-}
-
-/** Follow-up pills under the chat input — same tone as search-results ask suggestions. */
-function followUpNudgesForQuery(query: string, categoryHint = ""): AiNudge[] {
-  const q = query.toLowerCase();
-  const cat = categoryHint.toLowerCase();
-  let questions: string[];
-
-  if (q.includes("dispute") || q.includes("chargeback") || cat.includes("dispute")) {
-    questions = [
-      "How long do I have to respond?",
-      "What evidence do I need to submit?",
-      "Where do I upload this in the Dashboard?",
-    ];
-  } else if (q.includes("payout") || q.includes("hold") || cat.includes("payout")) {
-    questions = [
-      "Why was my payout put on hold?",
-      "How do I get the hold lifted?",
-      "How long do holds usually last?",
-    ];
-  } else if (
-    q.includes("billing") ||
-    q.includes("subscription") ||
-    q.includes("invoice") ||
-    q.includes("proration") ||
-    cat.includes("billing")
-  ) {
-    questions = [
-      "Why was I charged mid-cycle?",
-      "How do I view my invoice?",
-      "Can I get a prorated refund?",
-    ];
-  } else {
-    questions = [
-      "Can you summarize the key steps?",
-      "What should I do next?",
-      "Which article is most relevant?",
-    ];
-  }
-
-  return questions.map((label) => ({ label, kind: "question" as const }));
 }
 
 interface ArticleDetails {
@@ -222,6 +191,10 @@ interface ChatScreenProps {
   instantAgent?: boolean;
   showSuggestions?: boolean;
   showEscalation?: boolean;
+  /** In-chat recommendation chips under the composer (AI Assist). */
+  showInChatRecommendations?: boolean;
+  /** Interactive dynamic action cards inside agent turns. */
+  showDynamicCards?: boolean;
 }
 
 export function ChatScreen({
@@ -234,6 +207,8 @@ export function ChatScreen({
   instantAgent = false,
   showSuggestions = true,
   showEscalation = true,
+  showInChatRecommendations = true,
+  showDynamicCards = true,
 }: ChatScreenProps) {
   const { tokens } = useTokens();
   const { skin } = useSkin();
@@ -302,10 +277,61 @@ export function ChatScreen({
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [suggestionsLoading, setSuggestionsLoading] = useState(false);
   const [suggestionsReady, setSuggestionsReady] = useState(false);
+  const [recChips, setRecChips] = useState<RecommendationChip[]>(() => {
+    const categoryHint =
+      searchContext?.results?.[0]?.category ?? initialArticle?.category ?? "";
+    return buildInChatRecommendationChips(
+      initialQuery || searchContext?.query || "",
+      categoryHint,
+    );
+  });
+  const [recRefreshing, setRecRefreshing] = useState(false);
+  const [recDimmed, setRecDimmed] = useState(false);
+  const [liveMessages, setLiveMessages] = useState<RuntimeMessage[]>([]);
+  const [dynamicPhase, setDynamicPhase] = useState<DynamicCardPhase>("review");
   const loadingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const recTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const inputBarRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [dropdownPos, setDropdownPos] = useState<{ bottom: number; left: number; width: number } | null>(null);
+
+  const dynamicScenario = useMemo(() => {
+    if (!showDynamicCards) return null;
+    const categoryHint =
+      searchContext?.results?.[0]?.category ?? initialArticle?.category ?? "";
+    return buildChatDynamicScenario(
+      skin.id,
+      initialQuery || searchContext?.query || "",
+      categoryHint,
+    );
+  }, [
+    showDynamicCards,
+    skin.id,
+    initialQuery,
+    searchContext?.query,
+    searchContext?.results,
+    initialArticle?.category,
+  ]);
+
+  const dynamicAnchorId = useMemo(() => {
+    if (!dynamicScenario) return null;
+    const firstTaskAgent = runtimeMessages.find(
+      (m) =>
+        m.role === "agent" &&
+        m.content.trim() &&
+        m.id !== "search-summary",
+    );
+    const fallback = runtimeMessages.find(
+      (m) => m.role === "agent" && m.content.trim(),
+    );
+    return (firstTaskAgent ?? fallback)?.id ?? null;
+  }, [dynamicScenario, runtimeMessages]);
+
+  const composerLocked = showDynamicCards && dynamicPhase === "complete";
+
+  useEffect(() => {
+    setDynamicPhase("review");
+  }, [dynamicScenario?.id]);
 
   const suggestionGroups = useMemo(
     () => buildSuggestionGroups("conversational", tokens, promptValue),
@@ -335,24 +361,52 @@ export function ChatScreen({
     }, 800);
   }, []);
 
-  const visibleMessages = runtimeMessages.slice(0, visibleCount);
+  const visibleMessages = [
+    ...runtimeMessages.slice(0, visibleCount),
+    ...liveMessages,
+  ];
   const nextMessage = runtimeMessages[visibleCount] ?? null;
   const canAdvance = visibleCount < runtimeMessages.length;
   // Spacebar only shown when the next message to reveal is a user message
   const showSpacebar = canAdvance && !isThinking && nextMessage?.role === "user";
 
-  const followUpNudges = useMemo(() => {
-    const categoryHint = searchContext?.results?.[0]?.category
-      ?? initialArticle?.category
-      ?? "";
-    return followUpNudgesForQuery(initialQuery || searchContext?.query || "", categoryHint);
-  }, [initialQuery, searchContext, initialArticle]);
-
-  const handleFollowUpNudge = (nudge: AiNudge) => {
-    setPromptValue(nudge.label);
+  const handleRecommendationSelect = (chip: RecommendationChip) => {
+    if (recRefreshing) return;
+    setPromptValue(chip.label);
     setDropdownOpen(false);
     setSuggestionsReady(false);
     setSuggestionsLoading(false);
+    setRecDimmed(true);
+    setRecRefreshing(true);
+    if (recTimerRef.current) clearTimeout(recTimerRef.current);
+
+    const userMsg: RuntimeMessage = {
+      id: `rec-user-${Date.now()}`,
+      role: "user",
+      content: chip.label,
+      citations: [],
+      timestamp: new Date(),
+    };
+    // Brief beat so the label is visible in the input, then commit to the thread.
+    recTimerRef.current = setTimeout(() => {
+      setPromptValue("");
+      setLiveMessages((prev) => [...prev, userMsg]);
+      setIsThinking(true);
+      recTimerRef.current = setTimeout(() => {
+        const reply: RuntimeMessage = {
+          id: `rec-agent-${Date.now()}`,
+          role: "agent",
+          content: `Got it — I’ll take care of “${chip.label}” and keep you updated here.`,
+          citations: [],
+          timestamp: new Date(),
+        };
+        setLiveMessages((prev) => [...prev, reply]);
+        setIsThinking(false);
+        setRecChips(buildFollowUpRecommendationChips(chip.label));
+        setRecRefreshing(false);
+        setRecDimmed(false);
+      }, instantAgent ? 0 : 1600);
+    }, 320);
   };
 
   const handleStudentClick = (name: string) => {
@@ -374,7 +428,13 @@ export function ChatScreen({
     if (scrollRef.current) {
       scrollRef.current.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
     }
-  }, [visibleCount, isThinking]);
+  }, [visibleCount, isThinking, liveMessages.length]);
+
+  useEffect(() => {
+    return () => {
+      if (recTimerRef.current) clearTimeout(recTimerRef.current);
+    };
+  }, []);
 
   // Auto-advance agent messages with a typing indicator delay
   useEffect(() => {
@@ -522,6 +582,15 @@ export function ChatScreen({
                               <CardRenderer card={message.card} onStudentClick={handleStudentClick} />
                             </div>
                           )}
+                          {showDynamicCards &&
+                            dynamicScenario &&
+                            message.id === dynamicAnchorId && (
+                              <ChatDynamicCard
+                                scenario={dynamicScenario}
+                                instant={instantAgent}
+                                onPhaseChange={setDynamicPhase}
+                              />
+                            )}
                           <span
                             className="mt-[6px] text-[11px]"
                             style={{ color: dt.colors.ui.mutedDark }}
@@ -560,6 +629,15 @@ export function ChatScreen({
                           {message.card && (
                             <CardRenderer card={message.card} onStudentClick={handleStudentClick} />
                           )}
+                          {showDynamicCards &&
+                            dynamicScenario &&
+                            message.id === dynamicAnchorId && (
+                              <ChatDynamicCard
+                                scenario={dynamicScenario}
+                                instant={instantAgent}
+                                onPhaseChange={setDynamicPhase}
+                              />
+                            )}
                           <div className="flex items-center gap-[6px] px-[4px] mt-[2px]">
                             <span className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] text-gray-400">
                               {content.chat.agentName}
@@ -663,9 +741,9 @@ export function ChatScreen({
           </motion.div>
 
           <div
-            className={`flex-shrink-0 ${
+            className={`flex-shrink-0 transition-opacity duration-300 ${
               helpChat ? "px-[28px] pb-[14px]" : "px-[40px] pb-[16px]"
-            }`}
+            } ${composerLocked ? "opacity-40 pointer-events-none" : ""}`}
           >
             {helpChat ? (
               <>
@@ -689,9 +767,14 @@ export function ChatScreen({
                     </button>
                   </div>
                 </div>
-                {showSuggestions && followUpNudges.length > 0 && (
+                {showInChatRecommendations && recChips.length > 0 && (
                   <div className="mt-[10px]">
-                    <AiNudgeChips subtle nudges={followUpNudges} onNudge={handleFollowUpNudge} />
+                    <RecommendationChips
+                      chips={recChips}
+                      refreshing={recRefreshing}
+                      dimmed={recDimmed}
+                      onSelect={handleRecommendationSelect}
+                    />
                   </div>
                 )}
                 <p className="mt-[12px] text-center text-[11px] leading-[15px] text-[#606266]">
@@ -734,9 +817,14 @@ export function ChatScreen({
                   )}
                 </div>
 
-                {showSuggestions && followUpNudges.length > 0 && (
+                {showInChatRecommendations && recChips.length > 0 && (
                   <div className="mt-[10px]">
-                    <AiNudgeChips subtle nudges={followUpNudges} onNudge={handleFollowUpNudge} />
+                    <RecommendationChips
+                      chips={recChips}
+                      refreshing={recRefreshing}
+                      dimmed={recDimmed}
+                      onSelect={handleRecommendationSelect}
+                    />
                   </div>
                 )}
               </>

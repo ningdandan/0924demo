@@ -31,6 +31,20 @@ export default defineConfig({
     },
   },
   server: {
+    host: 'localhost',
+    port: 5173,
+    strictPort: true,
+    // Downloads / Cursor preview: FSEvents can miss writes; polling keeps HMR alive.
+    watch: {
+      usePolling: true,
+      interval: 300,
+    },
+    hmr: {
+      protocol: 'ws',
+      host: 'localhost',
+      port: 5173,
+      clientPort: 5173,
+    },
     proxy: {
       '/api': {
         target: 'http://127.0.0.1:5001',

@@ -455,7 +455,10 @@ export function SearchResultsScreen({
         onStartConversation={onStartConversation}
         showSmartSummary={visibility.smartSummary}
         showFilterSort={visibility.filterSort}
+        showAiNudges={visibility.aiNudges}
         showAiAssist={showAiAssist}
+        showResultsList={visibility.resultsList}
+        showPagination={visibility.pagination}
       />
     );
   }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { AiAssistCard } from "./AiAssistCard";
 
@@ -224,6 +224,15 @@ interface SmartSummaryBlockProps {
   onCitationClick?: (citation: SummaryCitation) => void;
   showAskInput?: boolean;
   showSuggestions?: boolean;
+  showFeedback?: boolean;
+  feedbackStyle?: "thumbs" | "yesno";
+  title?: string;
+  variant?: "card" | "plain";
+  className?: string;
+  /** Override the quiet meta line under the body. */
+  info?: string;
+  /** Replace the generated body (e.g. host empty-results copy). */
+  children?: ReactNode;
 }
 
 export function SmartSummaryBlock({
@@ -233,6 +242,13 @@ export function SmartSummaryBlock({
   onCitationClick,
   showAskInput = true,
   showSuggestions = true,
+  showFeedback = true,
+  feedbackStyle = "thumbs",
+  title = "Smart summary",
+  variant = "card",
+  className = "",
+  info,
+  children,
 }: SmartSummaryBlockProps) {
   const [expanded, setExpanded] = useState(false);
   const detailParagraphs = model.detail.split(/\n\n+/).filter(Boolean);
@@ -240,13 +256,18 @@ export function SmartSummaryBlock({
 
   return (
     <AiAssistCard
-      title="Smart summary"
-      info={model.info}
+      title={title}
+      info={info ?? (children ? undefined : model.info)}
       suggestions={suggestions}
       onAsk={onAsk}
       showAskInput={showAskInput}
       showSuggestions={showSuggestions}
+      showFeedback={showFeedback}
+      feedbackStyle={feedbackStyle}
+      variant={variant}
+      className={className}
     >
+      {children ?? (
       <div className={expanded ? undefined : "relative"}>
         <div className={expanded ? undefined : "line-clamp-3"}>
           <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[14px] leading-[22px] text-[#1a1a2e]">
@@ -320,6 +341,7 @@ export function SmartSummaryBlock({
           </button>
         )}
       </div>
+      )}
     </AiAssistCard>
   );
 }

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Search Experience — Default style guide</title>
+    <link rel="stylesheet" href="./tokens.css" />
+    <style>
+      /* —— Layout shell —— */
+      .page {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 40px 24px 80px;
+      }
+      h1.guide-title {
+        font-size: 32px;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        color: var(--brand-navy-deep);
+        margin: 0 0 8px;
+      }
+      .guide-lead {
+        font-size: 15px;
+        color: var(--ui-muted-dark);
+        margin: 0 0 40px;
+        max-width: 560px;
+        line-height: 22px;
+      }
+      section {
+        margin-bottom: 48px;
+      }
+      h2.section {
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--ui-muted);
+        margin: 0 0 16px;
+      }
+      .swatch-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .swatch {
+        width: 112px;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        border: 1px solid var(--ui-border-faint);
+        background: var(--white);
+      }
+      .swatch .chip {
+        height: 56px;
+      }
+      .swatch .meta {
+        padding: 8px 10px;
+        font-size: 11px;
+        line-height: 1.35;
+      }
+      .swatch .meta strong {
+        display: block;
+        color: var(--brand-navy);
+        font-weight: 600;
+      }
+      .swatch .meta span {
+        color: var(--ui-muted-dark);
+        font-family: ui-monospace, monospace;
+        font-size: 10px;
+      }
+
+      /* —— Buttons —— */
+      .btn-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+      }
+      .btn-primary {
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 13px;
+        padding: 11px 20px;
+        border: none;
+        border-radius: var(--radius-base);
+        color: var(--white);
+        background-image: var(--gradient-button-primary);
+        cursor: pointer;
+        transition: opacity var(--duration-fast) var(--ease-standard);
+      }
+      .btn-primary:hover {
+        opacity: 0.9;
+      }
+      .btn-secondary {
+        font-family: var(--font-body);
+        font-size: 13px;
+        padding: 11px 20px;
+        border: 1px solid var(--ui-border-faint);
+        border-radius: var(--radius-base);
+        background: var(--white);
+        color: var(--ui-body);
+        cursor: pointer;
+      }
+      .btn-secondary:hover {
+        background: var(--ui-bg-page);
+      }
+      .btn-send {
+        width: 64px;
+        height: 64px;
+        border: none;
+        border-radius: var(--radius-full);
+        background: var(--white);
+        box-shadow: var(--shadow-floating);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--ui-icon);
+      }
+
+      /* —— Search bar (closed pill) —— */
+      .search-shell {
+        max-width: var(--max-search);
+        border-radius: var(--radius-full);
+        padding: 4px 10px 4px 4px;
+        background-image: var(--theme-gradient);
+        box-shadow: var(--shadow-search-glow);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .search-shell.open {
+        border-radius: 20px;
+        padding: 4px 4px 14px;
+        background-image: none;
+        background: var(--white);
+      }
+      .search-input-wrap {
+        flex: 1;
+        background: var(--white);
+        border-radius: var(--radius-full);
+        padding: 14px 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .search-shell.open .search-input-wrap {
+        border-radius: 16px;
+      }
+      .search-input-wrap input {
+        flex: 1;
+        border: 0;
+        outline: none;
+        font-family: var(--font-body);
+        font-size: 16px;
+        letter-spacing: var(--tracking-search);
+        color: var(--ui-body);
+        background: transparent;
+      }
+      .search-input-wrap input::placeholder {
+        color: var(--ui-muted);
+      }
+
+      /* —— AI assist card —— */
+      .ai-card {
+        background: var(--white);
+        border: 1px solid #e8e8ed;
+        border-radius: var(--radius-xl2);
+        box-shadow: var(--shadow-card);
+        overflow: hidden;
+        max-width: 720px;
+      }
+      .ai-card__body {
+        padding: 18px 20px 16px;
+      }
+      .ai-card__label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 12px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--ui-muted-dark);
+      }
+      .ai-card__label svg {
+        color: var(--brand-navy-deep);
+      }
+      .ai-card__text {
+        font-size: 14px;
+        line-height: 22px;
+        color: #1a1a2e;
+        margin: 0;
+      }
+      .ai-card__text mark {
+        background: #dce8ff;
+        color: var(--brand-navy-deep);
+        font-weight: 600;
+        padding: 0 3px;
+        border-radius: 3px;
+      }
+      .ai-card__meta {
+        margin-top: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        font-size: 11px;
+        color: var(--ui-muted);
+      }
+      .ai-card__ask {
+        border-top: 1px solid #ececf1;
+        padding: 10px 14px 12px;
+      }
+      .ai-ask-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid #e4e4ea;
+        background: #fafafb;
+        border-radius: var(--radius-full);
+        padding: 6px 12px;
+      }
+      .ai-ask-row:focus-within {
+        border-color: #c8c8d0;
+      }
+      .ai-ask-row input {
+        flex: 1;
+        border: 0;
+        outline: none;
+        background: transparent;
+        font-family: var(--font-body);
+        font-size: 13px;
+        line-height: 18px;
+        color: #1a1a2e;
+      }
+      .ai-ask-row input::placeholder {
+        color: var(--ui-muted);
+      }
+      .ai-ask-send {
+        width: 24px;
+        height: 24px;
+        border: 0;
+        border-radius: var(--radius-full);
+        background: transparent;
+        color: var(--ui-muted-dark);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .ai-ask-send:hover {
+        background: rgba(0, 0, 0, 0.04);
+        color: #1a1a2e;
+      }
+
+      /* —— Nudge chips —— */
+      .chips {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 6px;
+        overflow-x: auto;
+        margin-top: 8px;
+        scrollbar-width: none;
+      }
+      .chips::-webkit-scrollbar {
+        display: none;
+      }
+      .chip-subtle {
+        flex-shrink: 0;
+        border: 1px solid #e4e4ea;
+        background: #fafafb;
+        border-radius: var(--radius-full);
+        padding: 5px 11px;
+        font-family: var(--font-body);
+        font-size: 12px;
+        color: var(--ui-muted-dark);
+        cursor: pointer;
+      }
+      .chip-subtle:hover {
+        background: #f3f3f6;
+        border-color: #d8d8e0;
+      }
+      .chip-theme {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        border-radius: var(--radius-full);
+        padding: 6px 12px;
+        font-family: var(--font-body);
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--theme-text);
+        background-image: linear-gradient(rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.72)),
+          var(--theme-gradient);
+        box-shadow: 0px 8px 24px rgba(6, 106, 254, 0.06);
+        cursor: pointer;
+      }
+
+      /* —— Result row —— */
+      .result {
+        padding: 16px 4px;
+        border-radius: var(--radius-base);
+      }
+      .result:hover {
+        background: rgba(0, 0, 0, 0.02);
+      }
+      .result__path {
+        font-size: 12px;
+        color: var(--ui-muted-dark);
+        margin: 0 0 4px;
+      }
+      .result__title {
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--brand-navy-deep);
+        margin: 0 0 4px;
+      }
+      .result__snip {
+        font-size: 14px;
+        line-height: 22px;
+        color: var(--ui-muted-dark);
+        margin: 0;
+      }
+
+      /* —— Action card —— */
+      .action-card {
+        background: var(--white);
+        border: 1px solid var(--ui-border-faint);
+        border-radius: var(--radius-xl2);
+        box-shadow: 0 1px 2px var(--alpha-shadow-subtle);
+        overflow: hidden;
+        max-width: 420px;
+      }
+      .action-card__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 24px;
+        border-bottom: 1px solid var(--ui-border-faint);
+      }
+      .action-card__title {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--ui-body);
+      }
+      .status-chip {
+        padding: 4px 10px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        border-radius: var(--radius-full);
+        background: #f3e8ff;
+        color: var(--brand-purple);
+      }
+      .action-card__body {
+        padding: 16px 24px;
+        font-size: 13px;
+        line-height: 20px;
+        color: var(--ui-body);
+      }
+      .action-card__footer {
+        padding: 14px 24px;
+        border-top: 1px solid var(--ui-border-faint);
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+
+      .demo-panel {
+        background: rgba(255, 255, 255, 0.55);
+        border: 1px solid var(--ui-border-faint);
+        border-radius: var(--radius-xl2);
+        padding: 24px;
+      }
+      code.inline {
+        font-family: ui-monospace, monospace;
+        font-size: 12px;
+        background: var(--ui-bg-input);
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <h1 class="guide-title">Default design system</h1>
+      <p class="guide-lead">
+        Portable tokens and component patterns from the Search Experience default skin (Plus Jakarta
+        Sans, sky-periwinkle accents, AI assist surfaces). Import
+        <code class="inline">tokens.css</code> and copy the CSS blocks below.
+      </p>
+
+      <section>
+        <h2 class="section">Brand & UI colors</h2>
+        <div class="swatch-row">
+          <div class="swatch">
+            <div class="chip" style="background: var(--brand-navy-deep)"></div>
+            <div class="meta"><strong>Navy deep</strong><span>#001769</span></div>
+          </div>
+          <div class="swatch">
+            <div class="chip" style="background: var(--brand-navy)"></div>
+            <div class="meta"><strong>Navy</strong><span>#1e1b4b</span></div>
+          </div>
+          <div class="swatch">
+            <div class="chip" style="background: var(--brand-purple)"></div>
+            <div class="meta"><strong>Purple</strong><span>#8200db</span></div>
+          </div>
+          <div class="swatch">
+            <div class="chip" style="background: var(--accent-indigo)"></div>
+            <div class="meta"><strong>Indigo</strong><span>#6366f1</span></div>
+          </div>
+          <div class="swatch">
+            <div class="chip" style="background: var(--ui-body)"></div>
+            <div class="meta"><strong>Body</strong><span>#364153</span></div>
+          </div>
+          <div class="swatch">
+            <div class="chip" style="background: var(--ui-muted)"></div>
+            <div class="meta"><strong>Muted</strong><span>#9ca3af</span></div>
+          </div>
+          <div class="swatch">
+            <div class="chip" style="background: var(--theme-gradient)"></div>
+            <div class="meta"><strong>Theme</strong><span>sky periwinkle</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section">Buttons</h2>
+        <div class="demo-panel">
+          <div class="btn-row">
+            <button type="button" class="btn-primary">Primary CTA</button>
+            <button type="button" class="btn-secondary">Secondary</button>
+            <button type="button" class="btn-send" aria-label="Send">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 2L11 13" /><path d="M22 2L15 22L11 13L2 9L22 2Z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section">Search bar</h2>
+        <div class="demo-panel">
+          <div class="search-shell" id="searchDemo">
+            <div class="search-input-wrap">
+              <input type="text" placeholder="Ask me anything" aria-label="Search" />
+            </div>
+            <button type="button" class="btn-send" aria-label="Search">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 2L11 13" /><path d="M22 2L15 22L11 13L2 9L22 2Z" />
+              </svg>
+            </button>
+          </div>
+          <p style="margin: 14px 0 0; font-size: 12px; color: var(--ui-muted)">
+            Closed state: theme gradient ring + search glow. Open state: white panel, 16–20px radius.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section">AI assist card + chips</h2>
+        <div class="ai-card">
+          <div class="ai-card__body">
+            <div class="ai-card__label">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z" />
+              </svg>
+              Smart summary
+            </div>
+            <p class="ai-card__text">
+              Most holds are caused by
+              <mark>incomplete verification, a dispute spike, or unusual volume</mark>. Start in
+              Account details and clear every red-flagged field.
+            </p>
+            <div class="ai-card__meta">
+              <span>Based on 2 knowledge articles · Updated May 2026</span>
+              <span>Was this helpful? 👍 👎</span>
+            </div>
+          </div>
+          <div class="ai-card__ask">
+            <div class="ai-ask-row">
+              <input type="text" placeholder="Ask a follow-up question…" />
+              <button type="button" class="ai-ask-send" aria-label="Send">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 2L11 13" /><path d="M22 2L15 22L11 13L2 9L22 2Z" />
+                </svg>
+              </button>
+            </div>
+            <div class="chips">
+              <button type="button" class="chip-subtle">How long do I have to respond?</button>
+              <button type="button" class="chip-subtle">What evidence do I need?</button>
+              <button type="button" class="chip-subtle">Where do I upload this?</button>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 16px" class="btn-row">
+          <button type="button" class="chip-theme">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z" />
+            </svg>
+            Theme chip (primary)
+          </button>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section">Search result row</h2>
+        <div class="demo-panel" style="max-width: 720px">
+          <div class="result">
+            <p class="result__path">support / disputes / respond</p>
+            <h3 class="result__title">How to Respond to a Dispute in Your Stripe Dashboard</h3>
+            <p class="result__snip">
+              Gather shipping confirmation, proof of delivery, and customer communication before you
+              submit evidence in Payments → Disputes.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section">Action card</h2>
+        <div class="action-card">
+          <div class="action-card__header">
+            <span class="action-card__title">Assign module</span>
+            <span class="status-chip">Review &amp; confirm</span>
+          </div>
+          <div class="action-card__body">
+            Assign Dispute Response Fundamentals to Maya R. with a 7-day deadline.
+          </div>
+          <div class="action-card__footer">
+            <button type="button" class="btn-secondary">Cancel</button>
+            <button type="button" class="btn-primary">Confirm</button>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section">How to reuse</h2>
+        <ol style="font-size: 14px; line-height: 24px; color: var(--ui-body); padding-left: 20px">
+          <li>Copy this folder: <code class="inline">exports/default-design-system/</code></li>
+          <li>Link <code class="inline">tokens.css</code> in your app.</li>
+          <li>Copy component CSS classes from this file (or convert to Tailwind / CSS modules).</li>
+          <li>
+            For Cursor agents, use <code class="inline">SKILL.md</code> in this folder (or install it
+            under <code class="inline">~/.cursor/skills/search-exp-default-style/</code>).
+          </li>
+        </ol>
+      </section>
+    </div>
+  </body>
+</html>

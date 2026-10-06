@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { Sparkles, ThumbsUp, ThumbsDown, Send } from "lucide-react";
 import content from "../content";
 import { AiNudgeChips } from "./AiNudgeChips";
+import { useDesignTokens } from "../DesignTokensContext";
 
 interface AiAssistCardProps {
   /** Header label — e.g. Smart summary / AI summary */
@@ -16,8 +17,10 @@ interface AiAssistCardProps {
   showAskInput?: boolean;
   showSuggestions?: boolean;
   showFeedback?: boolean;
+  /** thumbs = default; yesno = Disney-style Yes/No buttons. */
+  feedbackStyle?: "thumbs" | "yesno";
   className?: string;
-  /** card = white bordered panel; plain = no fill/border (AI zone). */
+  /** card = white bordered panel; plain = no fill/border (AI zone / host nest). */
   variant?: "card" | "plain";
   /** Pin ask input + nudges to the bottom of a full-height container. */
   pinAskToBottom?: boolean;
@@ -25,7 +28,7 @@ interface AiAssistCardProps {
 
 /**
  * Shared AI assist layout: summary body → divider → ask input → subtle horizontal nudges.
- * Used by search-results, in-article AI, and AI zone (plain).
+ * Used by search-results, in-article AI, host help-center, and AI zone (plain).
  */
 export function AiAssistCard({
   title = "AI summary",
@@ -36,14 +39,18 @@ export function AiAssistCard({
   showAskInput = true,
   showSuggestions = true,
   showFeedback = true,
+  feedbackStyle = "thumbs",
   className = "",
   variant = "card",
   pinAskToBottom = false,
 }: AiAssistCardProps) {
+  const { dt } = useDesignTokens();
+  const accent = dt.colors.host.link || dt.colors.brand.navyDeep || "#001769";
   const [feedback, setFeedback] = useState<"up" | "down" | null>(null);
   const [askValue, setAskValue] = useState("");
   const chat = content.chat;
   const isPlain = variant === "plain";
+  const isYesNo = feedbackStyle === "yesno";
 
   const submitAsk = (override?: string) => {
     const q = (override ?? askValue).trim();
@@ -60,7 +67,7 @@ export function AiAssistCard({
   const body = (
     <div className={isPlain ? "pb-[14px]" : "px-[20px] pt-[18px] pb-[16px]"}>
       <div className="flex items-center gap-[6px] mb-[12px]">
-        <Sparkles className="size-[13px] text-[#001769]" strokeWidth={2} />
+        <Sparkles className="size-[13px]" style={{ color: accent }} strokeWidth={2} />
         <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[12px] font-semibold text-[#6b7280]">
           {title}
         </p>
@@ -68,7 +75,7 @@ export function AiAssistCard({
 
       {children}
 
-      {(info || showFeedback) && (
+      {(info || (showFeedback && !isYesNo)) && (
         <div className="mt-[14px] flex items-center justify-between gap-[12px] flex-wrap">
           {info ? (
             <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] text-[#9ca3af]">
@@ -77,7 +84,7 @@ export function AiAssistCard({
           ) : (
             <span />
           )}
-          {showFeedback && (
+          {showFeedback && !isYesNo && (
             <div className="flex items-center gap-[8px]">
               {feedback ? (
                 <motion.p
@@ -118,7 +125,7 @@ export function AiAssistCard({
   );
 
   const askFooter = showAskInput ? (
-    <div className={`shrink-0 ${isPlain ? "" : ""}`}>
+    <div className="shrink-0">
       <div className="h-px bg-[#ececf1]" />
       <div className={isPlain ? "pt-[10px] pb-[2px]" : "px-[14px] pt-[10px] pb-[12px]"}>
         <div className="flex items-center gap-[6px] rounded-full border border-[#e4e4ea] bg-[#fafafb] px-[12px] py-[6px] focus-within:border-[#c8c8d0] transition-colors">
@@ -159,6 +166,44 @@ export function AiAssistCard({
     </div>
   ) : null;
 
+  const yesNoFooter =
+    showFeedback && isYesNo ? (
+      <div
+        className={`flex items-center justify-between gap-[12px] border-t ${
+          isPlain ? "px-0 py-[12px]" : "px-[18px] py-[12px]"
+        }`}
+        style={{ borderColor: "#e8eaed", background: isPlain ? "transparent" : "#fafbfc" }}
+      >
+        <span className="font-['Plus_Jakarta_Sans',sans-serif] text-[13px] text-[#1a1b1e]">
+          {feedback
+            ? feedback === "up"
+              ? chat.feedbackPositive
+              : chat.feedbackNegative
+            : "Did this answer your question?"}
+        </span>
+        {!feedback && (
+          <div className="flex items-center gap-[8px]">
+            <button
+              type="button"
+              onClick={() => setFeedback("up")}
+              className="h-[32px] min-w-[56px] px-[16px] rounded-[4px] border bg-white text-[13px] font-semibold hover:bg-[#f8fafc]"
+              style={{ borderColor: "#1a1b1e", color: "#0b0c0f" }}
+            >
+              Yes
+            </button>
+            <button
+              type="button"
+              onClick={() => setFeedback("down")}
+              className="h-[32px] min-w-[56px] px-[16px] rounded-[4px] border bg-white text-[13px] font-semibold hover:bg-[#f8fafc]"
+              style={{ borderColor: "#1a1b1e", color: "#0b0c0f" }}
+            >
+              No
+            </button>
+          </div>
+        )}
+      </div>
+    ) : null;
+
   return (
     <div
       className={`${
@@ -172,11 +217,13 @@ export function AiAssistCard({
           <div className="flex-1 min-h-0 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {body}
           </div>
+          {yesNoFooter}
           {askFooter}
         </>
       ) : (
         <>
           {body}
+          {yesNoFooter}
           {askFooter}
         </>
       )}

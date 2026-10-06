@@ -1,0 +1,132 @@
+/**
+ * Search Experience — Default design tokens
+ * Source: src/app/designTokens.json (default skin)
+ *
+ * Drop this file into another project and import it, or copy the :root block.
+ * Font: https://fonts.google.com/specimen/Plus+Jakarta+Sans
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap");
+
+:root {
+  /* Brand */
+  --brand-navy: #1e1b4b;
+  --brand-navy-deep: #001769;
+  --brand-purple: #8200db;
+  --brand-purple-dark: #4c1d95;
+  --brand-purple-mid: #312e81;
+  --brand-green: #096;
+  --brand-green-dark: #064e3b;
+  --brand-green-mid: #065f46;
+
+  /* UI */
+  --ui-body: #364153;
+  --ui-muted: #9ca3af;
+  --ui-muted-dark: #6b7280;
+  --ui-icon: #4a5565;
+  --ui-border-light: #d1d5db;
+  --ui-border-faint: #e5e7eb;
+  --ui-bg-page: #f5f5f7;
+  --ui-bg-input: #f3f4f6;
+  --ui-bg-file-chip: #f0f0f8;
+  --ui-border-chip: #e0e0f0;
+
+  /* Accent */
+  --accent-indigo: #6366f1;
+  --accent-sky: #0ea5e9;
+  --accent-amber: #f59e0b;
+  --accent-emerald: #10b981;
+  --accent-slate: #64748b;
+
+  /* Fixed */
+  --white: #ffffff;
+  --black: #000000;
+  --status-dot: #00c950;
+
+  /* Alpha */
+  --alpha-rail-bg: rgba(220, 225, 255, 0.75);
+  --alpha-focus-ring: rgba(99, 102, 241, 0.25);
+  --alpha-overlay-modal: rgba(0, 0, 0, 0.3);
+  --alpha-overlay-light: rgba(0, 0, 0, 0.1);
+  --alpha-shadow-subtle: rgba(0, 0, 0, 0.06);
+  --alpha-shadow-panel: rgba(0, 0, 0, 0.08);
+  --alpha-shadow-drop: rgba(0, 0, 0, 0.12);
+
+  /* Gradients */
+  --gradient-page: linear-gradient(135deg, #e8f5f0 0%, #ede8f7 50%, #e8f0f7 100%);
+  --gradient-theme: linear-gradient(135deg, #d6effc 0%, #d8e4ff 49%, #d6f3fd 95%);
+  --gradient-button-primary: linear-gradient(142.634deg, #101c86 0%, #020642 100%);
+  --gradient-button-send: linear-gradient(135deg, #8200db 0%, #4c1d95 100%);
+  --gradient-button-indigo: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+
+  /* Theme (Sky Periwinkle) — used for search bar ring / chip fills */
+  --theme-gradient: linear-gradient(135deg, #d6effc 0%, #d8e4ff 49%, #d6f3fd 95%);
+  --theme-swatch-a: #a3d9f6;
+  --theme-swatch-b: #abbffd;
+  --theme-text: #1e1b4b;
+
+  /* Shadows */
+  --shadow-search-glow: 0 0 8px 2px rgba(200, 225, 255, 0.3),
+    0 0 28px 6px rgba(200, 225, 255, 0.15), 0 0 60px 12px rgba(210, 230, 255, 0.08);
+  --shadow-dropdown: 0px 8px 24px rgba(0, 0, 0, 0.1);
+  --shadow-modal: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.04);
+  --shadow-floating: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+  /* Typography */
+  --font-body: "Plus Jakarta Sans", sans-serif;
+  --font-heading: "Plus Jakarta Sans", sans-serif;
+  --fs-xs: 9px;
+  --fs-sm: 10px;
+  --fs-sm2: 11px;
+  --fs-sm3: 12px;
+  --fs-base: 13px;
+  --fs-md: 14px;
+  --fs-md2: 15px;
+  --fs-lg: 16px;
+  --fs-xl: 20px;
+  --fs-hero: 60px;
+  --fw-light: 300;
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --lh-body: 22px;
+  --lh-sub: 28px;
+  --tracking-hero: -1.5px;
+  --tracking-search: -0.3125px;
+
+  /* Radii */
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-base: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 14px;
+  --radius-xl2: 16px;
+  --radius-full: 9999px;
+
+  /* Layout */
+  --max-hero: 1200px;
+  --max-search: 896px;
+  --max-chat: 800px;
+
+  /* Motion */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-dropdown: 200ms;
+  --duration-screen: 300ms;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ui-body);
+  background: var(--gradient-page);
+  -webkit-font-smoothing: antialiased;
+}

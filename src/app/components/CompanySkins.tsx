@@ -1,6 +1,11 @@
-import { Check } from "lucide-react";
 import { useSkin, type CompanySkinId } from "../SkinContext";
 import { COMPANY_SKINS } from "../skins";
+
+const SKIN_FILL: Record<CompanySkinId, string> = {
+  default: "#5B5FC7",
+  "disney-plus": "#0040E5",
+  southwest: "#304CB2",
+};
 
 export function CompanySkins() {
   const { skinId, setSkinId } = useSkin();
@@ -10,42 +15,28 @@ export function CompanySkins() {
       <p className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-semibold uppercase tracking-[0.04em] text-[#6b7280] mb-[8px] px-[4px]">
         Company skins
       </p>
-      <ul className="flex flex-col gap-[2px]">
+      <div className="flex flex-wrap gap-[6px]">
         {COMPANY_SKINS.map((skin) => {
           const on = skinId === skin.id;
+          const fill = SKIN_FILL[skin.id as CompanySkinId];
           return (
-            <li key={skin.id}>
-              <button
-                type="button"
-                onClick={() => setSkinId(skin.id as CompanySkinId)}
-                className="w-full flex items-start gap-[8px] rounded-[8px] px-[6px] py-[7px] text-left hover:bg-black/[0.04] transition-colors"
-              >
-                <span
-                  className={`mt-[1px] size-[14px] rounded-full border flex items-center justify-center shrink-0 transition-colors ${
-                    on
-                      ? "bg-[#1a1a2e] border-[#1a1a2e] text-white"
-                      : "bg-white border-[#b0b0bc]"
-                  }`}
-                >
-                  {on && <Check className="size-[9px]" strokeWidth={3} />}
-                </span>
-                <span className="min-w-0">
-                  <span
-                    className={`block font-['Plus_Jakarta_Sans',sans-serif] text-[12px] leading-[15px] ${
-                      on ? "text-[#1a1a2e] font-semibold" : "text-[#6b7280]"
-                    }`}
-                  >
-                    {skin.label}
-                  </span>
-                  <span className="block font-['Plus_Jakarta_Sans',sans-serif] text-[10px] leading-[13px] text-[#9ca3af] mt-[2px]">
-                    {skin.hint}
-                  </span>
-                </span>
-              </button>
-            </li>
+            <button
+              key={skin.id}
+              type="button"
+              title={skin.hint}
+              onClick={() => setSkinId(skin.id as CompanySkinId)}
+              className={`rounded-full px-[12px] py-[7px] font-['Plus_Jakarta_Sans',sans-serif] text-[12px] font-semibold leading-none transition-all ${
+                on
+                  ? "text-white shadow-sm"
+                  : "bg-white text-[#6b7280] border border-[#c8c8d0] hover:border-[#a8a8b0] hover:text-[#1a1a2e]"
+              }`}
+              style={on ? { backgroundColor: fill } : undefined}
+            >
+              {skin.label}
+            </button>
           );
         })}
-      </ul>
+      </div>
     </div>
   );
 }

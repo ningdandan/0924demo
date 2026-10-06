@@ -31,6 +31,10 @@ interface SearchResultsControlsProps {
   sortBy: SortOption;
   onFilterChange: (filter: ResultsFilter) => void;
   onSortChange: (sort: SortOption) => void;
+  /** toolbar = default demo controls; host-card = Disney/Southwest filter card. */
+  variant?: "toolbar" | "host-card";
+  /** Hide sort control (host empty states / simple filter row). */
+  hideSort?: boolean;
 }
 
 const SORT_LABELS: Record<SortOption, string> = {
@@ -222,6 +226,8 @@ export function SearchResultsControls({
   sortBy,
   onFilterChange,
   onSortChange,
+  variant = "toolbar",
+  hideSort = false,
 }: SearchResultsControlsProps) {
   const [filterOpen, setFilterOpen] = useState(false);
   const [sortOpen, setSortOpen] = useState(false);
@@ -250,6 +256,7 @@ export function SearchResultsControls({
   }, []);
 
   const filterActive = !isFilterEmpty(filter);
+  const selectedCategory = filter.categories[0] ?? "";
 
   const toggleCategory = (category: string) => {
     const isSelected = filter.categories.includes(category);
@@ -258,6 +265,14 @@ export function SearchResultsControls({
       : [...filter.categories, category];
     const nextTopics = filter.topics.filter((t) => t.category !== category);
     onFilterChange({ categories: nextCategories, topics: nextTopics });
+  };
+
+  const setHostCategory = (category: string) => {
+    if (!category) {
+      onFilterChange(EMPTY_FILTER);
+      return;
+    }
+    onFilterChange({ categories: [category], topics: [] });
   };
 
   const toggleTopic = (category: string, topic: string) => {
@@ -301,6 +316,60 @@ export function SearchResultsControls({
     onSortChange(next);
     setSortOpen(false);
   };
+
+  if (variant === "host-card") {
+    return (
+      <div
+        className="flex items-center gap-[14px] flex-wrap rounded-[8px] bg-white px-[18px] py-[14px]"
+        style={{ boxShadow: "0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04)" }}
+      >
+        <span className="text-[14px] font-bold text-[#0b0c0f]">Filter by:</span>
+        <div className="relative">
+          <select
+            value={selectedCategory}
+            onChange={(e) => setHostCategory(e.target.value)}
+            className="appearance-none h-[38px] pl-[12px] pr-[36px] rounded-[4px] border bg-white text-[14px] outline-none min-w-[180px] border-[#cfd3da] text-[#1a1b1e]"
+          >
+            <option value="">Select an option</option>
+            {categories.map((c) => (
+              <option key={c.label} value={c.label}>
+                {c.label}
+                {counts.categories[c.label] != null ? ` (${counts.categories[c.label]})` : ""}
+              </option>
+            ))}
+          </select>
+          <ChevronDown className="pointer-events-none absolute right-[10px] top-1/2 -translate-y-1/2 size-[14px] text-[#6b7280]" />
+        </div>
+        <button
+          type="button"
+          onClick={() => onFilterChange(EMPTY_FILTER)}
+          className="text-[14px] hover:underline"
+          style={{ color: filterActive ? "#0040E5" : "#9ca3af" }}
+        >
+          Clear filters
+        </button>
+        {!hideSort && (
+          <div className="ml-auto flex items-center gap-[8px]">
+            <span className="text-[14px] text-[#1a1b1e]">Sort by:</span>
+            <div className="relative">
+              <select
+                value={sortBy}
+                onChange={(e) => onSortChange(e.target.value as SortOption)}
+                className="appearance-none h-[36px] pl-[12px] pr-[32px] rounded-[4px] border bg-white text-[14px] outline-none border-[#cfd3da] text-[#1a1b1e]"
+              >
+                {(Object.keys(SORT_LABELS) as SortOption[]).map((option) => (
+                  <option key={option} value={option}>
+                    {SORT_LABELS[option]}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="pointer-events-none absolute right-[10px] top-1/2 -translate-y-1/2 size-[14px] text-[#6b7280]" />
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div ref={rootRef} className="flex items-center gap-[14px] shrink-0">

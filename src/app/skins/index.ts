@@ -135,7 +135,7 @@ export function buildDisneyPlusDesignTokens(): DesignTokens {
   dt.colors.ui.bgInput = "#FFFFFF";
   dt.colors.accent.indigo = "#0040E5";
   dt.colors.accent.sky = "#7EB8C8";
-  dt.colors.host.navBg = "#0B1A22";
+  dt.colors.host.navBg = "#062832";
   dt.colors.host.navText = "#ffffff";
   dt.colors.host.bannerBg = "#FBF0E6";
   dt.colors.host.bannerBorder = "#E8A070";
@@ -148,9 +148,9 @@ export function buildDisneyPlusDesignTokens(): DesignTokens {
   dt.colors.host.aiSummaryAccent = "#0D7377";
   dt.colors.host.aiSummaryBg = "#F4F7FA";
   dt.colors.host.searchCta = "#1A1B1E";
-  dt.gradients.pageBackground = "#F6F7F8";
+  dt.gradients.pageBackground = "#FFFFFF";
   dt.gradients.theme.skyPeriwinkle =
-    "linear-gradient(180deg, #0B1A24 0%, #14303C 45%, #0F2430 100%)";
+    "linear-gradient(180deg, #062832 0%, #0a3d4a 38%, #0c4a57 72%, #083640 100%)";
   dt.gradients.button.primary = "linear-gradient(180deg, #0040E5 0%, #0030B0 100%)";
   dt.gradients.button.send = "linear-gradient(180deg, #0040E5 0%, #0030B0 100%)";
   dt.gradients.button.indigo = "linear-gradient(180deg, #0040E5 0%, #0030B0 100%)";

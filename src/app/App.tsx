@@ -27,9 +27,12 @@ import {
   defaultFlagsForMode,
   type FeatureFlags,
   type FeatureId,
+  type FeaturePage,
 } from "@/app/components/FeatureChecklist";
 import { CompanySkins } from "@/app/components/CompanySkins";
 import { HostShell } from "@/app/components/host/HostShell";
+import { ComponentLab } from "@/app/lab/ComponentLab";
+import { GlobalSiteNav } from "@/app/components/GlobalSiteNav";
 import { SkinProvider, useSkin } from "@/app/SkinContext";
 import { TokensProvider, useTokens } from "@/app/TokensContext";
 import { ThemeProvider } from "@/app/ThemeContext";
@@ -61,6 +64,7 @@ function AppInner() {
   const [activeArticle, setActiveArticle] = useState<ArticleDetails | null>(null);
   const [instantAgent, setInstantAgent] = useState(false);
   const [articleLayout, setArticleLayout] = useState<ArticleLayoutVariant>("inline");
+  const [siteSection, setSiteSection] = useState<"demo" | "components">("demo");
 
   const helpCenterHost = skin.host.shell === "help-center";
   const articles = tokens.articles.learning as ArticleDetails[];
@@ -234,6 +238,14 @@ function AppInner() {
             ? `${brandHost}/chat`
             : brandHost;
 
+  const featurePage: FeaturePage | null = (() => {
+    if (onGoogleSerp) return null;
+    if (onGoogleArticle) {
+      return maturity === "conversational" ? "chat" : "article";
+    }
+    return homepageView;
+  })();
+
   const resultsVisibility: Partial<SearchResultsVisibility> =
     maturity === "current"
       ? {
@@ -386,6 +398,8 @@ function AppInner() {
         instantAgent={instantAgent}
         showSuggestions={features.multiObjectSuggestions}
         showEscalation={features.multiChannelEscalation}
+        showInChatRecommendations={features.inChatRecommendations}
+        showDynamicCards={features.dynamicCards}
         scriptOverride={
           searchQuery.toLowerCase().includes("best practices for structuring")
             ? tokens.chatScriptBestPractices.messages
@@ -425,6 +439,8 @@ function AppInner() {
           initialArticle={resolvedArticle}
           showSuggestions={features.multiObjectSuggestions}
           showEscalation={features.multiChannelEscalation}
+          showInChatRecommendations={features.inChatRecommendations}
+          showDynamicCards={features.dynamicCards}
         />
       );
     }
@@ -458,8 +474,21 @@ function AppInner() {
     ["--font-body" as string]: dt.fonts.families.body,
   };
 
+  if (siteSection === "components") {
+    return (
+      <div className="box-border h-dvh w-full max-w-full overflow-hidden flex flex-col bg-[#c8c8d0]">
+        <GlobalSiteNav section="components" onChange={setSiteSection} />
+        <div className="flex-1 min-h-0 overflow-hidden bg-[#f7f7f9]">
+          <ComponentLab />
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="box-border h-dvh w-full max-w-full overflow-hidden flex items-stretch justify-start gap-[16px] pl-[clamp(12px,2vw,20px)] pr-0 py-[clamp(12px,2vh,20px)] bg-[#c8c8d0]">
+    <div className="box-border h-dvh w-full max-w-full overflow-hidden flex flex-col bg-[#c8c8d0]">
+      <GlobalSiteNav section="demo" onChange={setSiteSection} />
+      <div className="flex-1 min-h-0 overflow-hidden flex items-stretch justify-start gap-[16px] pl-[clamp(12px,2vw,20px)] pr-0 py-[clamp(12px,2vh,20px)] pt-[12px]">
       <aside className="w-[220px] shrink-0 flex flex-col gap-[10px] pt-[4px] min-h-0 overflow-hidden">
         <MaturityToggle
           mode={maturity}
@@ -469,9 +498,10 @@ function AppInner() {
         {showArticleLayouts && (
           <ArticleLayoutSwitch value={articleLayout} onChange={setArticleLayout} />
         )}
-        <div className="flex-1 min-h-0 flex flex-col gap-[10px] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex-1 min-h-0 flex flex-col justify-end gap-[10px] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <FeatureChecklist
             mode={maturity}
+            page={featurePage}
             flags={features}
             onChange={handleFeatureChange}
           />
@@ -579,6 +609,7 @@ function AppInner() {
             {editorOpen && <TextEditorPanel onClose={() => setEditorOpen(false)} />}
           </AnimatePresence>
         </div>
+      </div>
       </div>
     </div>
   );

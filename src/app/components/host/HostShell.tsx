@@ -69,12 +69,12 @@ export function HostShell({
           <button
             type="button"
             onClick={onHome}
-            className="flex items-center gap-[8px] shrink-0 hover:opacity-90"
+            className="flex items-center gap-[6px] shrink-0 hover:opacity-90"
             aria-label={`Go to ${brand} Help Center`}
           >
-            <span className="font-bold text-[18px] tracking-tight">{brand}</span>
-            <span className="text-[13px] font-medium opacity-95">Help Center</span>
-            <ChevronDown className="size-[12px] opacity-80" />
+            <span className="font-bold text-[20px] tracking-tight leading-none">{brand}</span>
+            <span className="text-[14px] font-semibold opacity-95 leading-none">Help Center</span>
+            <ChevronDown className="size-[14px] opacity-80 ml-[2px]" />
           </button>
 
           {showNavSearch ? (
@@ -126,11 +126,16 @@ export function HostShell({
             </button>
             <button
               type="button"
-              className="h-[30px] px-[12px] rounded-[5px] text-[12px] font-semibold"
-              style={{
-                background: lightNav ? host.link : "#ffffff",
-                color: lightNav ? "#ffffff" : dt.colors.brand.navy,
-              }}
+              className="h-[32px] px-[14px] rounded-[4px] text-[13px] font-semibold"
+              style={
+                lightNav
+                  ? { background: host.link, color: "#ffffff" }
+                  : {
+                      background: "transparent",
+                      color: "#ffffff",
+                      border: "1px solid rgba(255,255,255,0.85)",
+                    }
+              }
             >
               Log in
             </button>

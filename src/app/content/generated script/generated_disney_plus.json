@@ -15,16 +15,18 @@
     "placeholder": "Enter a question or topic",
     "suggestions": [
       "Disney+ plans and prices",
-      "Watch Disney+ on your TV",
       "Login issues",
-      "How do I update my Disney+ payment method?"
+      "How do I update my Disney+ payment method?",
+      "Watch Disney+ on your TV",
+      "Device list",
+      "Disney+ subscriptions through a third party"
     ],
     "allSuggestions": [
       "Disney+ plans and prices",
-      "Watch Disney+ on your TV",
       "Login issues",
-      "Device list",
       "How do I update my Disney+ payment method?",
+      "Watch Disney+ on your TV",
+      "Device list",
       "Disney+ subscriptions through a third party",
       "How do I cancel my Disney+ subscription?",
       "Why is Disney+ buffering or won't play?",
