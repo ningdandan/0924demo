@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { AnimatePresence } from "motion/react";
 import { Header } from "@/app/components/Header";
@@ -43,8 +43,8 @@ function AppInner() {
   const { dt } = useDesignTokens();
   const { skin } = useSkin();
 
-  const [maturity, setMaturity] = useState<MaturityMode>("current");
-  const [features, setFeatures] = useState<FeatureFlags>(() => defaultFlagsForMode("current"));
+  const [maturity, setMaturity] = useState<MaturityMode>("search-enhanced");
+  const [features, setFeatures] = useState<FeatureFlags>(() => defaultFlagsForMode("search-enhanced"));
   const [entrance, setEntrance] = useState<EntranceTab>("homepage");
   const [homepageView, setHomepageView] = useState<HomepageView>("home");
   const [googleView, setGoogleView] = useState<GoogleView>("serp");
@@ -59,6 +59,21 @@ function AppInner() {
   const [activeArticle, setActiveArticle] = useState<ArticleDetails | null>(null);
   const [instantAgent, setInstantAgent] = useState(false);
   const [articleLayout, setArticleLayout] = useState<ArticleLayoutVariant>("inline");
+  const [controlsOpen, setControlsOpen] = useState(false);
+  const controlsCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const showControls = () => {
+    if (controlsCloseTimer.current) {
+      clearTimeout(controlsCloseTimer.current);
+      controlsCloseTimer.current = null;
+    }
+    setControlsOpen(true);
+  };
+
+  const hideControls = () => {
+    if (controlsCloseTimer.current) clearTimeout(controlsCloseTimer.current);
+    controlsCloseTimer.current = setTimeout(() => setControlsOpen(false), 140);
+  };
 
   const helpCenterHost = skin.host.shell === "help-center";
   const articles = tokens.articles.learning as ArticleDetails[];
@@ -450,25 +465,36 @@ function AppInner() {
   };
 
   return (
-    <div className="box-border h-dvh w-full max-w-full overflow-hidden flex items-stretch justify-start gap-[16px] pl-[clamp(12px,2vw,20px)] pr-0 py-[clamp(12px,2vh,20px)] bg-[#c8c8d0]">
-      <aside className="w-[220px] shrink-0 flex flex-col gap-[10px] pt-[4px] min-h-0 overflow-hidden">
-        <MaturityToggle
-          mode={maturity}
-          onChange={handleMaturityChange}
-          orientation="vertical"
-        />
-        {showArticleLayouts && (
-          <ArticleLayoutSwitch value={articleLayout} onChange={setArticleLayout} />
-        )}
-        <div className="flex-1 min-h-0 flex flex-col gap-[10px] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <FeatureChecklist
+    <div className="box-border h-dvh w-full max-w-full overflow-hidden flex items-stretch justify-start pl-[clamp(12px,2vw,20px)] pr-0 py-[clamp(12px,2vh,20px)] bg-[#c8c8d0]">
+      <div
+        className="fixed left-0 top-0 bottom-0 z-[80]"
+        style={{ width: controlsOpen ? 248 : 12 }}
+        onMouseEnter={showControls}
+        onMouseLeave={hideControls}
+      >
+        <aside
+          className={`absolute left-0 top-0 bottom-0 w-[248px] flex flex-col gap-[10px] pt-[clamp(16px,2vh,24px)] pb-[clamp(12px,2vh,20px)] pl-[clamp(12px,2vw,20px)] pr-[12px] min-h-0 overflow-hidden bg-[#c8c8d0] shadow-[10px_0_28px_rgba(0,0,0,0.16)] transition-transform duration-200 ease-out ${
+            controlsOpen ? "translate-x-0" : "-translate-x-full pointer-events-none"
+          }`}
+        >
+          <MaturityToggle
             mode={maturity}
-            flags={features}
-            onChange={handleFeatureChange}
+            onChange={handleMaturityChange}
+            orientation="vertical"
           />
-          <CompanySkins />
-        </div>
-      </aside>
+          {showArticleLayouts && (
+            <ArticleLayoutSwitch value={articleLayout} onChange={setArticleLayout} />
+          )}
+          <div className="flex-1 min-h-0 flex flex-col gap-[10px] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <FeatureChecklist
+              mode={maturity}
+              flags={features}
+              onChange={handleFeatureChange}
+            />
+            <CompanySkins />
+          </div>
+        </aside>
+      </div>
 
       <div className="min-w-0 min-h-0 flex-1 flex flex-col rounded-l-[16px] rounded-r-none overflow-hidden shadow-[0_24px_80px_rgba(0,0,0,0.28)] border border-r-0 border-[#a8a8b0] bg-[#f0f0f4]">
         <div className="relative grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-end gap-[8px] px-[10px] pt-[8px] h-[40px] bg-[#e4e4ea] border-b border-[#d0d0d8] flex-shrink-0 min-w-0">

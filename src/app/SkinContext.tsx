@@ -17,21 +17,10 @@ const SkinContext = createContext<SkinContextValue>({
   setSkinId: () => {},
 });
 
-function readStoredSkin(): CompanySkinId {
-  try {
-    const raw = localStorage.getItem(SKIN_STORAGE_KEY);
-    if (raw === "disney-plus" || raw === "default" || raw === "southwest") return raw;
-    if (raw === "acme") return "southwest";
-  } catch {
-    /* ignore */
-  }
-  return "default";
-}
-
 export function SkinProvider({ children }: { children: ReactNode }) {
   const { setTokens } = useTokens();
   const { setAll } = useDesignTokens();
-  const [skinId, setSkinIdState] = useState<CompanySkinId>(() => readStoredSkin());
+  const [skinId, setSkinIdState] = useState<CompanySkinId>("default");
 
   const applySkin = useCallback(
     (id: CompanySkinId) => {
@@ -49,7 +38,7 @@ export function SkinProvider({ children }: { children: ReactNode }) {
   );
 
   useEffect(() => {
-    applySkin(readStoredSkin());
+    applySkin("default");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
