@@ -12,6 +12,7 @@ import {
 import { useDesignTokens } from "../../DesignTokensContext";
 import { useTokens } from "../../TokensContext";
 import { type SortOption } from "../SearchResultsControls";
+import { AiSummaryFeedback } from "../AiAssistCard";
 import { buildSmartSummary } from "../SmartSummaryBlock";
 import type { SearchBridgeContext } from "../SearchResultsScreen";
 
@@ -33,6 +34,7 @@ export interface HostSearchResultsProps {
   showSmartSummary?: boolean;
   showFilterSort?: boolean;
   showAiAssist?: boolean;
+  showSummaryFeedback?: boolean;
 }
 
 function resultSnippet(article: HostArticleDetails, max = 160) {
@@ -52,6 +54,7 @@ export function HostSearchResults({
   showSmartSummary = true,
   showFilterSort = true,
   showAiAssist = true,
+  showSummaryFeedback = false,
 }: HostSearchResultsProps) {
   const { tokens } = useTokens();
   const { dt } = useDesignTokens();
@@ -260,11 +263,14 @@ export function HostSearchResults({
                   </>
                 )}
               </p>
-              <p className="text-[12px] leading-[16px]" style={{ color: ui.muted }}>
-                Responses generated with the assistance of AI technology, avoid sharing personal
-                information. For the most accurate and complete information, please check source
-                links.
-              </p>
+              <div className="flex items-start justify-between gap-[12px] flex-wrap">
+                <p className="text-[12px] leading-[16px] flex-1 min-w-[180px]" style={{ color: ui.muted }}>
+                  Responses generated with the assistance of AI technology, avoid sharing personal
+                  information. For the most accurate and complete information, please check source
+                  links.
+                </p>
+                {showSummaryFeedback && <AiSummaryFeedback />}
+              </div>
             </div>
 
             {onStartConversation && (

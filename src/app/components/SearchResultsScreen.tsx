@@ -37,6 +37,8 @@ interface SearchResultsScreenProps {
   visibility?: Partial<SearchResultsVisibility>;
   /** Show AI assist card inside the article panel. */
   showAiAssist?: boolean;
+  /** Thumbs up / down on AI summaries. Off unless the side panel enables it. */
+  showSummaryFeedback?: boolean;
 }
 
 export type SearchResultsVisibility = {
@@ -340,6 +342,7 @@ export function SearchResultsScreen({
   onHome,
   visibility: visibilityProp,
   showAiAssist = true,
+  showSummaryFeedback = false,
 }: SearchResultsScreenProps) {
   const visibility = { ...DEFAULT_SEARCH_RESULTS_VISIBILITY, ...visibilityProp };
   const { tokens } = useTokens();
@@ -456,6 +459,7 @@ export function SearchResultsScreen({
         showSmartSummary={visibility.smartSummary}
         showFilterSort={visibility.filterSort}
         showAiAssist={showAiAssist}
+        showSummaryFeedback={showSummaryFeedback}
       />
     );
   }
@@ -554,6 +558,7 @@ export function SearchResultsScreen({
                       .map((n) => n.label)}
                     showAskInput
                     showSuggestions={visibility.aiNudges}
+                    showFeedback={showSummaryFeedback}
                     onAsk={(askQuery) =>
                       onStartConversation?.({
                         query: askQuery,
@@ -689,6 +694,7 @@ export function SearchResultsScreen({
                 onClose={() => setSelectedArticle(null)}
                 hideSummary={!showAiAssist}
                 showAiAssist={showAiAssist}
+                showSummaryFeedback={showSummaryFeedback}
                 compact
                 onOpenArticle={setSelectedArticle}
               />

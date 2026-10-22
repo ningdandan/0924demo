@@ -8,6 +8,7 @@ export type FeatureId =
   | "multiChannelEscalation"
   | "filterSort"
   | "aiAssistArticles"
+  | "aiSummaryFeedback"
   | "multiObjectSuggestions";
 
 export type FeatureFlags = Record<FeatureId, boolean>;
@@ -16,6 +17,8 @@ export const FEATURE_ITEMS: {
   id: FeatureId;
   label: string;
   availableIn: MaturityMode[];
+  /** When omitted, an available feature starts checked. */
+  defaultOn?: boolean;
 }[] = [
   {
     id: "customHeader",
@@ -48,6 +51,12 @@ export const FEATURE_ITEMS: {
     availableIn: ["search-enhanced"],
   },
   {
+    id: "aiSummaryFeedback",
+    label: "Thumbs up and down",
+    availableIn: ["search-enhanced"],
+    defaultOn: false,
+  },
+  {
     id: "multiObjectSuggestions",
     label: "Grouped bar suggestions",
     availableIn: ["search-enhanced", "conversational"],
@@ -56,7 +65,10 @@ export const FEATURE_ITEMS: {
 
 export function defaultFlagsForMode(mode: MaturityMode): FeatureFlags {
   return Object.fromEntries(
-    FEATURE_ITEMS.map((item) => [item.id, item.availableIn.includes(mode)]),
+    FEATURE_ITEMS.map((item) => [
+      item.id,
+      item.availableIn.includes(mode) && item.defaultOn !== false,
+    ]),
   ) as FeatureFlags;
 }
 

@@ -224,6 +224,7 @@ interface SmartSummaryBlockProps {
   onCitationClick?: (citation: SummaryCitation) => void;
   showAskInput?: boolean;
   showSuggestions?: boolean;
+  showFeedback?: boolean;
 }
 
 export function SmartSummaryBlock({
@@ -233,6 +234,7 @@ export function SmartSummaryBlock({
   onCitationClick,
   showAskInput = true,
   showSuggestions = true,
+  showFeedback = false,
 }: SmartSummaryBlockProps) {
   const [expanded, setExpanded] = useState(false);
   const detailParagraphs = model.detail.split(/\n\n+/).filter(Boolean);
@@ -246,6 +248,7 @@ export function SmartSummaryBlock({
       onAsk={onAsk}
       showAskInput={showAskInput}
       showSuggestions={showSuggestions}
+      showFeedback={showFeedback}
     >
       <div className={expanded ? undefined : "relative"}>
         <div className={expanded ? undefined : "line-clamp-3"}>

@@ -38,6 +38,8 @@ interface ArticlePanelProps {
   onHome?: () => void;
   onOpenArticle?: (article: ArticleDetails) => void;
   showAiAssist?: boolean;
+  /** Thumbs up / down on the AI summary. Off unless the side panel enables it. */
+  showSummaryFeedback?: boolean;
   /** Tighter padding for side panels. */
   compact?: boolean;
 }
@@ -47,6 +49,7 @@ function HelpArticleLayout({
   onHome,
   onOpenArticle,
   showAiAssist = false,
+  showSummaryFeedback = false,
   compact = false,
   onClose,
   hideClose = false,
@@ -55,6 +58,7 @@ function HelpArticleLayout({
   onHome?: () => void;
   onOpenArticle?: (article: ArticleDetails) => void;
   showAiAssist?: boolean;
+  showSummaryFeedback?: boolean;
   compact?: boolean;
   onClose?: () => void;
   hideClose?: boolean;
@@ -143,7 +147,11 @@ function HelpArticleLayout({
                 className="mb-[20px] rounded-[8px] border bg-white p-[16px]"
                 style={{ borderColor: border }}
               >
-                <AiAssistCard title="AI summary" info={`Updated ${article.lastUpdated}`}>
+                <AiAssistCard
+                  title="AI summary"
+                  info={`Updated ${article.lastUpdated}`}
+                  showFeedback={showSummaryFeedback}
+                >
                   <p className="text-[14px] leading-[22px]" style={{ color: body }}>
                     {article.summary}
                   </p>
@@ -259,6 +267,7 @@ export function ArticlePanel({
   onHome,
   onOpenArticle,
   showAiAssist = false,
+  showSummaryFeedback = false,
   compact = false,
 }: ArticlePanelProps) {
   const { tokens } = useTokens();
@@ -275,6 +284,7 @@ export function ArticlePanel({
         onHome={onHome}
         onOpenArticle={onOpenArticle}
         showAiAssist={!hideSummary && (showAiAssist || Boolean(article.summary))}
+        showSummaryFeedback={showSummaryFeedback}
         compact={compact}
         onClose={onClose}
         hideClose={hideClose}
@@ -354,6 +364,7 @@ export function ArticlePanel({
               info={`Based on this article · Updated ${article.lastUpdated}`}
               suggestions={suggestionLabels}
               showSuggestions={suggestionLabels.length > 0}
+              showFeedback={showSummaryFeedback}
               onAsk={(query) => {
                 const match = (aiNudges ?? []).find((n) => n.label === query);
                 onAiNudge?.(match ?? { label: query, kind: "question" });

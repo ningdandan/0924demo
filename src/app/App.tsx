@@ -357,6 +357,7 @@ function AppInner() {
           }
           visibility={resultsVisibility}
           showAiAssist={maturity === "search-enhanced" && features.aiAssistArticles}
+          showSummaryFeedback={features.aiSummaryFeedback}
         />
       );
     }
@@ -369,6 +370,7 @@ function AppInner() {
           onClose={goEntranceHome}
           onOpenArticle={(article) => setActiveArticle(article)}
           showAiAssist={maturity === "search-enhanced" && features.aiAssistArticles}
+          showSummaryFeedback={features.aiSummaryFeedback}
         />
       );
     }
@@ -442,6 +444,7 @@ function AppInner() {
         layoutVariant={articleLayout}
         onEnableAi={handleArticleBridge}
         showAiAssist={features.aiAssistArticles}
+        showSummaryFeedback={features.aiSummaryFeedback}
       />
     );
   };
@@ -606,11 +609,13 @@ function PlainArticleView({
   onClose,
   onOpenArticle,
   showAiAssist = false,
+  showSummaryFeedback = false,
 }: {
   article: ArticleDetails | null;
   onClose: () => void;
   onOpenArticle?: (article: ArticleDetails) => void;
   showAiAssist?: boolean;
+  showSummaryFeedback?: boolean;
 }) {
   const { skin } = useSkin();
   const helpArticle = skin.layout.article === "help-article";
@@ -624,6 +629,7 @@ function PlainArticleView({
             onHome={onClose}
             onOpenArticle={onOpenArticle}
             showAiAssist={showAiAssist}
+            showSummaryFeedback={showSummaryFeedback}
             hideClose
             hideSummary={!showAiAssist}
           />

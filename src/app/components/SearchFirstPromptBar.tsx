@@ -74,6 +74,7 @@ export function SearchFirstPromptBar({
     [tokens, searchQuery],
   );
   const hasSuggestions = suggestionGroupsHaveItems(suggestionGroups);
+  const canSubmit = searchQuery.trim().length > 0;
 
   const GLOW = dt.shadows.searchGlow;
 
@@ -161,11 +162,17 @@ export function SearchFirstPromptBar({
               type="button"
               onMouseDown={(e) => e.preventDefault()}
               onClick={handleSearch}
-              className="shrink-0 flex items-center justify-center rounded-full bg-white hover:bg-gray-50 transition-colors"
+              disabled={!canSubmit}
+              className={`shrink-0 flex items-center justify-center rounded-full bg-white transition-colors ${
+                canSubmit ? "hover:bg-gray-50 cursor-pointer" : "cursor-not-allowed"
+              }`}
               style={{ width: "64px", height: "64px", borderRadius: "9999px", marginRight: "6px" }}
               aria-label="Search"
             >
-              <Send className="size-[18px]" style={{ color: "var(--color-icon, #4A5565)" }} />
+              <Send
+                className="size-[18px]"
+                style={{ color: canSubmit ? "var(--color-icon, #4A5565)" : "#C5CAD1" }}
+              />
             </button>
           </div>
 

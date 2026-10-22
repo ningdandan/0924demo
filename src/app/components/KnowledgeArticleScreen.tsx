@@ -27,6 +27,7 @@ interface KnowledgeArticleScreenProps {
   onEnableAi?: (ctx: ArticleBridgeContext) => void;
   layoutVariant?: ArticleLayoutVariant;
   showAiAssist?: boolean;
+  showSummaryFeedback?: boolean;
 }
 
 function nudgesForArticle(article: ArticleDetails): ArticleAiNudge[] {
@@ -69,10 +70,12 @@ function ArticleAiZoneIdle({
   article,
   nudges,
   onNudge,
+  showSummaryFeedback = false,
 }: {
   article: ArticleDetails;
   nudges: ArticleAiNudge[];
   onNudge: (nudge: ArticleAiNudge) => void;
+  showSummaryFeedback?: boolean;
 }) {
   const suggestionLabels = nudges
     .filter((n) => n.kind !== "chat")
@@ -92,6 +95,7 @@ function ArticleAiZoneIdle({
         }
         suggestions={suggestionLabels}
         showSuggestions={suggestionLabels.length > 0}
+        showFeedback={showSummaryFeedback}
         onAsk={(query) => {
           const match = nudges.find((n) => n.label === query);
           onNudge(match ?? { label: query, kind: "question" });
@@ -114,9 +118,11 @@ function ArticleAiZoneIdle({
 function ArticleAiZone({
   article,
   nudges,
+  showSummaryFeedback = false,
 }: {
   article: ArticleDetails;
   nudges: ArticleAiNudge[];
+  showSummaryFeedback?: boolean;
 }) {
   const [chatQuery, setChatQuery] = useState<string | null>(null);
 
@@ -153,7 +159,12 @@ function ArticleAiZone({
           transition={{ duration: 0.2 }}
           className="h-full min-h-0"
         >
-          <ArticleAiZoneIdle article={article} nudges={nudges} onNudge={startChat} />
+          <ArticleAiZoneIdle
+            article={article}
+            nudges={nudges}
+            onNudge={startChat}
+            showSummaryFeedback={showSummaryFeedback}
+          />
         </motion.div>
       )}
     </AnimatePresence>
@@ -165,6 +176,7 @@ export function KnowledgeArticleScreen({
   onEnableAi,
   layoutVariant = "inline",
   showAiAssist = true,
+  showSummaryFeedback = false,
 }: KnowledgeArticleScreenProps) {
   const { tokens } = useTokens();
   const article = articleProp ?? tokens.articles.learning[0] ?? null;
@@ -212,7 +224,11 @@ export function KnowledgeArticleScreen({
               transition={{ duration: 0.25 }}
               className="w-[360px] shrink-0 h-full min-h-0"
             >
-              <ArticleAiZone article={article} nudges={aiNudges} />
+              <ArticleAiZone
+                article={article}
+                nudges={aiNudges}
+                showSummaryFeedback={showSummaryFeedback}
+              />
             </motion.div>
             <motion.div
               key="article-split"
@@ -243,6 +259,7 @@ export function KnowledgeArticleScreen({
               hideClose
               hideSummary={!showAiAssist}
               showAiAssist={showAiAssist}
+              showSummaryFeedback={showSummaryFeedback}
               aiNudges={showAiAssist ? aiNudges : undefined}
               onAiNudge={showAiAssist ? handleInlineNudge : undefined}
             />

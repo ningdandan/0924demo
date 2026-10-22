@@ -4,6 +4,47 @@ import { Sparkles, ThumbsUp, ThumbsDown, Send } from "lucide-react";
 import content from "../content";
 import { AiNudgeChips } from "./AiNudgeChips";
 
+export function AiSummaryFeedback() {
+  const [feedback, setFeedback] = useState<"up" | "down" | null>(null);
+  const chat = content.chat;
+
+  return (
+    <div className="flex items-center gap-[8px]">
+      {feedback ? (
+        <motion.p
+          initial={{ opacity: 0, y: 3 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] text-[#9ca3af]"
+        >
+          {feedback === "up" ? chat.feedbackPositive : chat.feedbackNegative}
+        </motion.p>
+      ) : (
+        <>
+          <span className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] text-[#9ca3af]">
+            {chat.feedbackPrompt}
+          </span>
+          <button
+            type="button"
+            onClick={() => setFeedback("up")}
+            className="text-[#9ca3af] hover:text-[#1a1a2e] transition-colors"
+            aria-label="Helpful"
+          >
+            <ThumbsUp className="size-[12px]" />
+          </button>
+          <button
+            type="button"
+            onClick={() => setFeedback("down")}
+            className="text-[#9ca3af] hover:text-[#1a1a2e] transition-colors"
+            aria-label="Not helpful"
+          >
+            <ThumbsDown className="size-[12px]" />
+          </button>
+        </>
+      )}
+    </div>
+  );
+}
+
 interface AiAssistCardProps {
   /** Header label — e.g. Smart summary / AI summary */
   title?: string;
@@ -35,14 +76,13 @@ export function AiAssistCard({
   onAsk,
   showAskInput = true,
   showSuggestions = true,
-  showFeedback = true,
+  showFeedback = false,
   className = "",
   variant = "card",
   pinAskToBottom = false,
 }: AiAssistCardProps) {
-  const [feedback, setFeedback] = useState<"up" | "down" | null>(null);
   const [askValue, setAskValue] = useState("");
-  const chat = content.chat;
+  const canSend = askValue.trim().length > 0;
   const isPlain = variant === "plain";
 
   const submitAsk = (override?: string) => {
@@ -77,41 +117,7 @@ export function AiAssistCard({
           ) : (
             <span />
           )}
-          {showFeedback && (
-            <div className="flex items-center gap-[8px]">
-              {feedback ? (
-                <motion.p
-                  initial={{ opacity: 0, y: 3 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] text-[#9ca3af]"
-                >
-                  {feedback === "up" ? chat.feedbackPositive : chat.feedbackNegative}
-                </motion.p>
-              ) : (
-                <>
-                  <span className="font-['Plus_Jakarta_Sans',sans-serif] text-[11px] text-[#9ca3af]">
-                    {chat.feedbackPrompt}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => setFeedback("up")}
-                    className="text-[#9ca3af] hover:text-[#1a1a2e] transition-colors"
-                    aria-label="Helpful"
-                  >
-                    <ThumbsUp className="size-[12px]" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setFeedback("down")}
-                    className="text-[#9ca3af] hover:text-[#1a1a2e] transition-colors"
-                    aria-label="Not helpful"
-                  >
-                    <ThumbsDown className="size-[12px]" />
-                  </button>
-                </>
-              )}
-            </div>
-          )}
+          {showFeedback && <AiSummaryFeedback />}
         </div>
       )}
     </div>
@@ -139,7 +145,12 @@ export function AiAssistCard({
           <button
             type="button"
             onClick={() => submitAsk()}
-            className="size-[24px] rounded-full flex items-center justify-center shrink-0 text-[#6b7280] hover:text-[#1a1a2e] hover:bg-black/[0.04] transition-colors"
+            disabled={!canSend}
+            className={`size-[24px] rounded-full flex items-center justify-center shrink-0 transition-colors ${
+              canSend
+                ? "text-[#6b7280] hover:text-[#1a1a2e] hover:bg-black/[0.04] cursor-pointer"
+                : "text-[#C5CAD1] cursor-not-allowed"
+            }`}
             aria-label="Send"
           >
             <Send className="size-[12px]" />
